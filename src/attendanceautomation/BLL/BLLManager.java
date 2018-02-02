@@ -1,6 +1,6 @@
-package BLL;
+package attendanceautomation.BLL;
 
-import DAL.DALManager;
+import attendanceautomation.DAL.DALManager;
 
 public class BLLManager
 {

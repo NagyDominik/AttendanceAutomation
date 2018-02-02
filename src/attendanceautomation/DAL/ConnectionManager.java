@@ -1,4 +1,4 @@
-package DAL;
+package attendanceautomation.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;

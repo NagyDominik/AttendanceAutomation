@@ -1,4 +1,6 @@
-package DAL;
+package attendanceautomation.DAL;
+
+import attendanceautomation.DAL.ConnectionManager;
 
 public class DALManager
 {
