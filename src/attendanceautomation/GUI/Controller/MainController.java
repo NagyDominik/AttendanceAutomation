@@ -1,4 +1,4 @@
 package attendanceautomation.GUI.Controller;
 
-public class Controller {
+public class MainController {
 }

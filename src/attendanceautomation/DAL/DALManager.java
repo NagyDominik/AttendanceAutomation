@@ -1,7 +1,5 @@
 package attendanceautomation.DAL;
 
-import attendanceautomation.DAL.ConnectionManager;
-
 public class DALManager
 {
     private ConnectionManager cm;
