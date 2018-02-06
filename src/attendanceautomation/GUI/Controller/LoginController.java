@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class MainController {
+public class LoginController {
 
     @FXML
     private JFXTextField usernameField;
