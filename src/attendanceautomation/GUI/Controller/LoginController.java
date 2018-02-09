@@ -34,10 +34,10 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            if (model.authenticate().equals("Teacher")) {
+            if (model.authenticate(emailField.getText(), passwordField.getText()).equals("Teacher")) {
                 loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
             }
-            else if (model.authenticate().equals("Student")) {
+            else if (model.authenticate(emailField.getText(), passwordField.getText()).equals("Student")) {
                 loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
             } else {
                 newAlert(new Exception("Invalid email or password"));

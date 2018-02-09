@@ -12,9 +12,16 @@ public class Student
     private int id;
     private LocalDate currentDate;
     private Map<LocalDate, Boolean> history;
-
-    public Student(LocalDate currentDate)
+    private String email;
+    
+    public Student(LocalDate currentDate, String email)
     {
         this.currentDate = currentDate;
+        this.email = email;
+    }
+
+    public String getEmail()
+    {
+        return email;
     }
 }

@@ -27,8 +27,8 @@ public class DALManager
     private void setUpMockData()
     {
         mockClassData = new ClassData();
-        mockStudent = new Student(LocalDate.now());
-        mockTeacher = new Teacher();
+        mockStudent = new Student(LocalDate.now(), "student@easv.dk");
+        mockTeacher = new Teacher("teacher@easv.dk");
     }
     
     /**
@@ -69,6 +69,15 @@ public class DALManager
      */
     public String attemptLogin(String email, String password)
     {
-
+        if (mockTeacher.getEmail().equals(email))
+        {
+            return "Teacher";
+        }
+        if (mockStudent.getEmail().equals(email))
+        {
+            return "Student";
+        }
+        
+        return "None";
     }
 }
