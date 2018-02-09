@@ -15,7 +15,9 @@
                 <ImageView fitHeight="20.0" fitWidth="20.0" />
             </graphic>
         </JFXButton>
-        <Label layoutX="81.0" layoutY="116.0" text="Tota  percentage of absence :" />
+        <Label fx:id="percentageLbl" layoutX="81.0" layoutY="116.0" text="Tota  percentage of absence :" />
         <JFXTreeTableView fx:id="historyTV" layoutX="72.0" layoutY="149.0" prefHeight="226.0" prefWidth="360.0" />
+      <JFXButton layoutX="509.0" layoutY="137.0" onAction="#presentClicked" text="Present" />
+      <JFXButton layoutX="483.0" layoutY="237.0" onAction="#absentClicked" text="Absent" />
     </children>
 </AnchorPane>

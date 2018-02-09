@@ -69,6 +69,6 @@ public class DALManager
      */
     public String attemptLogin(String email, String password)
     {
-
+        return "";
     }
 }
