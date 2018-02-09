@@ -3,11 +3,11 @@ package attendanceautomation.BE;
 import java.util.ArrayList;
 
 /**
- * Represents a teacher.
+ * Represents a class of students
  * @author sebok
  */
-public class Teacher
+public class ClassData
 {
     private int id;
-    private ArrayList<ClassData> classes;
+    private ArrayList<Student> participants;
 }
