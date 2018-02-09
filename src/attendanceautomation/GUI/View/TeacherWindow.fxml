@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherWindowController">
+   <children>
+      <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
+      <Label fx:id="nameLbl" layoutX="386.0" layoutY="30.0" text="Name of Teacher" />
+      <JFXButton buttonType="RAISED" layoutX="489.0" layoutY="24.0" onAction="#logoutClicked" prefHeight="28.0" prefWidth="91.0" text="Logout">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" />
+         </graphic>
+      </JFXButton>
+      <JFXTreeTableView fx:id="studentsTV" layoutX="214.0" layoutY="127.0" prefHeight="226.0" prefWidth="360.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="15.0" />
+      <JFXTreeTableView fx:id="classesTV" layoutX="14.0" layoutY="97.0" prefHeight="289.0" prefWidth="178.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+      <JFXButton layoutX="511.0" layoutY="361.0" onAction="#attendanceClicked" text="Attendance" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0" />
+   </children>
+</AnchorPane>

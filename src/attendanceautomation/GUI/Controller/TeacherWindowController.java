@@ -5,6 +5,7 @@
  */
 package attendanceautomation.GUI.Controller;
 
+import com.jfoenix.controls.JFXTreeTableView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -24,15 +26,17 @@ import javafx.stage.Stage;
  *
  * @author Dominik
  */
-public class StudentWindowController implements Initializable {
-    
+public class TeacherWindowController implements Initializable {
+
+    @FXML
+    private JFXTreeTableView studentsTV;
+    @FXML
+    private JFXTreeTableView classesTV;
     @FXML
     private Label nameLbl;
 
     /**
      * Initializes the controller class.
-     * @param url
-     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,6 +56,10 @@ public class StudentWindowController implements Initializable {
         catch (IOException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void attendanceClicked(ActionEvent event) {
     }
 
 }
