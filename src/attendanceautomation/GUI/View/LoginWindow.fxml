@@ -2,12 +2,13 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: C00D0D;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.LoginController">
    <children>
-      <JFXTextField fx:id="usernameField" focusColor="#009fe3" layoutX="175.0" layoutY="188.0" prefHeight="25.0" prefWidth="250.0" promptText="Email" unFocusColor="BLACK" AnchorPane.bottomAnchor="180.0" />
+      <JFXTextField fx:id="emailField" focusColor="#009fe3" layoutX="175.0" layoutY="188.0" prefHeight="25.0" prefWidth="250.0" promptText="Email" unFocusColor="BLACK" AnchorPane.bottomAnchor="180.0" />
       <JFXTextField fx:id="passwordField" focusColor="#009fe3" layoutX="177.0" layoutY="253.0" prefHeight="25.0" prefWidth="250.0" promptText="Password" unFocusColor="BLACK" AnchorPane.bottomAnchor="130.0" />
       <JFXButton layoutX="271.0" layoutY="305.0" onAction="#loginClicked" ripplerFill="#5c5c5c00" style="-fx-background-color: #FBBB2C;" text="Login" AnchorPane.bottomAnchor="65.0">
          <font>
@@ -15,5 +16,6 @@
          </font>
       </JFXButton>
       <JFXButton layoutX="14.0" layoutY="361.0" onAction="#helpClicked" style="-fx-background-color: #009FE3; -fx-background-radius: 100%;" text="?" />
+      <ImageView fitHeight="150.0" fitWidth="313.0" layoutX="231.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
