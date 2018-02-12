@@ -3,20 +3,51 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherWindowController">
    <children>
-      <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
-      <Label fx:id="nameLbl" layoutX="386.0" layoutY="30.0" text="Name of Teacher" />
-      <JFXButton buttonType="RAISED" layoutX="489.0" layoutY="24.0" onAction="#logoutClicked" prefHeight="28.0" prefWidth="91.0" text="Logout">
+      <Label fx:id="nameLbl" layoutX="459.0" layoutY="32.0" text="Name of Teacher" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <JFXTreeTableView fx:id="studentsTV" layoutX="290.0" layoutY="116.0" prefHeight="234.0" prefWidth="358.0" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="47.0">
+         <columns>
+            <TreeTableColumn prefWidth="253.0" resizable="false" text="Name" />
+            <TreeTableColumn prefWidth="103.0" resizable="false" sortType="DESCENDING" text="\% of absence" />
+         </columns>
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy></JFXTreeTableView>
+      <JFXTreeTableView fx:id="classesTV" layoutX="38.0" layoutY="116.0" prefHeight="234.0" prefWidth="189.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="38.0">
+         <columns>
+            <TreeTableColumn prefWidth="160.0" text="Class" />
+         </columns>
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy></JFXTreeTableView>
+      <JFXButton layoutX="588.0" layoutY="379.0" onAction="#attendanceClicked" style="-fx-background-color: #FBBB2C;" text="Attendance" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="35.0" />
+      <ImageView fitHeight="63.0" fitWidth="268.0" layoutX="38.0" layoutY="20.0">
+         <image>
+            <Image url="@../../../img/easvlogo.png" />
+         </image>
+      </ImageView>
+      <JFXButton buttonType="RAISED" layoutX="572.0" layoutY="24.0" onAction="#logoutClicked" prefHeight="32.0" prefWidth="93.0" style="-fx-background-color: #A1A1A1;" text="Logout">
          <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" />
+            <ImageView fitHeight="22.0" fitWidth="22.0">
+               <image>
+                  <Image url="@../../../img/logout.png" />
+               </image>
+            </ImageView>
          </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
       </JFXButton>
-      <JFXTreeTableView fx:id="studentsTV" layoutX="214.0" layoutY="127.0" prefHeight="226.0" prefWidth="360.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="15.0" />
-      <JFXTreeTableView fx:id="classesTV" layoutX="14.0" layoutY="97.0" prefHeight="289.0" prefWidth="178.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
-      <JFXButton layoutX="511.0" layoutY="361.0" onAction="#attendanceClicked" text="Attendance" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0" />
    </children>
 </AnchorPane>

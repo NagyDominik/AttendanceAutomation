@@ -3,23 +3,79 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.AttendanceWindowController">
-    <children>
-        <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
-        <Label fx:id="teacherNameLbl" layoutX="386.0" layoutY="30.0" text="Name of Teacher" />
-        <JFXButton buttonType="RAISED" layoutX="489.0" layoutY="24.0" onAction="#logoutClicked" prefHeight="28.0" prefWidth="91.0" text="Logout">
-            <graphic>
-                <ImageView fitHeight="20.0" fitWidth="20.0" />
-            </graphic>
-        </JFXButton>
-        <Label fx:id="percentageLbl" layoutX="320.0" layoutY="113.0" text="Tota  percentage of absence :" />
-        <JFXTreeTableView fx:id="historyTV" layoutX="72.0" layoutY="149.0" prefHeight="226.0" prefWidth="360.0" />
-      <Label fx:id="studentNameLbl" layoutX="72.0" layoutY="113.0" text="Name of Student" />
-      <JFXButton layoutX="509.0" layoutY="350.0" onAction="#backClicked" text="Back" />
-      <JFXButton layoutX="483.0" layoutY="163.0" onAction="#presentClicked" text="Present" />
-      <JFXButton layoutX="489.0" layoutY="211.0" onAction="#absentClicked" text="Absent" />
-    </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentWindowController">
+   <children>
+      <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
+      <Label fx:id="nameLbl" layoutX="361.0" layoutY="40.0" text="Name of Teacher" textFill="WHITE" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="503.0" layoutY="34.0" onAction="#logoutClicked" prefHeight="32.0" prefWidth="93.0" style="-fx-background-color: #A1A1A1;" text="Logout" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0">
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="22.0">
+               <image>
+                  <Image url="@../../../img/logout.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="percentageLbl" layoutX="363.0" layoutY="115.0" text="Total percentage of absence :" textFill="WHITE" AnchorPane.leftAnchor="363.0" AnchorPane.topAnchor="115.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <JFXTreeTableView fx:id="historyTV" layoutX="42.0" layoutY="137.0" prefHeight="250.0" prefWidth="503.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="157.0" AnchorPane.topAnchor="140.0">
+         <columns>
+            <TreeTableColumn prefWidth="75.0" text="Class" />
+            <TreeTableColumn prefWidth="75.0" text="Date" />
+            <TreeTableColumn prefWidth="88.0" text="Status" />
+         </columns>
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </JFXTreeTableView>
+      <JFXButton buttonType="RAISED" layoutX="604.0" layoutY="201.0" onAction="#presentClicked" style="-fx-background-color: #FBBB2C;" text="Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="201.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="606.0" layoutY="299.0" onAction="#absentClicked" style="-fx-background-color: #009fe3;" text="Absent" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="35.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="63.0" fitWidth="268.0" layoutX="32.0" layoutY="18.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="20.0">
+         <image>
+            <Image url="@../../../img/easvlogo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="40.0" layoutY="115.0" text="Name of student" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="594.0" layoutY="405.0" onAction="#backClicked" style="-fx-background-color: #A1A1A1;" text="Back">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="22.0">
+               <image>
+                  <Image url="@../../../img/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
 </AnchorPane>

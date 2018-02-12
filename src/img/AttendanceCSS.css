@@ -8,3 +8,7 @@
 	-fx-text-fill: white;
 	-fx-prompt-text-fill: white;
 }
+.background{
+	-fx-background-color: #C00D0D;
+}
+
