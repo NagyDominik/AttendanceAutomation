@@ -16,6 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
@@ -24,11 +27,21 @@ public class LoginController implements Initializable {
     private JFXPasswordField passwordField;
     @FXML
     private JFXTextField emailField;
+    @FXML
+    private Label helpTip;
+    
+    
     private Model model;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.model = Model.getInstance();
+        Tooltip tipHelp = new Tooltip();
+        tipHelp.setText("anyád\nfasza");
+        helpTip.setTooltip(tipHelp);
+        
+        
+        
     }
 
     @FXML
@@ -56,10 +69,6 @@ public class LoginController implements Initializable {
         }
     }
 
-    @FXML
-    private void helpClicked(ActionEvent event) {
-
-    }
 
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);

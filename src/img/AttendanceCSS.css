@@ -1,0 +1,10 @@
+.jfx-text-field{
+	
+    -fx-text-fill: white;
+	-fx-prompt-text-fill: white;
+}
+
+.jfx-password-field{
+	-fx-text-fill: white;
+	-fx-prompt-text-fill: white;
+}
