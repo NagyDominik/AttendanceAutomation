@@ -13,6 +13,7 @@ import attendanceautomation.BE.Teacher;
 public class BLLManager {
 
     private DALManager dManager;
+    private Encrypter encrypter = new Encrypter();
 
     public BLLManager() {
         dManager = new DALManager();
@@ -57,6 +58,7 @@ public class BLLManager {
      * "Student" for students or "None" if there is no match for the email.
      */
     public String attemptLogin(String email, String password) {
+        encrypter.encrypt(password);
         return dManager.attemptLogin(email, password);
     }
 }
