@@ -58,7 +58,6 @@ public class BLLManager {
      * "Student" for students or "None" if there is no match for the email.
      */
     public String attemptLogin(String email, String password) {
-        encrypter.encrypt(password);
         return dManager.attemptLogin(email, password);
     }
 }
