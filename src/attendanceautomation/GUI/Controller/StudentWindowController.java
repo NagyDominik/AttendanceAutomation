@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  * @author Dominik
  */
 public class StudentWindowController implements Initializable {
-    
+
     @FXML
     private Label nameLbl;
     @FXML
@@ -36,6 +36,7 @@ public class StudentWindowController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */

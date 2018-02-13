@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="401.0" style="-fx-background-color: C00D0D;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="401.0" style="-fx-background-color: C00D0D;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.LoginController">
    <children>
       <Group layoutX="56.0" layoutY="187.0">
          <children>
@@ -36,7 +36,7 @@
             </ImageView>
          </children>
       </Group>
-      <JFXButton layoutX="158.0" layoutY="321.0" onAction="#loginClicked" prefHeight="25.0" prefWidth="86.0" ripplerFill="#5c5c5c00" style="-fx-background-color: #FBBB2C;" text="Login" AnchorPane.bottomAnchor="44.0">
+      <JFXButton buttonType="RAISED" layoutX="158.0" layoutY="321.0" onAction="#loginClicked" prefHeight="25.0" prefWidth="86.0" ripplerFill="#5c5c5c00" style="-fx-background-color: #FBBB2C;" text="Login" AnchorPane.bottomAnchor="44.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

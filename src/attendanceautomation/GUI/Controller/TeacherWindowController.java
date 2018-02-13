@@ -59,7 +59,7 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void attendanceClicked(ActionEvent event) {
-        
+
     }
 
 }

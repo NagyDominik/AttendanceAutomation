@@ -5,23 +5,22 @@ import java.util.Map;
 
 /**
  * Represents a student
+ *
  * @author sebok
  */
-public class Student
-{
+public class Student {
+
     private int id;
     private LocalDate currentDate;
     private Map<LocalDate, Boolean> history;
     private String email;
-    
-    public Student(LocalDate currentDate, String email)
-    {
+
+    public Student(LocalDate currentDate, String email) {
         this.currentDate = currentDate;
         this.email = email;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 }
