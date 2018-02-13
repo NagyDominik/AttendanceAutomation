@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentWindowController">
    <children>
       <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
       <Label fx:id="nameLbl" layoutX="361.0" layoutY="40.0" text="Name of Teacher" textFill="WHITE" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="40.0">
@@ -50,7 +50,7 @@
             <Font size="13.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="606.0" layoutY="299.0" onAction="#absentClicked" style="-fx-background-color: #009fe3;" text="Absent" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="35.0">
+      <JFXButton buttonType="RAISED" layoutX="606.0" layoutY="299.0" onAction="#absentClicked" style="-fx-background-color: #009fe3;" text="Absent" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="35.0">
          <font>
             <Font size="13.0" />
          </font>
@@ -60,7 +60,7 @@
             <Image url="@../../../img/easvlogo.png" />
          </image>
       </ImageView>
-      <Label layoutX="40.0" layoutY="115.0" text="Name of student" textFill="WHITE">
+      <Label fx:id="studentNameLbl" layoutX="40.0" layoutY="115.0" text="Name of student" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>

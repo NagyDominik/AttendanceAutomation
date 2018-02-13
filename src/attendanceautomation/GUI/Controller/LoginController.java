@@ -18,7 +18,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
@@ -29,8 +28,7 @@ public class LoginController implements Initializable {
     private JFXTextField emailField;
     @FXML
     private Label helpTip;
-    
-    
+
     private Model model;
 
     @Override
@@ -39,9 +37,7 @@ public class LoginController implements Initializable {
         Tooltip tipHelp = new Tooltip();
         tipHelp.setText("anyád\nfasza");
         helpTip.setTooltip(tipHelp);
-        
-        
-        
+
     }
 
     @FXML
@@ -50,8 +46,7 @@ public class LoginController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             if (model.authenticate(emailField.getText(), passwordField.getText()).equals("Teacher")) {
                 loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
-            }
-            else if (model.authenticate(emailField.getText(), passwordField.getText()).equals("Student")) {
+            } else if (model.authenticate(emailField.getText(), passwordField.getText()).equals("Student")) {
                 loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
             } else {
                 newAlert(new Exception("Invalid email or password"));
@@ -68,7 +63,6 @@ public class LoginController implements Initializable {
             newAlert(ex);
         }
     }
-
 
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);

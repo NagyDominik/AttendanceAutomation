@@ -10,13 +10,16 @@ import java.util.List;
 
 /**
  * COntains mock data (for now)
+ *
  * @author sebok
  */
-public class DALManager
-{
+public class DALManager {
+
     private ConnectionManager cm;
-    
-    /**********************/
+
+    /**
+     * *******************
+     */
     //Mock data
     private List<ClassData> mockClassData;
     private List<Student> mockStudent;
@@ -48,19 +51,19 @@ public class DALManager
         
         mockClassData.get(0).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().addAll(mockStudent);
-    }
-
-     /**
+    } 
+    /**
      * Retrieve a class based on their id.
+     *
      * @param id The id of the class.
      * @return The class associated with the id.
      */
     public List<ClassData> getMockClassData() {
         return mockClassData;
     }
-
-   /**
+    /**
      * Retrieve a student based on an id.
+     *
      * @param id The id of the student.
      * @return A student with the corresponding id.
      */
@@ -69,6 +72,7 @@ public class DALManager
     }
 
     /**
+
      * Retrieve a class based on their id.
      * @param id The id of the class.
      * @return The class associated with the id.
@@ -79,9 +83,11 @@ public class DALManager
 
      /**
      * Attempt login with the specified email and password.
+     *
      * @param email The specified email.
      * @param password The specified password.
-     * @return A string representing the user type - "Teacher" for teachers, "Student" for students or "None" if there is no match for the email.
+     * @return A string representing the user type - "Teacher" for teachers,
+     * "Student" for students or "None" if there is no match for the email.
      */
     public String attemptLogin(String email, String password)
     {

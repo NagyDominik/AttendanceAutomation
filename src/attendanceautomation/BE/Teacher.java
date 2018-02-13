@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 /**
  * Represents a teacher.
+ *
  * @author sebok
  */
-public class Teacher
-{
+public class Teacher {
+
     private int id;
     private ArrayList<ClassData> classes;
     private String email;
@@ -16,11 +17,12 @@ public class Teacher
     public Teacher(String name, String email)
     {
         this.name = name;
+    }
+    public Teacher(String email) {
         this.email = email;
     }
-    
-    public String getEmail()
-    {
+
+    public String getEmail() {
         return email;
     }
 }

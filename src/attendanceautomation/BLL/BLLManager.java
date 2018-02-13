@@ -5,31 +5,35 @@ import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import java.util.List;
+
 /**
  * Serves as a pass-through layer for now.
+ *
  * @author sebok
  */
-public class BLLManager
-{
-    private DALManager dManager;
+public class BLLManager {
 
-    public BLLManager()
-    {
+    private DALManager dManager;
+    private Encrypter encrypter = new Encrypter();
+
+    public BLLManager() {
         dManager = new DALManager();
     }
-    
+
     /**
      * Retrieve a class based on an id.
+     *
      * @param id The id of the class.
      * @return A class with the corresponding id.
      */
+
     public List<ClassData> getClassData()
     {
-        return dManager.getMockClassData();
+        return dManager.getMockClassData();    
     }
-    
     /**
      * Retrieve a teacher based on an id.
+     *
      * @param id The id of the teacher.
      * @return A teacher with the corresponding id.
      */
@@ -37,25 +41,27 @@ public class BLLManager
     {
         return dManager.getMockTeacher();
     }
-    
     /**
      * Retrieve a student based on an id.
+     *
      * @param id The id of the student.
      * @return A student with the corresponding id.
      */
+
     public List<Student> getStudent()
     {
         return dManager.getMockStudent();
     }
-    
+
     /**
      * Attempt login with the specified email and password.
+     *
      * @param email The specified email.
      * @param password The specified password.
-     * @return A string representing the user type - "Teacher" for teachers, "Student" for students or "None" if there is no match for the email.
+     * @return A string representing the user type - "Teacher" for teachers,
+     * "Student" for students or "None" if there is no match for the email.
      */
-    public String attemptLogin(String email, String password)
-    {
+    public String attemptLogin(String email, String password) {
         return dManager.attemptLogin(email, password);
     }
 }

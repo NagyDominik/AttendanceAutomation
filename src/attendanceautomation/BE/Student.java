@@ -5,10 +5,11 @@ import java.util.Map;
 
 /**
  * Represents a student
+ *
  * @author sebok
  */
-public class Student
-{
+public class Student {
+
     private int id;
     private LocalDate currentDate;
     private Map<LocalDate, Boolean> history;
@@ -16,8 +17,8 @@ public class Student
     private String name;
     
     
-    public Student(LocalDate currentDate, String email, String name)
-    {
+
+    public Student(LocalDate currentDate, String email, String name) {
         this.currentDate = currentDate;
         this.email = email;
         this.name = name;

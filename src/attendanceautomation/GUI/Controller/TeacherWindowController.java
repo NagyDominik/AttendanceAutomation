@@ -5,6 +5,7 @@
  */
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import com.jfoenix.controls.JFXTreeTableView;
 import java.io.IOException;
@@ -78,8 +79,6 @@ public class TeacherWindowController implements Initializable {
         catch (IOException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
     }
 
 }
