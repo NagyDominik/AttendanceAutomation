@@ -4,6 +4,7 @@ import attendanceautomation.DAL.DALManager;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
+import java.util.List;
 /**
  * Serves as a pass-through layer for now.
  * @author sebok
@@ -22,9 +23,9 @@ public class BLLManager
      * @param id The id of the class.
      * @return A class with the corresponding id.
      */
-    public ClassData getClassData(int id)
+    public List<ClassData> getClassData()
     {
-        return dManager.getClassData(id);
+        return dManager.getMockClassData();
     }
     
     /**
@@ -32,9 +33,9 @@ public class BLLManager
      * @param id The id of the teacher.
      * @return A teacher with the corresponding id.
      */
-    public Teacher getTeacher(int id)
+    public List<Teacher> getTeacher()
     {
-        return dManager.getTeacher(id);
+        return dManager.getMockTeacher();
     }
     
     /**
@@ -42,9 +43,9 @@ public class BLLManager
      * @param id The id of the student.
      * @return A student with the corresponding id.
      */
-    public Student getStudent(int id)
+    public List<Student> getStudent()
     {
-        return dManager.getStudent(id);
+        return dManager.getMockStudent();
     }
     
     /**

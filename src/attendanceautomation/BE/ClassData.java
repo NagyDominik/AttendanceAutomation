@@ -10,4 +10,19 @@ public class ClassData
 {
     private int id;
     private ArrayList<Student> participants;
+    private String className;
+
+    public ClassData(String className) {
+        this.className = className;
+    }    
+
+    public ArrayList<Student> getParticipants() {
+        return participants;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+    
 }
+

@@ -18,15 +18,15 @@
          </font></Label>
       <JFXTreeTableView fx:id="studentsTV" layoutX="290.0" layoutY="116.0" prefHeight="234.0" prefWidth="358.0" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="47.0">
          <columns>
-            <TreeTableColumn prefWidth="253.0" resizable="false" text="Name" />
-            <TreeTableColumn prefWidth="103.0" resizable="false" sortType="DESCENDING" text="\% of absence" />
+            <TreeTableColumn fx:id="nameTeacher" prefWidth="253.0" resizable="false" text="Name" />
+            <TreeTableColumn fx:id="absenceTeacher" prefWidth="103.0" resizable="false" sortType="DESCENDING" text="\% of absence" />
          </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy></JFXTreeTableView>
       <JFXTreeTableView fx:id="classesTV" layoutX="38.0" layoutY="116.0" prefHeight="234.0" prefWidth="189.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="38.0">
          <columns>
-            <TreeTableColumn prefWidth="160.0" text="Class" />
+            <TreeTableColumn fx:id="ClassTeacher" prefWidth="160.0" text="Class" />
          </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -35,9 +35,9 @@
          </font></Label>
         <JFXTreeTableView fx:id="historyTV" layoutX="42.0" layoutY="137.0" prefHeight="250.0" prefWidth="503.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="157.0" AnchorPane.topAnchor="145.0">
          <columns>
-            <TreeTableColumn prefWidth="75.0" text="Class" />
-            <TreeTableColumn prefWidth="75.0" text="Date" />
-            <TreeTableColumn prefWidth="88.0" text="Status" />
+            <TreeTableColumn fx:id="classStudent" prefWidth="75.0" text="Class" />
+            <TreeTableColumn fx:id="classDate" prefWidth="75.0" text="Date" />
+            <TreeTableColumn fx:id="classStatus" prefWidth="88.0" text="Status" />
          </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -37,15 +37,15 @@
       </Label>
       <JFXTreeTableView fx:id="historyTV" layoutX="42.0" layoutY="137.0" prefHeight="250.0" prefWidth="503.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="157.0" AnchorPane.topAnchor="140.0">
          <columns>
-            <TreeTableColumn prefWidth="75.0" text="Class" />
-            <TreeTableColumn prefWidth="75.0" text="Date" />
-            <TreeTableColumn prefWidth="88.0" text="Status" />
+            <TreeTableColumn fx:id="classTeacher" prefWidth="75.0" text="Class" />
+            <TreeTableColumn fx:id="dateTeacher" prefWidth="75.0" text="Date" />
+            <TreeTableColumn fx:id="statusTeacher" prefWidth="88.0" text="Status" />
          </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </JFXTreeTableView>
-      <JFXButton buttonType="RAISED" layoutX="604.0" layoutY="201.0" onAction="#presentClicked" style="-fx-background-color: #FBBB2C;" text="Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="201.0">
+      <JFXButton id="#yellowButt" buttonType="RAISED" layoutX="604.0" layoutY="201.0" onAction="#presentClicked" style="-fx-background-color: #FBBB2C;;" stylesheets="@../../../img/AttendanceCSS.css" text="Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="201.0">
          <font>
             <Font size="13.0" />
          </font>

@@ -11,9 +11,11 @@ public class Teacher
     private int id;
     private ArrayList<ClassData> classes;
     private String email;
+    private String name;
 
-    public Teacher(String email)
+    public Teacher(String name, String email)
     {
+        this.name = name;
         this.email = email;
     }
     

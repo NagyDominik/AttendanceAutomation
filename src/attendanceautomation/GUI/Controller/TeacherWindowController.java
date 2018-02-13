@@ -5,6 +5,7 @@
  */
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.Student;
 import com.jfoenix.controls.JFXTreeTableView;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TreeTableColumn;
 import javafx.stage.Stage;
 
 /**
@@ -33,6 +35,12 @@ public class TeacherWindowController implements Initializable {
     private JFXTreeTableView classesTV;
     @FXML
     private Label nameLbl;
+    @FXML
+    private TreeTableColumn<Student, String> nameTeacher;
+    @FXML
+    private TreeTableColumn<Student, String> absenceTeacher;
+    @FXML
+    private TreeTableColumn<ClassData, String> ClassTeacher;
 
     /**
      * Initializes the controller class.
@@ -59,6 +67,18 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void attendanceClicked(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/AttendanceWindow.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = (Stage) nameLbl.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }
 

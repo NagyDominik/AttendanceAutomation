@@ -1,7 +1,7 @@
 .jfx-text-field{
 	
-    -fx-text-fill: white;
-	-fx-prompt-text-fill: white;
+        -fx-text-fill: white;
+        -fx-prompt-text-fill: white;
 }
 
 .jfx-password-field{
@@ -12,3 +12,6 @@
 	-fx-background-color: #C00D0D;
 }
 
+#yellowButt{
+    -fx-background-color:  black;
+}
