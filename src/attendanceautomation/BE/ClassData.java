@@ -15,6 +15,7 @@ public class ClassData {
 
     public ClassData(String className) {
         this.className = className;
+        participants = new ArrayList<>();
     }    
 
     public ArrayList<Student> getParticipants() {

@@ -14,11 +14,9 @@ public class Teacher {
     private String email;
     private String name;
 
-    public Teacher(String name, String email)
+    public Teacher(String email, String name)
     {
         this.name = name;
-    }
-    public Teacher(String email) {
         this.email = email;
     }
 
