@@ -61,6 +61,17 @@ public class AttendanceWindowController implements Initializable {
 
     @FXML
     private void backClicked(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindowsController.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -70,5 +81,5 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private void absentClicked(ActionEvent event) {
     }
-
+    
 }
