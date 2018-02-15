@@ -16,8 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
@@ -26,31 +25,27 @@ public class LoginController implements Initializable {
     private JFXPasswordField passwordField;
     @FXML
     private JFXTextField emailField;
-    @FXML
-    private Label helpTip;
-
     private Model model;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.model = Model.getInstance();
-        Tooltip tipHelp = new Tooltip();
-        tipHelp.setText("anyád\nfasza");
-        helpTip.setTooltip(tipHelp);
-
     }
 
     @FXML
     private void loginClicked(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            if (model.authenticate(emailField.getText(), passwordField.getText()).equals("Teacher")) {
-                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
-            } else if (model.authenticate(emailField.getText(), passwordField.getText()).equals("Student")) {
-                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
-            } else {
-                newAlert(new Exception("Invalid email or password"));
-                return;
+            switch (model.authenticate(emailField.getText(), passwordField.getText())) {
+                case "Teacher":
+                    loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
+                    break;
+                case "Student":
+                    loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
+                    break;
+                default:
+                    newAlert(new Exception("Invalid email or password"));
+                    return;
             }
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
@@ -67,5 +62,17 @@ public class LoginController implements Initializable {
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
+    }
+
+    @FXML
+    private void helpClicked(ActionEvent event) {
+        Alert help = new Alert(Alert.AlertType.CONFIRMATION, "Email - Your school email address, provided by the school.\n"
+                + "Password - The password you gave the first time you logged in.\n\n"
+                + "If either of them is missing or you forgot it, please contact\nthe IT Support.", ButtonType.OK);
+        help.setHeaderText("Login help");
+        Stage stage = (Stage) help.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/img/help.png"));
+        stage.setTitle("Help");
+        help.show();
     }
 }

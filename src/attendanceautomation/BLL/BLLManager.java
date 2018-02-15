@@ -23,7 +23,6 @@ public class BLLManager {
     /**
      * Retrieve a class based on an id.
      *
-     * @param id The id of the class.
      * @return A class with the corresponding id.
      */
 
@@ -34,7 +33,6 @@ public class BLLManager {
     /**
      * Retrieve a teacher based on an id.
      *
-     * @param id The id of the teacher.
      * @return A teacher with the corresponding id.
      */
     public List<Teacher> getTeacher()
@@ -44,7 +42,6 @@ public class BLLManager {
     /**
      * Retrieve a student based on an id.
      *
-     * @param id The id of the student.
      * @return A student with the corresponding id.
      */
 
@@ -62,6 +59,6 @@ public class BLLManager {
      * "Student" for students or "None" if there is no match for the email.
      */
     public String attemptLogin(String email, String password) {
-        return dManager.attemptLogin(email, password);
+        return dManager.attemptLogin(email, encrypter.encrypt(password));
     }
 }

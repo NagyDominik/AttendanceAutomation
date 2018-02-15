@@ -17,7 +17,6 @@ public class Student extends RecursiveTreeObject<Student>{
     private String email;
     private String name;
     private float absencePercentage;
-    
 
     public Student(LocalDate currentDate, String email, String name) {
         this.currentDate = currentDate;
@@ -39,7 +38,4 @@ public class Student extends RecursiveTreeObject<Student>{
     {
         return this.name;
     }
-    
-    
-    
-}
+ }

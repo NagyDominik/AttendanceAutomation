@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -53,7 +52,7 @@
             <Image url="@../../../img/easvlogo.png" />
          </image>
       </ImageView>
-      <Label fx:id="helpTip" layoutX="20.0" layoutY="356.0">
+      <JFXButton ellipsisString="" layoutY="356.0" onAction="#helpClicked" prefHeight="19.0" prefWidth="10.0">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="32.0">
                <image>
@@ -61,6 +60,6 @@
                </image>
             </ImageView>
          </graphic>
-      </Label>
+      </JFXButton>
    </children>
 </AnchorPane>

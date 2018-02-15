@@ -28,14 +28,16 @@ public class Model implements Initializable {
     public String authenticate(String email, String password) {
         return bllManager.attemptLogin(email, password);
     }
-  
+
     public List<Student> getStudent() {
         return bllManager.getStudent();
     }
-     public List<Teacher> getTeacher() {
+
+    public List<Teacher> getTeacher() {
         return bllManager.getTeacher();
     }
-     public List<ClassData> getClassData() {
+
+    public List<ClassData> getClassData() {
         return bllManager.getClassData();
     }
 }

@@ -18,14 +18,20 @@ public class Encrypter {
 
     private static MessageDigest md;
 
-    public String encrypt(String password) throws NoSuchAlgorithmException {
+    public String encrypt(String password) {
         String encrypted = "";
-        md = MessageDigest.getInstance("MD5");
-        byte[] digested = md.digest(password.getBytes());
-        for (byte b : digested) {
-            encrypted += Integer.toHexString(0xFF & b); //0xFF is for maskig the last 8 bit
+        try {
+            md = MessageDigest.getInstance("MD5");
+            byte[] digested = md.digest(password.getBytes());
+            for (byte b : digested) {
+                encrypted += Integer.toHexString(0xFF & b); //0xFF is for maskig the last 8 bit
+            }
+            System.out.println(encrypted);
+            return encrypted;
         }
-        System.out.println(encrypted);
+        catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Encrypter.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return encrypted;
     }
 

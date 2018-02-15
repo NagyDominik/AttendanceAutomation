@@ -109,7 +109,7 @@ public class TeacherWindowController implements Initializable {
             @Override
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Student, String> param)
             {
-                return new SimpleStringProperty(param.getValue().getValue().getName());         //Why TF is this returnin null??
+                return new SimpleStringProperty(param.getValue().getValue().getName());         
             }
         });
         
