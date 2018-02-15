@@ -81,5 +81,5 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private void absentClicked(ActionEvent event) {
     }
-    
+
 }

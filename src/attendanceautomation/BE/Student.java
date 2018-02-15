@@ -15,8 +15,6 @@ public class Student {
     private Map<LocalDate, Boolean> history;
     private String email;
     private String name;
-    
-    
 
     public Student(LocalDate currentDate, String email, String name) {
         this.currentDate = currentDate;
@@ -27,5 +25,5 @@ public class Student {
     public String getEmail() {
         return email;
     }
-    
+
 }

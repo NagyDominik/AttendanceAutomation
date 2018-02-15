@@ -3,7 +3,6 @@ package attendanceautomation.DAL;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
-import com.sun.deploy.model.LocalApplicationProperties;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * @author sebok
  */
 public class DALManager {
-
+    
     private ConnectionManager cm;
 
     /**
@@ -25,13 +24,11 @@ public class DALManager {
     private List<Student> mockStudent;
     private List<Teacher> mockTeacher;
     
-    public DALManager()
-    {
+    public DALManager() {
         setUpMockData();
     }
     
-    private void setUpMockData()
-    {
+    private void setUpMockData() {
         mockClassData = new ArrayList();
         mockClassData.add(new ClassData("CS2017A"));
         mockClassData.add(new ClassData("CS2017B"));
@@ -40,31 +37,30 @@ public class DALManager {
         mockTeacher.add(new Teacher("teacher@easv.dk", "Jeppe Moritz"));
         mockTeacher.add(new Teacher("teacher1@easv.dk", "fasz leves"));
         
-        
         mockStudent = new ArrayList();
-        mockStudent.add(new Student(LocalDate.now(),"student@easv.dk", "Thomas White"));
-        mockStudent.add(new Student(LocalDate.now(),"student1@easv.dk", "Jesper Boo"));
-        mockStudent.add(new Student(LocalDate.now(),"student2@easv.dk", "Peter Sebok"));
-        mockStudent.add(new Student(LocalDate.now(),"student3@easv.dk", "Dominik Nagy"));
-        mockStudent.add(new Student(LocalDate.now(),"student4@easv.dk", "Józska Pista"));
-        mockStudent.add(new Student(LocalDate.now(),"student@easv.dk", "Bence Matyasi"));
+        mockStudent.add(new Student(LocalDate.now(), "student@easv.dk", "Thomas White"));
+        mockStudent.add(new Student(LocalDate.now(), "student1@easv.dk", "Jesper Boo"));
+        mockStudent.add(new Student(LocalDate.now(), "student2@easv.dk", "Peter Sebok"));
+        mockStudent.add(new Student(LocalDate.now(), "student3@easv.dk", "Dominik Nagy"));
+        mockStudent.add(new Student(LocalDate.now(), "student4@easv.dk", "Józska Pista"));
+        mockStudent.add(new Student(LocalDate.now(), "student@easv.dk", "Bence Matyasi"));
         
         mockClassData.get(0).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().addAll(mockStudent);
-    } 
+    }
+
     /**
      * Retrieve a class based on their id.
      *
-     * @param id The id of the class.
      * @return The class associated with the id.
      */
     public List<ClassData> getMockClassData() {
         return mockClassData;
     }
+
     /**
      * Retrieve a student based on an id.
      *
-     * @param id The id of the student.
      * @return A student with the corresponding id.
      */
     public List<Student> getMockStudent() {
@@ -72,16 +68,16 @@ public class DALManager {
     }
 
     /**
-
+     *
      * Retrieve a class based on their id.
-     * @param id The id of the class.
+     *
      * @return The class associated with the id.
      */
     public List<Teacher> getMockTeacher() {
         return mockTeacher;
     }
 
-     /**
+    /**
      * Attempt login with the specified email and password.
      *
      * @param email The specified email.
@@ -89,16 +85,16 @@ public class DALManager {
      * @return A string representing the user type - "Teacher" for teachers,
      * "Student" for students or "None" if there is no match for the email.
      */
-    public String attemptLogin(String email, String password)
-    {
+    public String attemptLogin(String email, String password) {
         for (Teacher loginTeacher : mockTeacher) {
-            if (loginTeacher.getEmail().equals(email)) {
-               return "Teacher";
+            if (loginTeacher.getEmail().equals(email) && password.equals("fb78c1fafdde8c85ea83a9f0d05162")) {
+                return "Teacher";
             }
         }
         for (Student loginStudent : mockStudent) {
-            if(loginStudent.getEmail().equals(email))
-                return "Student";            
+            if (loginStudent.getEmail().equals(email) && password.equals("6cf1f51227f1cc65e399efb35332499c")) {
+                return "Student";
+            }            
         }
         return "None";
     }
