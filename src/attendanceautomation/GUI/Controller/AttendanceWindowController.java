@@ -5,6 +5,7 @@
  */
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXTreeTableView;
 import java.io.IOException;
 import java.net.URL;
@@ -35,13 +36,15 @@ public class AttendanceWindowController implements Initializable {
     private Label percentageLbl;
     @FXML
     private Label studentNameLbl;
+    
+    Model m = Model.getInstance();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
 
     @FXML
