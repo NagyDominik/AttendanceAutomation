@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.AttendanceWindowController">
    <children>
       <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
-      <Label fx:id="nameLbl" layoutX="361.0" layoutY="40.0" text="Name of Teacher" textFill="WHITE" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="40.0">
+      <Label fx:id="teacherNameLbl" layoutX="361.0" layoutY="40.0" text="Name of Teacher" textFill="WHITE" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -35,16 +34,6 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <JFXTreeTableView fx:id="historyTV" layoutX="42.0" layoutY="137.0" prefHeight="250.0" prefWidth="503.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="157.0" AnchorPane.topAnchor="140.0">
-         <columns>
-            <TreeTableColumn fx:id="classTeacher" prefWidth="75.0" text="Class" />
-            <TreeTableColumn fx:id="dateTeacher" prefWidth="75.0" text="Date" />
-            <TreeTableColumn fx:id="statusTeacher" prefWidth="88.0" text="Status" />
-         </columns>
-         <columnResizePolicy>
-            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </JFXTreeTableView>
       <JFXButton id="#yellowButt" buttonType="RAISED" layoutX="604.0" layoutY="201.0" onAction="#presentClicked" style="-fx-background-color: #FBBB2C;;" stylesheets="@../../../img/AttendanceCSS.css" text="Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="201.0">
          <font>
             <Font size="13.0" />
@@ -77,5 +66,15 @@
             </ImageView>
          </graphic>
       </JFXButton>
+      <TableView fx:id="historyTV" layoutX="51.0" layoutY="155.0" prefHeight="250.0" prefWidth="505.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="157.0" AnchorPane.topAnchor="145.0">
+        <columns>
+          <TableColumn fx:id="teacherClass" prefWidth="75.0" text="Class" />
+          <TableColumn fx:id="teacherDate" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="teacherStatus" prefWidth="75.0" text="Status" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
    </children>
 </AnchorPane>

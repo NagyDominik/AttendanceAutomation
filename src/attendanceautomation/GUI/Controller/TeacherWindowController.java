@@ -29,6 +29,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -42,20 +44,20 @@ import javafx.util.Callback;
  */
 public class TeacherWindowController implements Initializable {
 
-    @FXML
-    private JFXTreeTableView studentsTV;
-    @FXML
-    private JFXTreeTableView classesTV;
-    @FXML
-    private Label nameLbl;
-    @FXML
-    private TreeTableColumn<Student, String> nameTeacher;
-    @FXML
-    private TreeTableColumn<Student, String> absenceTeacher;
-    @FXML
-    private TreeTableColumn<ClassData, String> ClassTeacher;
+   
 
     Model m = Model.getInstance();
+    private Label nameLbl;
+    @FXML
+    private TableColumn<?, ?> classTeacher;
+    @FXML
+    private TableView<?> studentsTV;
+    @FXML
+    private Label teacherNameLbl;
+    @FXML
+    private TableColumn<?, ?> studentName;
+    @FXML
+    private TableColumn<?, ?> absenceStudent;
     
     /**
      * Initializes the controller class.
@@ -66,7 +68,7 @@ public class TeacherWindowController implements Initializable {
         
         ObservableList students = FXCollections.observableArrayList(m.getStudent());
         final TreeItem root = new RecursiveTreeItem<Student>(students, RecursiveTreeObject::getChildren);
-        studentsTV.getColumns().addAll(nameTeacher, absenceTeacher);
+        studentsTV.getColumns().addAll(studentName, absenceStudent);
         studentsTV.setRoot(root);
         studentsTV.setShowRoot(false);
     }
