@@ -1,6 +1,7 @@
 package attendanceautomation.BE;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Represents a class of students
@@ -10,15 +11,15 @@ import java.util.ArrayList;
 public class ClassData {
 
     private int id;
-    private ArrayList<Student> participants;
+    private ObservableList<Student> participants;
     private String className;
 
     public ClassData(String className) {
         this.className = className;
-        participants = new ArrayList<>();
+        participants = FXCollections.observableArrayList();
     }
 
-    public ArrayList<Student> getParticipants() {
+    public ObservableList<Student> getParticipants() {
         return participants;
     }
 

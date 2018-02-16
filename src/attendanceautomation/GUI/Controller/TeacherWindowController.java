@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,7 +55,7 @@ public class TeacherWindowController implements Initializable {
         studentsTV.setItems(model.getStudent());
         classTV.setItems(model.getClassData());
         setCellValueFactories();
-        ObservableList students = FXCollections.observableArrayList(model.getStudent());
+        addListenersAndHandlers();
     }
 
     @FXML
@@ -101,5 +103,15 @@ public class TeacherWindowController implements Initializable {
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
+    }
+    
+    private void addListenersAndHandlers() {
+        classTV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                studentsTV.setItems(classTV.getSelectionModel().getSelectedItem().getParticipants());
+            }
+        }
+        );
     }
 }

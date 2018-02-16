@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
@@ -32,6 +35,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.model = Model.getInstance();
+        addListenersAndHandlers();
     }
 
     @FXML
@@ -57,12 +61,7 @@ public class LoginController implements Initializable {
             newAlert(ex);
         }
     }
-
-    private void newAlert(Exception ex) {
-        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
-        a.show();
-    }
-
+    
     @FXML
     private void helpClicked(ActionEvent event) {
         Alert help = new Alert(Alert.AlertType.CONFIRMATION, "Email - Your school email address, provided by the school.\n"
@@ -74,4 +73,21 @@ public class LoginController implements Initializable {
         stage.setTitle("Help");
         help.show();
     }
+
+    private void newAlert(Exception ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
+        a.show();
+    }
+
+    private void addListenersAndHandlers() {
+        passwordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    loginClicked(new ActionEvent());
+                }
+            }
+        });
+    }
+    
 }
