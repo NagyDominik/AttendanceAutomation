@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.GUI.Controller;
-
+import attendanceautomation.BE.ClassData;
+import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -31,29 +28,30 @@ import javafx.stage.Stage;
  */
 public class TeacherWindowController implements Initializable {
 
-   
-
-    Model m = Model.getInstance();
-    private Label nameLbl;
     @FXML
-    private TableColumn<?, ?> classTeacher;
-    @FXML
-    private TableView<?> studentsTV;
+    private TableView<Student> studentsTV;
     @FXML
     private Label teacherNameLbl;
     @FXML
-    private TableColumn<?, ?> studentName;
+    private TableView<ClassData> classTV;
     @FXML
-    private TableColumn<?, ?> absenceStudent;
-    
+    private TableColumn<ClassData, String> classCol;
+    @FXML
+    private TableColumn<Student, String> studentNameCol;
+    @FXML
+    private TableColumn<Student, String> studentAbsenceCol;
+    private Model model = Model.getInstance();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        teacherNameLbl.setText(model.getCurrentUser().getName());
+        studentsTV.setItems(model.getStudent());
+        classTV.setItems(model.getClassData());
         setCellValueFactories();
-        
-        ObservableList students = FXCollections.observableArrayList(m.getStudent());
+        ObservableList students = FXCollections.observableArrayList(model.getStudent());
     }
 
     @FXML
@@ -61,7 +59,7 @@ public class TeacherWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/LoginWindow.fxml"));
             Parent root = (Parent) loader.load();
-            Stage stage = (Stage) nameLbl.getScene().getWindow();
+            Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
@@ -76,7 +74,7 @@ public class TeacherWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/AttendanceWindow.fxml"));
             Parent root = (Parent) loader.load();
-            Stage stage = (Stage) nameLbl.getScene().getWindow();
+            Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
@@ -88,6 +86,8 @@ public class TeacherWindowController implements Initializable {
 
     private void setCellValueFactories()
     {
+        classCol.setCellValueFactory(new PropertyValueFactory("className"));
+        studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
+        studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("absencePercentage"));
     }
-
 }

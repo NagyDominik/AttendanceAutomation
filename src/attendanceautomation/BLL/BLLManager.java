@@ -2,6 +2,7 @@ package attendanceautomation.BLL;
 
 import attendanceautomation.DAL.DALManager;
 import attendanceautomation.BE.ClassData;
+import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import java.util.List;
@@ -58,7 +59,7 @@ public class BLLManager {
      * @return A string representing the user type - "Teacher" for teachers,
      * "Student" for students or "None" if there is no match for the email.
      */
-    public String attemptLogin(String email, String password) {
+    public Person attemptLogin(String email, String password) {
         return dManager.attemptLogin(email, encrypter.encrypt(password));
     }
 }
