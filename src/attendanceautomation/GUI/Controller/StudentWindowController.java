@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TreeTableColumn;
 import javafx.stage.Stage;
 
@@ -33,13 +35,15 @@ public class StudentWindowController implements Initializable {
     @FXML
     private Label percentageLbl;
     @FXML
-    private JFXTreeTableView historyTV;
+    private TableView<?> historyTV;
     @FXML
-    private TreeTableColumn<?, ?> classTeacher;
+    private TableColumn<?, ?> teacherClass;
     @FXML
-    private TreeTableColumn<?, ?> dateTeacher;
+    private TableColumn<?, ?> teacherDate;
     @FXML
-    private TreeTableColumn<?, ?> statusTeacher;
+    private TableColumn<?, ?> teacherStatus;
+
+   
 
     /**
      * Initializes the controller class.
@@ -75,7 +79,6 @@ public class StudentWindowController implements Initializable {
     private void absentClicked(ActionEvent event) {
     }
 
-    @FXML
     private void backClicked(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));

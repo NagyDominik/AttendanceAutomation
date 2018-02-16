@@ -19,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 /**
@@ -28,16 +30,24 @@ import javafx.stage.Stage;
  */
 public class AttendanceWindowController implements Initializable {
 
-    @FXML
-    private JFXTreeTableView historyTV;
+
+    
+    Model m = Model.getInstance();
     @FXML
     private Label teacherNameLbl;
     @FXML
     private Label percentageLbl;
     @FXML
     private Label studentNameLbl;
+    @FXML
+    private TableView<?> historyTV;
+    @FXML
+    private TableColumn<?, ?> teacherClass;
+    @FXML
+    private TableColumn<?, ?> teacherDate;
+    @FXML
+    private TableColumn<?, ?> teacherStatus;
     
-    Model m = Model.getInstance();
 
     /**
      * Initializes the controller class.
