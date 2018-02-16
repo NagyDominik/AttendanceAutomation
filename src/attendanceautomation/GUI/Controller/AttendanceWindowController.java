@@ -6,7 +6,6 @@
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.GUI.Model.Model;
-import com.jfoenix.controls.JFXTreeTableView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -30,9 +30,6 @@ import javafx.stage.Stage;
  */
 public class AttendanceWindowController implements Initializable {
 
-
-    
-    Model m = Model.getInstance();
     @FXML
     private Label teacherNameLbl;
     @FXML
@@ -42,19 +39,21 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private TableView<?> historyTV;
     @FXML
-    private TableColumn<?, ?> teacherClass;
+    private TableColumn<?, ?> teacherClassCol;
     @FXML
-    private TableColumn<?, ?> teacherDate;
+    private TableColumn<?, ?> teacherDateCol;
     @FXML
-    private TableColumn<?, ?> teacherStatus;
+    private TableColumn<?, ?> teacherStatusCol;
     
+    private Model model = Model.getInstance();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        teacherNameLbl.setText(model.getCurrentUser().getName());
+        studentNameLbl.setText(model.getSelectedStudent().getName());
     }
 
     @FXML
@@ -75,7 +74,7 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private void backClicked(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindowsController.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -95,4 +94,9 @@ public class AttendanceWindowController implements Initializable {
     private void absentClicked(ActionEvent event) {
     }
 
+    private void setCellValueFactories() {
+        teacherClassCol.setCellValueFactory(new PropertyValueFactory("className"));
+        teacherDateCol.setCellValueFactory(new PropertyValueFactory(""));
+        teacherStatusCol.setCellValueFactory(new PropertyValueFactory(""));
+    }
 }

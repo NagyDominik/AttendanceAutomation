@@ -31,5 +31,4 @@ public class Teacher extends Person{
         return name;
     }
     
-    
 }

@@ -16,6 +16,7 @@ public class Model implements Initializable {
     private static Model instance;
     private BLLManager bllManager = new BLLManager();
     private Person currentUser;
+    private Student selectedStudent;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,5 +61,14 @@ public class Model implements Initializable {
     public Person getCurrentUser() {
         return currentUser;
     }
+
+    public void setSelectedStudent(Student selected) {
+        this.selectedStudent = selected;
+    }
+
+    public Student getSelectedStudent() {
+        return this.selectedStudent;
+    }
+
     
 }
