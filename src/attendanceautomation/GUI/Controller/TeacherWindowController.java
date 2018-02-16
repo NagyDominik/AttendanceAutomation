@@ -65,7 +65,7 @@ public class TeacherWindowController implements Initializable {
         setCellValueFactories();
         
         ObservableList students = FXCollections.observableArrayList(m.getStudent());
-        final TreeItem root = new RecursiveTreeItem<Student>(students, RecursiveTreeObject::getChildren);
+        final TreeItem root = new RecursiveTreeItem<Student>(students, (recursiveTreeObject) -> recursiveTreeObject.getChildren());
         studentsTV.getColumns().addAll(nameTeacher, absenceTeacher);
         studentsTV.setRoot(root);
         studentsTV.setShowRoot(false);
