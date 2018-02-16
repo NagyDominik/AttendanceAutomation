@@ -7,7 +7,6 @@ package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
-import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -76,6 +77,11 @@ public class TeacherWindowController implements Initializable {
     @FXML
     private void attendanceClicked(ActionEvent event) {
         try {
+            Student selected = studentsTV.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception("No selected stundent! Please selecet a student!");
+            }
+            model.setSelectedStudent(selected);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/AttendanceWindow.fxml"));
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
@@ -83,7 +89,7 @@ public class TeacherWindowController implements Initializable {
             stage.setResizable(false);
             stage.show();
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -94,4 +100,9 @@ public class TeacherWindowController implements Initializable {
         studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("absencePercentage"));
     }
 
+    private void newAlert(Exception ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
+        a.show();
+    }
+    
 }

@@ -10,8 +10,6 @@ import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,6 +55,7 @@ public class StudentWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        nameLbl.setText(model.getCurrentUser().getName());
         setCellValueFactories();
     }
 
