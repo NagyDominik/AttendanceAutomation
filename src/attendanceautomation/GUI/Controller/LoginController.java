@@ -1,5 +1,7 @@
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.Student;
+import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -36,17 +38,14 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            switch (model.authenticate(emailField.getText(), passwordField.getText())) {
-                case "Teacher":
-                    loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
-                    break;
-                case "Student":
-                    loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
-                    break;
-                default:
-                    newAlert(new Exception("Invalid email or password"));
-                    return;
+            if (model.authenticate(emailField.getText(), passwordField.getText()) instanceof Teacher) {
+                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
+            } else if (model.authenticate(emailField.getText(), passwordField.getText()) instanceof Student) {
+                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
+            } else {
+                newAlert(new Exception("Invalid email or password"));
             }
+            
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root));

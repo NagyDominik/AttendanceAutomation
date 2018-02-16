@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * @author sebok
  */
-public class Teacher {
+public class Teacher extends Person{
 
     private int id;
     private ArrayList<ClassData> classes;
@@ -22,4 +22,14 @@ public class Teacher {
     public String getEmail() {
         return email;
     }
+
+    public ArrayList<ClassData> getClasses() {
+        return classes;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+    
 }

@@ -7,21 +7,13 @@ package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
+import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.Model.Model;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,11 +23,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -44,33 +33,29 @@ import javafx.util.Callback;
  */
 public class TeacherWindowController implements Initializable {
 
-   
-
-    Model m = Model.getInstance();
-    private Label nameLbl;
     @FXML
-    private TableColumn<?, ?> classTeacher;
-    @FXML
-    private TableView<?> studentsTV;
+    private TableView<Student> studentsTV;
     @FXML
     private Label teacherNameLbl;
     @FXML
-    private TableColumn<?, ?> studentName;
+    private TableView<ClassData> classTV;
     @FXML
-    private TableColumn<?, ?> absenceStudent;
-    
+    private TableColumn<ClassData, String> classCol;
+    @FXML
+    private TableColumn<Student, String> studentNameCol;
+    @FXML
+    private TableColumn<Student, String> studentAbsenceCol;
+    private Model model = Model.getInstance();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        teacherNameLbl.setText(model.getCurrentUser().getName());
+        studentsTV.setItems(model.getStudent());
+        classTV.setItems(model.getClassData());
         setCellValueFactories();
-        
-        ObservableList students = FXCollections.observableArrayList(m.getStudent());
-        final TreeItem root = new RecursiveTreeItem<Student>(students, RecursiveTreeObject::getChildren);
-        studentsTV.getColumns().addAll(studentName, absenceStudent);
-        studentsTV.setRoot(root);
-        studentsTV.setShowRoot(false);
     }
 
     @FXML
@@ -78,7 +63,7 @@ public class TeacherWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/LoginWindow.fxml"));
             Parent root = (Parent) loader.load();
-            Stage stage = (Stage) nameLbl.getScene().getWindow();
+            Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
@@ -93,7 +78,7 @@ public class TeacherWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/AttendanceWindow.fxml"));
             Parent root = (Parent) loader.load();
-            Stage stage = (Stage) nameLbl.getScene().getWindow();
+            Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
@@ -103,27 +88,10 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
-    private void setCellValueFactories()
-    {
-        nameTeacher = new JFXTreeTableColumn<>("Name");
-        nameTeacher.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>()
-        {
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Student, String> param)
-            {
-                return new SimpleStringProperty(param.getValue().getValue().getName());         
-            }
-        });
-        
-        absenceTeacher = new JFXTreeTableColumn<>(" % of Absence");
-        absenceTeacher.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>()
-        {
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Student, String> param)
-            {
-                return new SimpleStringProperty(Float.toString(param.getValue().getValue().getAbsencePercentage()));
-            }
-        });
+    private void setCellValueFactories() {
+        classCol.setCellValueFactory(new PropertyValueFactory("className"));
+        studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
+        studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("absencePercentage"));
     }
 
 }

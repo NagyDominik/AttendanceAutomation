@@ -1,6 +1,7 @@
 package attendanceautomation.DAL;
 
 import attendanceautomation.BE.ClassData;
+import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import java.time.LocalDate;
@@ -85,17 +86,17 @@ public class DALManager {
      * @return A string representing the user type - "Teacher" for teachers,
      * "Student" for students or "None" if there is no match for the email.
      */
-    public String attemptLogin(String email, String password) {
+    public Person attemptLogin(String email, String password) {
         for (Teacher loginTeacher : mockTeacher) {
             if (loginTeacher.getEmail().equals(email) && password.equals("fb78c1fafdde8c85ea83a9f0d05162")) {
-                return "Teacher";
+                return loginTeacher;
             }
         }
         for (Student loginStudent : mockStudent) {
             if (loginStudent.getEmail().equals(email) && password.equals("6cf1f51227f1cc65e399efb35332499c")) {
-                return "Student";
+                return loginStudent;
             }            
         }
-        return "None";
+        return null;
     }
 }

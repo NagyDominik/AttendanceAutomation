@@ -5,9 +5,13 @@
  */
 package attendanceautomation.GUI.Controller;
 
-import com.jfoenix.controls.JFXTreeTableView;
+import attendanceautomation.BE.ClassData;
+import attendanceautomation.BE.Student;
+import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -37,13 +41,13 @@ public class StudentWindowController implements Initializable {
     @FXML
     private TableView<?> historyTV;
     @FXML
-    private TableColumn<?, ?> teacherClass;
+    private TableColumn<ClassData, String> studentClassCol;
     @FXML
-    private TableColumn<?, ?> teacherDate;
+    private TableColumn<Student, String> studentDateCol;
     @FXML
-    private TableColumn<?, ?> teacherStatus;
-
-   
+    private TableColumn<Student, String> studentStatusCol;
+    
+    private Model model = Model.getInstance();
 
     /**
      * Initializes the controller class.
@@ -53,7 +57,7 @@ public class StudentWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        setCellValueFactories();
     }
 
     @FXML
@@ -91,6 +95,12 @@ public class StudentWindowController implements Initializable {
         catch (IOException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void setCellValueFactories() {
+        studentClassCol.setCellValueFactory(new PropertyValueFactory("className"));
+        studentDateCol.setCellValueFactory(new PropertyValueFactory(""));
+        studentStatusCol.setCellValueFactory(new PropertyValueFactory(""));
     }
 
 }
