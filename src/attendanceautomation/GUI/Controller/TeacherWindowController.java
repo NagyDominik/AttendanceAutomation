@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.GUI.Controller;
-
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
@@ -13,6 +7,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +53,7 @@ public class TeacherWindowController implements Initializable {
         studentsTV.setItems(model.getStudent());
         classTV.setItems(model.getClassData());
         setCellValueFactories();
+        ObservableList students = FXCollections.observableArrayList(model.getStudent());
     }
 
     @FXML
@@ -94,7 +91,8 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
-    private void setCellValueFactories() {
+    private void setCellValueFactories()
+    {
         classCol.setCellValueFactory(new PropertyValueFactory("className"));
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
         studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("absencePercentage"));
@@ -104,5 +102,4 @@ public class TeacherWindowController implements Initializable {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
-    
 }
