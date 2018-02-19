@@ -69,6 +69,4 @@ public class Model implements Initializable {
     public Student getSelectedStudent() {
         return this.selectedStudent;
     }
-
-    
 }

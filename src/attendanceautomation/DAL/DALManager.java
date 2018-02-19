@@ -39,12 +39,12 @@ public class DALManager {
         mockTeacher.add(new Teacher("teacher1@easv.dk", "fasz leves"));
         
         mockStudent = new ArrayList();
-        mockStudent.add(new Student(LocalDate.now(), "student@easv.dk", "Thomas White"));
-        mockStudent.add(new Student(LocalDate.now(), "student1@easv.dk", "Jesper Boo"));
-        mockStudent.add(new Student(LocalDate.now(), "student2@easv.dk", "Peter Sebok"));
-        mockStudent.add(new Student(LocalDate.now(), "student3@easv.dk", "Dominik Nagy"));
-        mockStudent.add(new Student(LocalDate.now(), "student4@easv.dk", "Józska Pista"));
-        mockStudent.add(new Student(LocalDate.now(), "student@easv.dk", "Bence Matyasi"));
+        mockStudent.add(new Student("student@easv.dk", "Thomas White"));
+        mockStudent.add(new Student("student1@easv.dk", "Jesper Boo"));
+        mockStudent.add(new Student("student2@easv.dk", "Peter Sebok"));
+        mockStudent.add(new Student("student3@easv.dk", "Dominik Nagy"));
+        mockStudent.add(new Student("student4@easv.dk", "Józska Pista"));
+        mockStudent.add(new Student("student@easv.dk", "Bence Matyasi"));
         
         mockClassData.get(0).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().addAll(mockStudent);

@@ -1,9 +1,8 @@
 package attendanceautomation.BE;
 
-import java.time.LocalDate;
-import javafx.beans.property.MapProperty;
-import javafx.beans.property.SimpleMapProperty;
-import javafx.collections.ObservableMap;
+import java.util.Calendar;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Represents a student
@@ -13,33 +12,20 @@ import javafx.collections.ObservableMap;
 public class Student extends Person{
 
     private int id;
-    private LocalDate currentDate;
     private String email;
     private String name;
     //private final FloatProperty absencePercentage = new SimpleFloatProperty();
     private float absencePercentage;
-    private final MapProperty<LocalDate, Boolean> history = new SimpleMapProperty<>();
+    private ObservableList<AbsenceStatus> absence = FXCollections.observableArrayList();
     
-    public Student(LocalDate currentDate, String email, String name) {
-        this.currentDate = currentDate;
+    public Student(String email, String name) {
         this.email = email;
         this.name = name;
         this.absencePercentage = 99.9f;
         //this.absencePercentage.set(99.9f);
+        setAbsenceMockData();
     }
-    
-    private ObservableMap getHistory() {
-        return history.get();
-    }
-
-    private void setHistory(ObservableMap value) {
-        history.set(value);
-    }
-
-    private MapProperty historyProperty() {
-        return history;
-    }    
-
+  
    /* private float getAbsencePercentage() {
         return absencePercentage.get();
     }
@@ -59,5 +45,18 @@ public class Student extends Person{
     public String getName()
     {
         return this.name;
+    }
+
+    private void setAbsenceMockData()
+    {
+        Calendar date = Calendar.getInstance();
+        this.absence.add(new AbsenceStatus("CS2017_B", date, Boolean.TRUE));
+        date.add(Calendar.HOUR, -24);
+        this.absence.add(new AbsenceStatus("CS2017_B", date, Boolean.FALSE));
+    }
+
+    public ObservableList<AbsenceStatus> getAbsenceInfo()
+    {
+        return absence;
     }
  }

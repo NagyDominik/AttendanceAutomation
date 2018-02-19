@@ -5,6 +5,7 @@
  */
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.AbsenceStatus;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -37,13 +38,13 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private Label studentNameLbl;
     @FXML
-    private TableView<?> historyTV;
+    private TableView<AbsenceStatus> historyTV;
     @FXML
-    private TableColumn<?, ?> teacherClassCol;
+    private TableColumn<AbsenceStatus, String> teacherClassCol;
     @FXML
-    private TableColumn<?, ?> teacherDateCol;
+    private TableColumn<AbsenceStatus, String> teacherDateCol;
     @FXML
-    private TableColumn<?, ?> teacherStatusCol;
+    private TableColumn<AbsenceStatus, String> teacherStatusCol;
     
     private Model model = Model.getInstance();
 
@@ -54,6 +55,8 @@ public class AttendanceWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentNameLbl.setText(model.getSelectedStudent().getName());
+        setUpCellValueFactories();
+        historyTV.setItems(model.getSelectedStudent().getAbsenceInfo());
     }
 
     @FXML
@@ -94,9 +97,11 @@ public class AttendanceWindowController implements Initializable {
     private void absentClicked(ActionEvent event) {
     }
 
-    private void setCellValueFactories() {
+
+    private void setUpCellValueFactories()
+    {
         teacherClassCol.setCellValueFactory(new PropertyValueFactory("className"));
-        teacherDateCol.setCellValueFactory(new PropertyValueFactory(""));
-        teacherStatusCol.setCellValueFactory(new PropertyValueFactory(""));
+        teacherDateCol.setCellValueFactory(new PropertyValueFactory("date"));
+        teacherStatusCol.setCellValueFactory(new PropertyValueFactory("absent"));
     }
 }
