@@ -11,12 +11,11 @@ import javafx.collections.ObservableList;
 public class ClassData {
 
     private int id;
-    private ObservableList<Student> participants;
+    private ObservableList<Student> participants = FXCollections.observableArrayList();
     private String className;
 
     public ClassData(String className) {
         this.className = className;
-        participants = FXCollections.observableArrayList();
     }
 
     public ObservableList<Student> getParticipants() {

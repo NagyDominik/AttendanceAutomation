@@ -5,12 +5,17 @@
  */
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.ClassData;
+import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +25,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -37,14 +44,14 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private Label studentNameLbl;
     @FXML
-    private TableView<?> historyTV;
+    private TableView<Object> historyTV;
     @FXML
-    private TableColumn<?, ?> teacherClassCol;
+    private TableColumn<ClassData, String> teacherClassCol;
     @FXML
-    private TableColumn<?, ?> teacherDateCol;
+    private TableColumn<Student, String> teacherDateCol;
     @FXML
-    private TableColumn<?, ?> teacherStatusCol;
-    
+    private TableColumn<Student, String> teacherStatusCol;
+
     private Model model = Model.getInstance();
 
     /**
@@ -54,6 +61,7 @@ public class AttendanceWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentNameLbl.setText(model.getSelectedStudent().getName());
+        setCellValueFactories();
     }
 
     @FXML
@@ -96,7 +104,7 @@ public class AttendanceWindowController implements Initializable {
 
     private void setCellValueFactories() {
         teacherClassCol.setCellValueFactory(new PropertyValueFactory("className"));
-        teacherDateCol.setCellValueFactory(new PropertyValueFactory(""));
-        teacherStatusCol.setCellValueFactory(new PropertyValueFactory(""));
+        teacherDateCol.setCellValueFactory(new MapValueFactory("history"));
+        teacherStatusCol.setCellValueFactory(new PropertyValueFactory("history"));
     }
 }

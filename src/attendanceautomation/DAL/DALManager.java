@@ -45,6 +45,9 @@ public class DALManager {
         mockStudent.add(new Student(LocalDate.now(), "student3@easv.dk", "Dominik Nagy"));
         mockStudent.add(new Student(LocalDate.now(), "student4@easv.dk", "Józska Pista"));
         mockStudent.add(new Student(LocalDate.now(), "student5@easv.dk", "Bence Matyasi"));
+        Student alf = new Student(LocalDate.now(), "student5@easv.dk", "Bence Matyasi");
+        alf.addHistory();
+        mockStudent.add(alf);
         
         mockClassData.get(0).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().addAll(mockStudent);

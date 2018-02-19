@@ -1,4 +1,5 @@
 package attendanceautomation.GUI.Controller;
+
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
@@ -9,8 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -93,8 +92,7 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
-    private void setCellValueFactories()
-    {
+    private void setCellValueFactories() {
         classCol.setCellValueFactory(new PropertyValueFactory("className"));
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
         studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("absencePercentage"));
@@ -104,7 +102,7 @@ public class TeacherWindowController implements Initializable {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
-    
+
     private void addListenersAndHandlers() {
         classTV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
