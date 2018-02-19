@@ -1,4 +1,5 @@
 package attendanceautomation.GUI.Controller;
+
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
@@ -7,8 +8,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +54,7 @@ public class TeacherWindowController implements Initializable {
         studentsTV.setItems(model.getStudent());
         classTV.setItems(model.getClassData());
         setCellValueFactories();
-        ObservableList students = FXCollections.observableArrayList(model.getStudent());
+        addListenersAndHandlers();
     }
 
     @FXML
@@ -91,8 +92,7 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
-    private void setCellValueFactories()
-    {
+    private void setCellValueFactories() {
         classCol.setCellValueFactory(new PropertyValueFactory("className"));
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
         studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("absencePercentage"));
@@ -101,5 +101,15 @@ public class TeacherWindowController implements Initializable {
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
+    }
+
+    private void addListenersAndHandlers() {
+        classTV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                studentsTV.setItems(classTV.getSelectionModel().getSelectedItem().getParticipants());
+            }
+        }
+        );
     }
 }

@@ -1,15 +1,15 @@
 package attendanceautomation.BE;
 
 import java.util.Calendar;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 /**
  * Represents a student
  *
  * @author sebok
  */
-public class Student extends Person{
+public class Student extends Person {
 
     private int id;
     private String email;
@@ -22,31 +22,24 @@ public class Student extends Person{
         this.email = email;
         this.name = name;
         this.absencePercentage = 99.9f;
-        //this.absencePercentage.set(99.9f);
         setAbsenceMockData();
     }
-  
-   /* private float getAbsencePercentage() {
-        return absencePercentage.get();
-    }
 
-    private void setAbsencePercentage(float value) {
-        absencePercentage.set(value);
-    }
-
-    private FloatProperty absencePercentageProperty() {
+    public float getAbsencePercentage()
+    {
         return absencePercentage;
-    }    
-*/
-    public String getEmail() {
+    }
+
+    public String getEmail()
+    {
         return email;
     }
-    
+
     public String getName()
     {
-        return this.name;
+        return name;
     }
-
+    
     private void setAbsenceMockData()
     {
         Calendar date = Calendar.getInstance();
@@ -60,3 +53,4 @@ public class Student extends Person{
         return absence;
     }
  }
+

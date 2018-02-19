@@ -1,17 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AbsenceStatus;
+import attendanceautomation.BE.ClassData;
+import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +21,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -45,7 +47,7 @@ public class AttendanceWindowController implements Initializable {
     private TableColumn<AbsenceStatus, String> teacherDateCol;
     @FXML
     private TableColumn<AbsenceStatus, String> teacherStatusCol;
-    
+
     private Model model = Model.getInstance();
 
     /**
@@ -103,5 +105,6 @@ public class AttendanceWindowController implements Initializable {
         teacherClassCol.setCellValueFactory(new PropertyValueFactory("className"));
         teacherDateCol.setCellValueFactory(new PropertyValueFactory("date"));
         teacherStatusCol.setCellValueFactory(new PropertyValueFactory("absent"));
+
     }
 }
