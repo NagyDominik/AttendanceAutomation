@@ -5,7 +5,7 @@
  */
 package attendanceautomation.GUI.Controller;
 
-import attendanceautomation.BE.ClassData;
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
@@ -37,14 +37,14 @@ public class StudentWindowController implements Initializable {
     @FXML
     private Label percentageLbl;
     @FXML
-    private TableView<?> historyTV;
+    private TableView<AttendanceStatus> historyTV;
     @FXML
-    private TableColumn<ClassData, String> studentClassCol;
+    private TableColumn<AttendanceStatus, String> studentClassCol;
     @FXML
-    private TableColumn<Student, String> studentDateCol;
+    private TableColumn<AttendanceStatus, String> studentDateCol;
     @FXML
-    private TableColumn<Student, String> studentStatusCol;
-    
+    private TableColumn<AttendanceStatus, String> studentStatusCol;
+
     private Model model = Model.getInstance();
 
     /**
@@ -57,6 +57,9 @@ public class StudentWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nameLbl.setText(model.getCurrentUser().getName());
         setCellValueFactories();
+        Student user = (Student) model.getCurrentUser();
+        historyTV.setItems(user.getAttendanceInfo());
+        percentageLbl.setText(percentageLbl.getText() + user.getPresencePercentage() + " %");
     }
 
     @FXML
@@ -76,30 +79,27 @@ public class StudentWindowController implements Initializable {
 
     @FXML
     private void presentClicked(ActionEvent event) {
+        setAttendanceStatus(true);
     }
 
     @FXML
     private void absentClicked(ActionEvent event) {
-    }
-
-    private void backClicked(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
-            Parent root = (Parent) loader.load();
-            Stage stage = (Stage) nameLbl.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.show();
-        }
-        catch (IOException ex) {
-            Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        setAttendanceStatus(false);
     }
 
     private void setCellValueFactories() {
         studentClassCol.setCellValueFactory(new PropertyValueFactory("className"));
-        studentDateCol.setCellValueFactory(new PropertyValueFactory(""));
-        studentStatusCol.setCellValueFactory(new PropertyValueFactory(""));
+        studentDateCol.setCellValueFactory(new PropertyValueFactory("date"));
+        studentStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
+    }
+
+    private void setAttendanceStatus(Boolean status) {
+        AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
+        if (!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
+            selStat.setStatus(status);
+        } else {
+            Model.newAlert(new Exception("Your teacher set your status. Please contact him to modify it!"));
+        }
     }
 
 }

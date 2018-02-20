@@ -28,7 +28,7 @@
             <Font size="14.0" />
          </font>
         </JFXButton>
-        <Label fx:id="percentageLbl" layoutX="51.0" layoutY="104.0" text="Total percentage of absence :" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="115.0">
+        <Label fx:id="percentageLbl" layoutX="40.0" layoutY="115.0" text="Total percentage of participation : " textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="115.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>

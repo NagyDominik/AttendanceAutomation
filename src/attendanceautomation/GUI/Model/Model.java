@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class Model implements Initializable {
 
@@ -29,6 +31,11 @@ public class Model implements Initializable {
         return instance;
     }
 
+    public static void newAlert(Exception ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
+        a.show();
+    }
+    
     public Person authenticate(String email, String password) {
         Person user = bllManager.attemptLogin(email, password);
         if (user instanceof Teacher) {
@@ -69,4 +76,5 @@ public class Model implements Initializable {
     public Student getSelectedStudent() {
         return this.selectedStudent;
     }
+    
 }

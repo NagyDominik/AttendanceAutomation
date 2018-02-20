@@ -1,6 +1,8 @@
 package attendanceautomation.BE;
 
 import java.util.Calendar;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
@@ -14,43 +16,54 @@ public class Student extends Person {
     private int id;
     private String email;
     private String name;
-    //private final FloatProperty absencePercentage = new SimpleFloatProperty();
-    private float absencePercentage;
-    private ObservableList<AbsenceStatus> absence = FXCollections.observableArrayList();
-    
+    private final FloatProperty presencePercentage = new SimpleFloatProperty();
+    private ObservableList<AttendanceStatus> attendance = FXCollections.observableArrayList();
+
     public Student(String email, String name) {
         this.email = email;
         this.name = name;
-        this.absencePercentage = 99.9f;
-        setAbsenceMockData();
+        setAttendanceeMockData();
+        calculateAttPer();
     }
 
-    public float getAbsencePercentage()
-    {
-        return absencePercentage;
+    public float getPresencePercentage() {
+        return presencePercentage.get();
     }
 
-    public String getEmail()
-    {
+    public void setPresencePercentage(float value) {
+        presencePercentage.set(value);
+    }
+
+    public FloatProperty presencePercentageProperty() {
+        return presencePercentage;
+    }
+
+    public String getEmail() {
         return email;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
-    
-    private void setAbsenceMockData()
-    {
+
+    private void setAttendanceeMockData() {
         Calendar date = Calendar.getInstance();
-        this.absence.add(new AbsenceStatus("CS2017_B", date, Boolean.TRUE));
+        this.attendance.add(new AttendanceStatus("CS2017_B", date, Boolean.TRUE));
         date.add(Calendar.HOUR, -24);
-        this.absence.add(new AbsenceStatus("CS2017_B", date, Boolean.FALSE));
+        this.attendance.add(new AttendanceStatus("CS2017_B", date, Boolean.FALSE));
     }
 
-    public ObservableList<AbsenceStatus> getAbsenceInfo()
-    {
-        return absence;
+    public ObservableList<AttendanceStatus> getAttendanceInfo() {
+        return attendance;
     }
- }
-
+    
+    private void calculateAttPer() {
+        int presCount = 0;
+        for (AttendanceStatus attendanceStatus : attendance) {
+            if (attendanceStatus.getStatus().equals("Present")) {
+                presCount++;
+            }
+        }
+        presencePercentage.set((float)presCount / attendance.size() * 100);
+    }
+}

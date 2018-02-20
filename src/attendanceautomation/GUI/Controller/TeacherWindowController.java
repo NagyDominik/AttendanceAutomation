@@ -1,5 +1,6 @@
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
@@ -95,12 +96,7 @@ public class TeacherWindowController implements Initializable {
     private void setCellValueFactories() {
         classCol.setCellValueFactory(new PropertyValueFactory("className"));
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
-        studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("absencePercentage"));
-    }
-
-    private void newAlert(Exception ex) {
-        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
-        a.show();
+        studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("presencePercentage"));
     }
 
     private void addListenersAndHandlers() {

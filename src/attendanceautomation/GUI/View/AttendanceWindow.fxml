@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.AttendanceWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.AttendanceWindowController">
    <children>
       <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
       <Label fx:id="teacherNameLbl" layoutX="361.0" layoutY="40.0" text="Name of Teacher" textFill="WHITE" AnchorPane.rightAnchor="136.0" AnchorPane.topAnchor="43.0">
@@ -29,7 +29,7 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <Label fx:id="percentageLbl" layoutX="363.0" layoutY="115.0" text="Total percentage of absence :" textFill="WHITE" AnchorPane.leftAnchor="363.0" AnchorPane.topAnchor="115.0">
+      <Label fx:id="percentageLbl" layoutX="287.0" layoutY="115.0" prefHeight="19.0" prefWidth="256.0" text="Total percentage of participation : " textFill="WHITE" AnchorPane.leftAnchor="287.0" AnchorPane.topAnchor="115.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -49,9 +49,9 @@
             <Image url="@../../../img/easvlogo.png" />
          </image>
       </ImageView>
-      <Label fx:id="studentNameLbl" layoutX="40.0" layoutY="115.0" text="Name of student" textFill="WHITE">
+      <Label fx:id="studentNameLbl" layoutX="35.0" layoutY="115.0" text="Name of student" textFill="WHITE">
          <font>
-            <Font size="13.0" />
+            <Font name="System Bold" size="13.0" />
          </font>
       </Label>
       <JFXButton layoutX="594.0" layoutY="405.0" onAction="#backClicked" style="-fx-background-color: #A1A1A1;" text="Back">

@@ -1,17 +1,12 @@
 package attendanceautomation.GUI.Controller;
 
-import attendanceautomation.BE.AbsenceStatus;
-import attendanceautomation.BE.ClassData;
-import attendanceautomation.BE.Student;
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -40,13 +33,13 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private Label studentNameLbl;
     @FXML
-    private TableView<AbsenceStatus> historyTV;
+    private TableView<AttendanceStatus> historyTV;
     @FXML
-    private TableColumn<AbsenceStatus, String> teacherClassCol;
+    private TableColumn<AttendanceStatus, String> teacherClassCol;
     @FXML
-    private TableColumn<AbsenceStatus, String> teacherDateCol;
+    private TableColumn<AttendanceStatus, String> teacherDateCol;
     @FXML
-    private TableColumn<AbsenceStatus, String> teacherStatusCol;
+    private TableColumn<AttendanceStatus, String> teacherStatusCol;
 
     private Model model = Model.getInstance();
 
@@ -58,7 +51,8 @@ public class AttendanceWindowController implements Initializable {
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentNameLbl.setText(model.getSelectedStudent().getName());
         setUpCellValueFactories();
-        historyTV.setItems(model.getSelectedStudent().getAbsenceInfo());
+        historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
+        percentageLbl.setText(percentageLbl.getText() + model.getSelectedStudent().getPresencePercentage() + " %");
     }
 
     @FXML
@@ -93,18 +87,23 @@ public class AttendanceWindowController implements Initializable {
 
     @FXML
     private void presentClicked(ActionEvent event) {
+        setAttendanceStatus(true);
     }
 
     @FXML
     private void absentClicked(ActionEvent event) {
+        setAttendanceStatus(false);
     }
 
-
-    private void setUpCellValueFactories()
-    {
+    private void setUpCellValueFactories() {
         teacherClassCol.setCellValueFactory(new PropertyValueFactory("className"));
         teacherDateCol.setCellValueFactory(new PropertyValueFactory("date"));
-        teacherStatusCol.setCellValueFactory(new PropertyValueFactory("absent"));
-
+        teacherStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
+    }
+    
+    private void setAttendanceStatus(Boolean status) {
+        AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
+        selStat.setStatus(status);
+        selStat.setTeacherSet(true);
     }
 }
