@@ -57,7 +57,7 @@ public class Student extends Person {
         return attendance;
     }
     
-    private void calculateAttPer() {
+    public void calculateAttPer() {
         int presCount = 0;
         for (AttendanceStatus attendanceStatus : attendance) {
             if (attendanceStatus.getStatus().equals("Present")) {

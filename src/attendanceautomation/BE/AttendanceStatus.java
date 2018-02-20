@@ -64,5 +64,10 @@ public class AttendanceStatus {
     public String getStatus() {
         return status.getValue() ? "Present" : "Absent";
     }
+    
+    public Boolean getStatusAsBoolean()
+    {
+        return status.getValue();
+    }
 
 }

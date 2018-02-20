@@ -1,6 +1,5 @@
 package attendanceautomation.GUI.Controller;
 
-import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
@@ -17,8 +16,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -53,6 +50,7 @@ public class TeacherWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentsTV.setItems(model.getStudent());
+        calculateAttendance();
         classTV.setItems(model.getClassData());
         setCellValueFactories();
         addListenersAndHandlers();
@@ -107,5 +105,13 @@ public class TeacherWindowController implements Initializable {
             }
         }
         );
+    }
+
+    private void calculateAttendance()
+    {
+        for (Student s : model.getStudent())
+        {
+            s.calculateAttPer();
+        }
     }
 }

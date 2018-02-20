@@ -29,7 +29,7 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <Label fx:id="percentageLbl" layoutX="287.0" layoutY="115.0" prefHeight="19.0" prefWidth="256.0" text="Total percentage of participation : " textFill="WHITE" AnchorPane.leftAnchor="287.0" AnchorPane.topAnchor="115.0">
+      <Label layoutX="287.0" layoutY="115.0" prefHeight="19.0" prefWidth="213.0" text="Total percentage of participation : " textFill="WHITE" AnchorPane.leftAnchor="287.0" AnchorPane.topAnchor="115.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -76,5 +76,10 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Label fx:id="percentageLbl" layoutX="500.0" layoutY="114.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

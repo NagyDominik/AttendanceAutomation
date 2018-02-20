@@ -52,7 +52,7 @@ public class AttendanceWindowController implements Initializable {
         studentNameLbl.setText(model.getSelectedStudent().getName());
         setUpCellValueFactories();
         historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
-        percentageLbl.setText(percentageLbl.getText() + model.getSelectedStudent().getPresencePercentage() + " %");
+        percentageLbl.setText(model.getSelectedStudent().getPresencePercentage() + " %");
     }
 
     @FXML
@@ -88,11 +88,15 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private void presentClicked(ActionEvent event) {
         setAttendanceStatus(true);
+        percentageLbl.setText(Float.toString(caluclatePercentage()) + " %");
+        historyTV.refresh();
     }
 
     @FXML
     private void absentClicked(ActionEvent event) {
         setAttendanceStatus(false);
+        percentageLbl.setText(Float.toString(caluclatePercentage()) + " %");
+        historyTV.refresh();
     }
 
     private void setUpCellValueFactories() {
@@ -105,5 +109,19 @@ public class AttendanceWindowController implements Initializable {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
         selStat.setStatus(status);
         selStat.setTeacherSet(true);
+    }
+    
+    private float caluclatePercentage()
+    {
+        int count = 0;
+        for (AttendanceStatus as : historyTV.getItems())
+        {
+            if (as.getStatusAsBoolean())
+            {
+                count++;
+            }
+        }
+        
+        return count/(float)historyTV.getItems().size() * 100;
     }
 }
