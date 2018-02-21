@@ -107,11 +107,10 @@ public class TeacherWindowController implements Initializable {
         );
     }
 
-    private void calculateAttendance()
-    {
-        for (Student s : model.getStudent())
-        {
-            s.calculateAttPer();
+    private void calculateAttendance() {
+        for (Student s : model.getStudent()) {
+            s.getPresencePercentage();
         }
     }
+    
 }

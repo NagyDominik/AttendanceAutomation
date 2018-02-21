@@ -27,6 +27,7 @@ public class Student extends Person {
     }
 
     public float getPresencePercentage() {
+        this.calculateAttPer();
         return presencePercentage.get();
     }
 
@@ -56,14 +57,15 @@ public class Student extends Person {
     public ObservableList<AttendanceStatus> getAttendanceInfo() {
         return attendance;
     }
-    
-    public void calculateAttPer() {
+
+    private void calculateAttPer() {
         int presCount = 0;
         for (AttendanceStatus attendanceStatus : attendance) {
             if (attendanceStatus.getStatus().equals("Present")) {
                 presCount++;
             }
         }
-        presencePercentage.set((float)presCount / attendance.size() * 100);
+        presencePercentage.set((float) presCount / attendance.size() * 100);
     }
+    
 }

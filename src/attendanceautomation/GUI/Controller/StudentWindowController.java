@@ -59,7 +59,7 @@ public class StudentWindowController implements Initializable {
         setCellValueFactories();
         Student user = (Student) model.getCurrentUser();
         historyTV.setItems(user.getAttendanceInfo());
-        percentageLbl.setText(percentageLbl.getText() + user.getPresencePercentage() + " %");
+        percentageLbl.setText("Total percentage of participation: " + user.getPresencePercentage() + " %");
     }
 
     @FXML
@@ -97,6 +97,9 @@ public class StudentWindowController implements Initializable {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
         if (!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
             selStat.setStatus(status);
+            Student user = (Student) model.getCurrentUser();
+            percentageLbl.setText("Total percentage of participation: " + user.getPresencePercentage() + " %");
+            historyTV.refresh();
         } else {
             Model.newAlert(new Exception("Your teacher set your status. Please contact him to modify it!"));
         }

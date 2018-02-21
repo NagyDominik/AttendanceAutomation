@@ -52,7 +52,7 @@ public class AttendanceWindowController implements Initializable {
         studentNameLbl.setText(model.getSelectedStudent().getName());
         setUpCellValueFactories();
         historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
-        percentageLbl.setText(model.getSelectedStudent().getPresencePercentage() + " %");
+        percentageLbl.setText("Total percentage of participation: " + model.getSelectedStudent().getPresencePercentage() + " %");
     }
 
     @FXML
@@ -88,15 +88,11 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private void presentClicked(ActionEvent event) {
         setAttendanceStatus(true);
-        percentageLbl.setText(Float.toString(caluclatePercentage()) + " %");
-        historyTV.refresh();
     }
 
     @FXML
     private void absentClicked(ActionEvent event) {
         setAttendanceStatus(false);
-        percentageLbl.setText(Float.toString(caluclatePercentage()) + " %");
-        historyTV.refresh();
     }
 
     private void setUpCellValueFactories() {
@@ -104,24 +100,13 @@ public class AttendanceWindowController implements Initializable {
         teacherDateCol.setCellValueFactory(new PropertyValueFactory("date"));
         teacherStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }
-    
+
     private void setAttendanceStatus(Boolean status) {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
         selStat.setStatus(status);
         selStat.setTeacherSet(true);
+        percentageLbl.setText("Total percentage of participation: " + Float.toString(model.getSelectedStudent().getPresencePercentage()) + " %");
+        historyTV.refresh();
     }
-    
-    private float caluclatePercentage()
-    {
-        int count = 0;
-        for (AttendanceStatus as : historyTV.getItems())
-        {
-            if (as.getStatusAsBoolean())
-            {
-                count++;
-            }
-        }
-        
-        return count/(float)historyTV.getItems().size() * 100;
-    }
+
 }
