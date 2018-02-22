@@ -47,11 +47,16 @@ public class Student extends Person {
         return name;
     }
 
+    /**
+     * Create mock attendance data for the student
+     */
     private void setAttendanceeMockData() {
         Calendar date = Calendar.getInstance();
         this.attendance.add(new AttendanceStatus("CS2017_B", date, Boolean.TRUE));
         date.add(Calendar.HOUR, -24);
         this.attendance.add(new AttendanceStatus("CS2017_B", date, Boolean.FALSE));
+        date.add(Calendar.HOUR, -24);
+        this.attendance.add(new AttendanceStatus("CS2017_B", date, Boolean.TRUE));
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {

@@ -17,7 +17,7 @@ public class ConnectionManager {
      * Creates a new ConnectionManager, and set the values
      */
     public ConnectionManager() {
-        source.setDatabaseName("CS2017B_24_PrivateMovieCollection");
+        source.setDatabaseName("");
         source.setUser("CS2017B_24_java");
         source.setPassword("javajava");
         source.setPortNumber(1433);
