@@ -4,7 +4,6 @@ import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +35,14 @@ public class DALManager {
         
         mockTeacher = new ArrayList();
         mockTeacher.add(new Teacher("teacher@easv.dk", "Jeppe Moritz"));
-        mockTeacher.add(new Teacher("teacher1@easv.dk", "fasz leves"));
+        mockTeacher.add(new Teacher("teacher1@easv.dk", "Lars Jorgensen"));
         
         mockStudent = new ArrayList();
         mockStudent.add(new Student("student@easv.dk", "Thomas White"));
         mockStudent.add(new Student("student1@easv.dk", "Jesper Boo"));
         mockStudent.add(new Student("student2@easv.dk", "Peter Sebok"));
         mockStudent.add(new Student("student3@easv.dk", "Dominik Nagy"));
-        mockStudent.add(new Student("student4@easv.dk", "Józska Pista"));
+        mockStudent.add(new Student("student4@easv.dk", "Daniel McAdams"));
         mockStudent.add(new Student("student5@easv.dk", "Bence Matyasi"));
         
         mockClassData.get(0).getParticipants().addAll(mockStudent);
