@@ -48,7 +48,7 @@ public class DALManager {
         
         mockClassData.get(0).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().addAll(mockStudent);
-       // mockClassData.get(1).getParticipants().remove(2);
+        mockClassData.get(1).getParticipants().remove(2);
     }
 
     /**
