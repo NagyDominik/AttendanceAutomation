@@ -49,7 +49,7 @@ public class LoginController implements Initializable {
             } else {
                 newAlert(new Exception("Invalid email or password"));
             }
-            
+
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -61,7 +61,7 @@ public class LoginController implements Initializable {
             newAlert(ex);
         }
     }
-    
+
     @FXML
     private void helpClicked(ActionEvent event) {
         Alert help = new Alert(Alert.AlertType.CONFIRMATION, "Email - Your school email address, provided by the school.\n"
@@ -89,5 +89,5 @@ public class LoginController implements Initializable {
             }
         });
     }
-    
+
 }

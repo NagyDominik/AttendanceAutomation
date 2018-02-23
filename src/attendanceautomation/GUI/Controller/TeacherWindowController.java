@@ -112,5 +112,5 @@ public class TeacherWindowController implements Initializable {
             s.getPresencePercentage();
         }
     }
-    
+
 }
