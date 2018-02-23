@@ -4,7 +4,6 @@ import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  * @author sebok
  */
 public class DALManager {
-    
+
     private ConnectionManager cm;
 
     /**
@@ -24,20 +23,20 @@ public class DALManager {
     private List<ClassData> mockClassData;
     private List<Student> mockStudent;
     private List<Teacher> mockTeacher;
-    
+
     public DALManager() {
         setUpMockData();
     }
-    
+
     private void setUpMockData() {
         mockClassData = new ArrayList();
         mockClassData.add(new ClassData("CS2017A"));
         mockClassData.add(new ClassData("CS2017B"));
-        
+
         mockTeacher = new ArrayList();
         mockTeacher.add(new Teacher("teacher@easv.dk", "Jeppe Moritz"));
         mockTeacher.add(new Teacher("teacher1@easv.dk", "fasz leves"));
-        
+
         mockStudent = new ArrayList();
         mockStudent.add(new Student("student@easv.dk", "Thomas White"));
         mockStudent.add(new Student("student1@easv.dk", "Jesper Boo"));
@@ -45,10 +44,10 @@ public class DALManager {
         mockStudent.add(new Student("student3@easv.dk", "Dominik Nagy"));
         mockStudent.add(new Student("student4@easv.dk", "Józska Pista"));
         mockStudent.add(new Student("student5@easv.dk", "Bence Matyasi"));
-        
+
         mockClassData.get(0).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().addAll(mockStudent);
-       // mockClassData.get(1).getParticipants().remove(2);
+        mockClassData.get(1).getParticipants().remove(2);
     }
 
     /**
@@ -96,7 +95,7 @@ public class DALManager {
         for (Student loginStudent : mockStudent) {
             if (loginStudent.getEmail().equals(email) && password.equals("6cf1f51227f1cc65e399efb35332499c")) {
                 return loginStudent;
-            }            
+            }
         }
         return null;
     }

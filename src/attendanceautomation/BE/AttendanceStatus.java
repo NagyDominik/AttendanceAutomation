@@ -29,7 +29,7 @@ public class AttendanceStatus {
     private BooleanProperty statusProperty() {
         return status;
     }
-    
+
     private boolean teacherSet = Boolean.FALSE;
 
     public boolean isTeacherSet() {
@@ -39,7 +39,6 @@ public class AttendanceStatus {
     public void setTeacherSet(boolean teacherSet) {
         this.teacherSet = teacherSet;
     }
-
 
     public AttendanceStatus(String className, Calendar date, Boolean status) {
         this.className = className;
@@ -60,13 +59,12 @@ public class AttendanceStatus {
     public void setStatus(Boolean status) {
         this.status.set(status);
     }
-    
+
     public String getStatus() {
         return status.getValue() ? "Present" : "Absent";
     }
-    
-    public Boolean getStatusAsBoolean()
-    {
+
+    public Boolean getStatusAsBoolean() {
         return status.getValue();
     }
 

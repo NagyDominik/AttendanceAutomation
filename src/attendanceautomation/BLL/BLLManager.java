@@ -26,28 +26,26 @@ public class BLLManager {
      *
      * @return A class with the corresponding id.
      */
-
-    public List<ClassData> getClassData()
-    {
-        return dManager.getMockClassData();    
+    public List<ClassData> getClassData() {
+        return dManager.getMockClassData();
     }
+
     /**
      * Retrieve a teacher based on an id.
      *
      * @return A teacher with the corresponding id.
      */
-    public List<Teacher> getTeacher()
-    {
+    public List<Teacher> getTeacher() {
         return dManager.getMockTeacher();
     }
+
     /**
      * Retrieve a student based on an id.
      *
      * @return A student with the corresponding id.
      */
 
-    public List<Student> getStudent()
-    {
+    public List<Student> getStudent() {
         return dManager.getMockStudent();
     }
 

@@ -10,6 +10,7 @@ package attendanceautomation.BE;
  * @author Dominik
  */
 public abstract class Person {
+
     private String name;
 
     public String getName() {

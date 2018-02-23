@@ -35,7 +35,7 @@ public class Model implements Initializable {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
-    
+
     public Person authenticate(String email, String password) {
         Person user = bllManager.attemptLogin(email, password);
         if (user instanceof Teacher) {
@@ -76,5 +76,5 @@ public class Model implements Initializable {
     public Student getSelectedStudent() {
         return this.selectedStudent;
     }
-    
+
 }
