@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.GUI.Controller;
 
-import attendanceautomation.BE.Teacher;
+import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -32,10 +30,10 @@ public class StudentMessageFXMLController implements Initializable
     @FXML
     private JFXTextArea txtFieldMessage;
     @FXML
-    private JFXButton btnSendClicked;
-    @FXML
     private Label lblTeacher;
     private Model model = Model.getInstance();
+    @FXML
+    private JFXButton btnSend;
     
     /**
      * Initializes the controller class.
@@ -48,5 +46,11 @@ public class StudentMessageFXMLController implements Initializable
         
         lblTeacher.setText(model.getSelectedTeacher().getName());
     }    
+
+    @FXML
+    private void btnSendClicked(ActionEvent event)
+    {
+        StudentMessage msg = new StudentMessage(model.getSelectedTeacher(), model.getSelectedStudent(), Calendar.getInstance(), cmbBoxStatus.getValue(), txtFieldMessage.getText());
+    }
     
 }

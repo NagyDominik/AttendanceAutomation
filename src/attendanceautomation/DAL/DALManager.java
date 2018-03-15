@@ -45,7 +45,7 @@ public class DALManager {
         mockStudent.add(new Student("student3@easv.dk", "Dominik Nagy"));
         mockStudent.add(new Student("student4@easv.dk", "Daniel McAdams"));
         mockStudent.add(new Student("student5@easv.dk", "Bence Matyasi"));
-
+                
         mockClassData.get(0).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().remove(2);
@@ -100,4 +100,5 @@ public class DALManager {
         }
         return null;
     }
+
 }

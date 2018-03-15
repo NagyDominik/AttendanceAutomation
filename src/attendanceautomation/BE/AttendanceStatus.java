@@ -44,6 +44,7 @@ public class AttendanceStatus {
     public AttendanceStatus(ClassData data, Calendar date, Boolean status) {
         this.classData = data;
         this.date = date;
+        System.out.println(date.getTime());
         this.status.set(status);
     }
 
@@ -57,6 +58,11 @@ public class AttendanceStatus {
         return formatted;
     }
 
+    public Calendar getDateAsCalendar()
+    {
+        return this.date;
+    }
+    
     public void setStatus(Boolean status) {
         this.status.set(status);
     }

@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.Model.Model;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +44,8 @@ public class StudentWindowController implements Initializable {
     private TableColumn<AttendanceStatus, String> studentStatusCol;
 
     private Model model = Model.getInstance();
+    @FXML
+    private JFXButton btnRequestStatusChange;
 
     /**
      * Initializes the controller class.
@@ -58,6 +57,7 @@ public class StudentWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nameLbl.setText(model.getCurrentUser().getName());
         setCellValueFactories();
+        setEvents();
         Student user = (Student) model.getCurrentUser();
         historyTV.setItems(user.getAttendanceInfo());
         percentageLbl.setText("Total percentage of participation: " + user.getPresencePercentage() + " %");
@@ -129,6 +129,23 @@ public class StudentWindowController implements Initializable {
         catch (Exception ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void setEvents()
+    {
+        this.historyTV.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        if (newSelection != null) {
+            Calendar today = Calendar.getInstance();
+            if (newSelection.getDateAsCalendar().before(today))
+            {
+               btnRequestStatusChange.setDisable(false);
+            }
+            else
+            {
+                btnRequestStatusChange.setDisable(true);
+            }
+        }
+        });
     }
 
 }

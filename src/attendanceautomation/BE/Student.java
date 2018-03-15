@@ -52,14 +52,26 @@ public class Student extends Person {
      */
     private void setAttendanceeMockData() {
         Calendar date = Calendar.getInstance();
+       // System.out.println(date.getTime());
         this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher1@easv.dk", "Teacher 1")), date, Boolean.TRUE));
-        date.add(Calendar.HOUR, -24);
+        date.add(Calendar.DAY_OF_MONTH, -1);
+       // System.out.println(date.getTime());
         this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher1@easv.dk", "Teacher 1")), date, Boolean.FALSE));
-        date.add(Calendar.HOUR, -24);
+        date.add(Calendar.DAY_OF_MONTH, -1);
+       // System.out.println(date.getTime());
         this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher2@easv.dk", "Teacher 2")), date, Boolean.TRUE));
+        
+        for (AttendanceStatus attendanceStatus : attendance)
+        {
+            System.out.println("The current date is : " + attendanceStatus.getDateAsCalendar().getTime());
+        }
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {
+//        for (AttendanceStatus attendanceStatus : attendance)
+//        {
+//            System.out.println("The current date is : " + attendanceStatus.getDateAsCalendar().getTime());
+//        }
         return attendance;
     }
 

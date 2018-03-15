@@ -55,6 +55,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <JFXButton layoutX="552.0" layoutY="399.0" onAction="#btnStatusChangeRequestClicked" prefHeight="31.0" prefWidth="169.0" text="Request status change" />
+      <JFXButton fx:id="btnRequestStatusChange" layoutX="552.0" layoutY="399.0" onAction="#btnStatusChangeRequestClicked" prefHeight="31.0" prefWidth="169.0" text="Request status change" />
     </children>
 </AnchorPane>
