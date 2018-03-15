@@ -42,7 +42,7 @@ public class StudentMessageFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         LocalDate date = model.getSelectedAttendanceStatus().getDateAsLocalDate();
         dateLbl.setText(dateLbl.getText() + date);
-        lblTeacher.setText(model.getSelectedTeacher().getName());
+        lblTeacher.setText(lblTeacher.getText() + model.getSelectedTeacher().getName());
     }
 
     @FXML
