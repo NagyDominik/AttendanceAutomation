@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -48,5 +49,7 @@
          </columnResizePolicy>
       </TableView>
       <ChoiceBox fx:id="classChoiceBox" layoutX="35.0" layoutY="111.0" prefWidth="150.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="110.0" />
+      <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="303.0" layoutY="110.0" promptText="Start date" showWeekNumbers="true" />
+      <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="494.0" layoutY="110.0" promptText="End date" />
    </children>
 </AnchorPane>

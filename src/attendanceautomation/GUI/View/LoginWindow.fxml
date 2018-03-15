@@ -35,7 +35,7 @@
             </ImageView>
          </children>
       </Group>
-      <JFXButton buttonType="RAISED" layoutX="158.0" layoutY="321.0" onAction="#loginClicked" prefHeight="25.0" prefWidth="86.0" ripplerFill="#5c5c5c00" style="-fx-background-color: #FBBB2C;" text="Login" AnchorPane.bottomAnchor="45.0">
+      <JFXButton buttonType="RAISED" layoutX="158.0" layoutY="321.0" onAction="#loginClicked" prefHeight="25.0" prefWidth="90.0" ripplerFill="#5c5c5c00" style="-fx-background-color: #FBBB2C;" text="Login" AnchorPane.bottomAnchor="45.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

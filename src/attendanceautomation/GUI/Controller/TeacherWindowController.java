@@ -3,6 +3,7 @@ package attendanceautomation.GUI.Controller;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
+import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,6 +44,10 @@ public class TeacherWindowController implements Initializable {
     @FXML
     private ChoiceBox<ClassData> classChoiceBox;
     private Model model = Model.getInstance();
+    @FXML
+    private JFXDatePicker startdatePicker;
+    @FXML
+    private JFXDatePicker enddatePicker;
 
     /**
      * Initializes the controller class.

@@ -5,7 +5,6 @@ import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +18,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -28,42 +26,38 @@ import javafx.stage.Stage;
  *
  * @author sebok
  */
-public class StudentMessageFXMLController implements Initializable
-{
+public class StudentMessageFXMLController implements Initializable {
 
-    @FXML
-    private JFXDatePicker datePicker;
-    @FXML
-    private ComboBox<String> cmbBoxStatus;
     @FXML
     private JFXTextArea txtFieldMessage;
     @FXML
     private Label lblTeacher;
-    private Model model = Model.getInstance();
     @FXML
     private JFXButton btnSend;
-    
+    @FXML
+    private Label teacherLbl;
+    @FXML
+    private Label dateLbl;
+
+    private Model model = Model.getInstance();
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        cmbBoxStatus.getItems().setAll(new String[] {"Present", "Absent"});
-        cmbBoxStatus.setValue("Present");
-        
+    public void initialize(URL url, ResourceBundle rb) {
         LocalDate date = model.getSelectedAttendanceStatus().getDateAsLocalDate();
-        
-        datePicker.setValue(date);
+        dateLbl.setText(dateLbl.getText() + date);
         lblTeacher.setText(model.getSelectedTeacher().getName());
-    }    
+    }
 
     @FXML
     private void btnSendClicked(ActionEvent event)
     {
         try
         {
-            StudentMessage msg = new StudentMessage(model.getSelectedTeacher(), model.getSelectedStudent(), datePicker.getValue(), cmbBoxStatus.getValue(), txtFieldMessage.getText(), model.getSelectedAttendanceStatus());
+            StudentMessage msg = new StudentMessage(model.getSelectedTeacher(), model.getSelectedStudent(), model.getSelectedAttendanceStatus().getDateAsLocalDate(), 
+            model.getSelectedAttendanceStatus().getStatus().equals("Present")?"Absent":"Present", txtFieldMessage.getText(), model.getSelectedAttendanceStatus());
             model.sendMessage(msg);
             close();
         } catch (ModelException ex)
@@ -89,11 +83,10 @@ public class StudentMessageFXMLController implements Initializable
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
-        } 
-        catch (IOException ex)
-        {
+        }
+        catch (IOException ex) {
             Logger.getLogger(StudentMessageFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
