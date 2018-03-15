@@ -32,11 +32,11 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <JFXButton buttonType="RAISED" layoutX="590.0" layoutY="145.0" onAction="#presentClicked" prefWidth="75.0" styleClass="presentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="145.0">
+      <JFXButton fx:id="btnPresent" buttonType="RAISED" layoutX="610.0" layoutY="145.0" onAction="#presentClicked" prefWidth="75.0" styleClass="presentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Present" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="145.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="590.0" layoutY="192.0" onAction="#absentClicked" prefWidth="75.0" styleClass="absentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Absent" AnchorPane.bottomAnchor="239.0" AnchorPane.rightAnchor="35.0">
+      <JFXButton fx:id="btnAbsent" buttonType="RAISED" layoutX="610.0" layoutY="193.0" onAction="#absentClicked" prefWidth="75.0" styleClass="absentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Absent" AnchorPane.bottomAnchor="238.0" AnchorPane.rightAnchor="50.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></JFXButton>
@@ -55,6 +55,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <JFXButton fx:id="btnRequestStatusChange" layoutX="552.0" layoutY="399.0" onAction="#btnStatusChangeRequestClicked" prefHeight="31.0" prefWidth="169.0" text="Request status change" />
+      <JFXButton fx:id="btnRequestStatusChange" layoutX="548.0" layoutY="247.0" onAction="#btnStatusChangeRequestClicked" prefHeight="31.0" prefWidth="169.0" text="Request status change" AnchorPane.rightAnchor="15.0" />
     </children>
 </AnchorPane>

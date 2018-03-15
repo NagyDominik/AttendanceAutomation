@@ -1,5 +1,6 @@
 package attendanceautomation.BE;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -51,27 +52,12 @@ public class Student extends Person {
      * Create mock attendance data for the student
      */
     private void setAttendanceeMockData() {
-        Calendar date = Calendar.getInstance();
-       // System.out.println(date.getTime());
-        this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher1@easv.dk", "Teacher 1")), date, Boolean.TRUE));
-        date.add(Calendar.DAY_OF_MONTH, -1);
-       // System.out.println(date.getTime());
-        this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher1@easv.dk", "Teacher 1")), date, Boolean.FALSE));
-        date.add(Calendar.DAY_OF_MONTH, -1);
-       // System.out.println(date.getTime());
-        this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher2@easv.dk", "Teacher 2")), date, Boolean.TRUE));
-        
-        for (AttendanceStatus attendanceStatus : attendance)
-        {
-            System.out.println("The current date is : " + attendanceStatus.getDateAsCalendar().getTime());
-        }
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.now(), Boolean.TRUE));
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.parse("2018-03-14"), Boolean.TRUE));
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.parse("2018-03-13"), Boolean.FALSE));
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {
-//        for (AttendanceStatus attendanceStatus : attendance)
-//        {
-//            System.out.println("The current date is : " + attendanceStatus.getDateAsCalendar().getTime());
-//        }
         return attendance;
     }
 

@@ -7,6 +7,7 @@ import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -46,6 +47,10 @@ public class StudentWindowController implements Initializable {
     private Model model = Model.getInstance();
     @FXML
     private JFXButton btnRequestStatusChange;
+    @FXML
+    private JFXButton btnPresent;
+    @FXML
+    private JFXButton btnAbsent;
 
     /**
      * Initializes the controller class.
@@ -60,6 +65,7 @@ public class StudentWindowController implements Initializable {
         setEvents();
         Student user = (Student) model.getCurrentUser();
         historyTV.setItems(user.getAttendanceInfo());
+        btnRequestStatusChange.setDisable(true);
         percentageLbl.setText("Total percentage of participation: " + user.getPresencePercentage() + " %");
     }
 
@@ -110,6 +116,7 @@ public class StudentWindowController implements Initializable {
     private void btnStatusChangeRequestClicked(ActionEvent event)
     {
         Teacher selectedTeacher = historyTV.getSelectionModel().getSelectedItem().getClassData().getTeacher();
+        AttendanceStatus stat = historyTV.getSelectionModel().getSelectedItem();
         
         try {
             if (selectedTeacher == null)
@@ -118,6 +125,7 @@ public class StudentWindowController implements Initializable {
             }
             
             model.setSelectedTeacher(selectedTeacher);
+            model.setSelectedAttendanceInfo(stat);
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentMessageFXML.fxml"));
             Parent root = (Parent) loader.load();
@@ -135,14 +143,18 @@ public class StudentWindowController implements Initializable {
     {
         this.historyTV.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
         if (newSelection != null) {
-            Calendar today = Calendar.getInstance();
-            if (newSelection.getDateAsCalendar().before(today))
+            if (newSelection.getDateAsLocalDate().isEqual(LocalDate.now()))
             {
-               btnRequestStatusChange.setDisable(false);
+                btnRequestStatusChange.setDisable(true);
+                btnAbsent.setDisable(false);
+                btnPresent.setDisable(false);
+                
             }
             else
             {
-                btnRequestStatusChange.setDisable(true);
+                btnRequestStatusChange.setDisable(false);
+                btnAbsent.setDisable(true);
+                btnPresent.setDisable(true);
             }
         }
         });

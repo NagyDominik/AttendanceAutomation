@@ -5,15 +5,22 @@ import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -44,6 +51,9 @@ public class StudentMessageFXMLController implements Initializable
         cmbBoxStatus.getItems().setAll(new String[] {"Present", "Absent"});
         cmbBoxStatus.setValue("Present");
         
+        LocalDate date = model.getSelectedAttendanceStatus().getDateAsLocalDate();
+        
+        datePicker.setValue(date);
         lblTeacher.setText(model.getSelectedTeacher().getName());
     }    
 
@@ -51,6 +61,24 @@ public class StudentMessageFXMLController implements Initializable
     private void btnSendClicked(ActionEvent event)
     {
         StudentMessage msg = new StudentMessage(model.getSelectedTeacher(), model.getSelectedStudent(), Calendar.getInstance(), cmbBoxStatus.getValue(), txtFieldMessage.getText());
+    }
+
+    @FXML
+    private void btnCancelClicked(ActionEvent event)
+    {  
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = (Stage) btnSend.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        } 
+        catch (IOException ex)
+        {
+            Logger.getLogger(StudentMessageFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

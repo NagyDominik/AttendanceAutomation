@@ -3,8 +3,8 @@
  */
 package attendanceautomation.BE;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -16,7 +16,7 @@ public class AttendanceStatus {
 
    // private String className;
     private ClassData classData;
-    private Calendar date;
+    private LocalDate date;
     private final BooleanProperty status = new SimpleBooleanProperty();
 
     private boolean isStatus() {
@@ -41,10 +41,9 @@ public class AttendanceStatus {
         this.teacherSet = teacherSet;
     }
 
-    public AttendanceStatus(ClassData data, Calendar date, Boolean status) {
+    public AttendanceStatus(ClassData data, LocalDate date, Boolean status) {
         this.classData = data;
         this.date = date;
-        System.out.println(date.getTime());
         this.status.set(status);
     }
 
@@ -53,12 +52,10 @@ public class AttendanceStatus {
     }
 
     public String getDate() {
-        SimpleDateFormat format1 = new SimpleDateFormat("EEEE, dd MMMM, yyyy");
-        String formatted = format1.format(date.getTime());
-        return formatted;
+        return date.format(DateTimeFormatter.ISO_DATE);
     }
 
-    public Calendar getDateAsCalendar()
+    public LocalDate getDateAsLocalDate()
     {
         return this.date;
     }

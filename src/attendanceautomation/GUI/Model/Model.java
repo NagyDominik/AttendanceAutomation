@@ -1,5 +1,6 @@
 package attendanceautomation.GUI.Model;
 
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
@@ -20,6 +21,7 @@ public class Model implements Initializable {
     private Person currentUser;
     private Student selectedStudent;
     private Teacher selectedTeacher;
+    private AttendanceStatus selectedAttendanceStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -86,5 +88,15 @@ public class Model implements Initializable {
     public Teacher getSelectedTeacher()
     {
         return selectedTeacher;
+    }
+
+    public void setSelectedAttendanceInfo(AttendanceStatus stat)
+    {
+        this.selectedAttendanceStatus = stat;
+    }
+
+    public AttendanceStatus getSelectedAttendanceStatus()
+    {
+        return selectedAttendanceStatus;
     }
 }
