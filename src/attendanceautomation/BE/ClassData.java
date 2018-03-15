@@ -26,4 +26,9 @@ public class ClassData {
         return className;
     }
 
+    @Override
+    public String toString() {
+        return className;
+    }
+
 }

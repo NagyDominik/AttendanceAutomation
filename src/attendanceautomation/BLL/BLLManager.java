@@ -15,7 +15,7 @@ import java.util.List;
 public class BLLManager {
 
     private DALManager dManager;
-    private Encrypter encrypter = new Encrypter();
+    private Hasher encrypter = new Hasher();
 
     public BLLManager() {
         dManager = new DALManager();
@@ -58,6 +58,6 @@ public class BLLManager {
      * "Student" for students or "None" if there is no match for the email.
      */
     public Person attemptLogin(String email, String password) {
-        return dManager.attemptLogin(email, encrypter.encrypt(password));
+        return dManager.attemptLogin(email, encrypter.hash(password));
     }
 }
