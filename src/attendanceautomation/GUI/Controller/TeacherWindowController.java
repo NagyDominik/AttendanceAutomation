@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,13 +35,13 @@ public class TeacherWindowController implements Initializable {
     @FXML
     private Label teacherNameLbl;
     @FXML
-    private TableView<ClassData> classTV;
-    @FXML
-    private TableColumn<ClassData, String> classCol;
-    @FXML
     private TableColumn<Student, String> studentNameCol;
     @FXML
     private TableColumn<Student, String> studentAbsenceCol;
+    @FXML
+    private TableColumn<Student, String> stattodayCol;
+    @FXML
+    private ChoiceBox<ClassData> classChoiceBox;
     private Model model = Model.getInstance();
 
     /**
@@ -51,7 +52,8 @@ public class TeacherWindowController implements Initializable {
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentsTV.setItems(model.getStudent());
         calculateAttendance();
-        classTV.setItems(model.getClassData());
+        classChoiceBox.setItems(model.getClassData());
+        classChoiceBox.getSelectionModel().selectFirst();
         setCellValueFactories();
         addListenersAndHandlers();
     }
@@ -92,16 +94,15 @@ public class TeacherWindowController implements Initializable {
     }
 
     private void setCellValueFactories() {
-        classCol.setCellValueFactory(new PropertyValueFactory("className"));
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
         studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("presencePercentage"));
     }
 
     private void addListenersAndHandlers() {
-        classTV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+        classChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                studentsTV.setItems(classTV.getSelectionModel().getSelectedItem().getParticipants());
+                studentsTV.setItems(classChoiceBox.getSelectionModel().getSelectedItem().getParticipants());
             }
         }
         );

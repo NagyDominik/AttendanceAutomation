@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -36,22 +37,16 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="classTV" layoutX="14.0" layoutY="78.0" prefHeight="235.0" prefWidth="235.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="145.0">
+      <TableView fx:id="studentsTV" layoutX="52.0" layoutY="24.0" prefHeight="250.0" prefWidth="613.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="145.0">
         <columns>
-          <TableColumn fx:id="classCol" prefWidth="75.0" text="Class" />
+          <TableColumn fx:id="studentNameCol" prefWidth="257.0" text="Name" />
+          <TableColumn fx:id="studentAbsenceCol" prefWidth="162.0" text="\% of absence" />
+            <TableColumn fx:id="stattodayCol" prefWidth="75.0" text="Today's status" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="studentsTV" layoutX="359.0" layoutY="24.0" prefHeight="235.0" prefWidth="360.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="145.0">
-        <columns>
-          <TableColumn fx:id="studentNameCol" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="studentAbsenceCol" prefWidth="75.0" text="\% of absence" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
+      <ChoiceBox fx:id="classChoiceBox" layoutX="35.0" layoutY="111.0" prefWidth="150.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="110.0" />
    </children>
 </AnchorPane>

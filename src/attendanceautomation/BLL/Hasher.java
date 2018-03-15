@@ -14,25 +14,25 @@ import java.util.logging.Logger;
  *
  * @author Dominik
  */
-public class Encrypter {
+public class Hasher {
 
     private static MessageDigest md;
 
-    public String encrypt(String password) {
-        String encrypted = "";
+    public String hash(String password) {
+        String hashed = "";
         try {
-            md = MessageDigest.getInstance("MD5");
+            md = MessageDigest.getInstance("SHA-256");
             byte[] digested = md.digest(password.getBytes());
             for (byte b : digested) {
-                encrypted += Integer.toHexString(0xFF & b); //0xFF is for maskig the last 8 bit
+                hashed += Integer.toHexString(0xFF & b); //0xFF is for maskig the last 8 bit
             }
-            System.out.println(encrypted);
-            return encrypted;
+            System.out.println(hashed);
+            return hashed;
         }
         catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Encrypter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Hasher.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return encrypted;
+        return hashed;
     }
 
 }

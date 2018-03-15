@@ -89,12 +89,12 @@ public class DALManager {
      */
     public Person attemptLogin(String email, String password) {
         for (Teacher loginTeacher : mockTeacher) {
-            if (loginTeacher.getEmail().equals(email) && password.equals("fb78c1fafdde8c85ea83a9f0d05162")) {
+            if (loginTeacher.getEmail().equals(email) && password.equals("c596e268fea18473ea763797c0d7f4ef2cc1b13528fa7a8186c96f7da4e81cd")) {
                 return loginTeacher;
             }
         }
         for (Student loginStudent : mockStudent) {
-            if (loginStudent.getEmail().equals(email) && password.equals("6cf1f51227f1cc65e399efb35332499c")) {
+            if (loginStudent.getEmail().equals(email) && password.equals("643a5b5e16012e258750c07e363c41568b45165b4fc43874b88c21d99cb55")) {
                 return loginStudent;
             }
         }
