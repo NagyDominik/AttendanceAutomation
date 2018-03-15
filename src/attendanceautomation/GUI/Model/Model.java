@@ -4,10 +4,14 @@ import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
+import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
+import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -98,5 +102,16 @@ public class Model implements Initializable {
     public AttendanceStatus getSelectedAttendanceStatus()
     {
         return selectedAttendanceStatus;
+    }
+
+    public void sendMessage(StudentMessage msg) throws ModelException
+    {
+        try
+        {
+            bllManager.sendMessage(msg);
+        } catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
     }
 }

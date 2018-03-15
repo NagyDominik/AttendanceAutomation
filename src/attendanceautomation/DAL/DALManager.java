@@ -3,7 +3,12 @@ package attendanceautomation.DAL;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
+import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +19,7 @@ import java.util.List;
  */
 public class DALManager {
 
-    private ConnectionManager cm;
+    private ConnectionManager cm = ConnectionManager.getInstance();
 
     /**
      * *******************
@@ -30,21 +35,21 @@ public class DALManager {
 
     private void setUpMockData() {
         mockTeacher = new ArrayList();
-        mockTeacher.add(new Teacher("teacher@easv.dk", "Jeppe Moritz"));
-        mockTeacher.add(new Teacher("teacher1@easv.dk", "Lars Jorgensen"));
+        mockTeacher.add(new Teacher("teacher@easv.dk", "Jeppe Moritz", 0));
+        mockTeacher.add(new Teacher("teacher1@easv.dk", "Lars Jorgensen", 1));
         
         mockClassData = new ArrayList();
-        mockClassData.add(new ClassData("CS2017A", new Teacher("teacher@easv.dk", "Jeppe Moritz")));
-        mockClassData.add(new ClassData("CS2017B" , new Teacher("teacher@easv.dk", "Jeppe Moritz")));
+        mockClassData.add(new ClassData("CS2017A", new Teacher("teacher@easv.dk", "Jeppe Moritz", 0)));
+        mockClassData.add(new ClassData("CS2017B" , new Teacher("teacher@easv.dk", "Jeppe Moritz", 0)));
 
    
         mockStudent = new ArrayList();
-        mockStudent.add(new Student("student@easv.dk", "Thomas White"));
-        mockStudent.add(new Student("student1@easv.dk", "Jesper Boo"));
-        mockStudent.add(new Student("student2@easv.dk", "Peter Sebok"));
-        mockStudent.add(new Student("student3@easv.dk", "Dominik Nagy"));
-        mockStudent.add(new Student("student4@easv.dk", "Daniel McAdams"));
-        mockStudent.add(new Student("student5@easv.dk", "Bence Matyasi"));
+        mockStudent.add(new Student("student@easv.dk", "Thomas White", 0));
+        mockStudent.add(new Student("student1@easv.dk", "Jesper Boo", 1));
+        mockStudent.add(new Student("student2@easv.dk", "Peter Sebok", 2));
+        mockStudent.add(new Student("student3@easv.dk", "Dominik Nagy", 3));
+        mockStudent.add(new Student("student4@easv.dk", "Daniel McAdams", 4));
+        mockStudent.add(new Student("student5@easv.dk", "Bence Matyasi", 5));
                 
         mockClassData.get(0).getParticipants().addAll(mockStudent);
         mockClassData.get(1).getParticipants().addAll(mockStudent);
@@ -99,6 +104,36 @@ public class DALManager {
             }
         }
         return null;
+    }
+
+    /**
+     * Put a message to the database.
+     * @param msg The message that will be saved to the database.
+     */
+    public void saveMessage(StudentMessage msg) throws DALException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            String sql = "INSERT INTO StudentMessage(teacherId, studentId, historyId, message, status) VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, msg.getRecipient().getId());
+            ps.setInt(2, msg.getSender().getId());
+            ps.setInt(3, msg.getHistory().getId());
+            ps.setString(4, msg.getMessage());
+            ps.setBoolean(5, msg.getStatus().equals("Present")?true:false);
+            int affected = ps.executeUpdate();
+            if (affected < 1) {
+                throw new DALException("Movie could not be saved!");
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                msg.setId(rs.getInt(1));
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new DALException(ex);
+        }
     }
 
 }

@@ -1,14 +1,15 @@
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.StudentMessage;
+import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
+import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,12 +61,26 @@ public class StudentMessageFXMLController implements Initializable
     @FXML
     private void btnSendClicked(ActionEvent event)
     {
-        StudentMessage msg = new StudentMessage(model.getSelectedTeacher(), model.getSelectedStudent(), Calendar.getInstance(), cmbBoxStatus.getValue(), txtFieldMessage.getText());
+        try
+        {
+            StudentMessage msg = new StudentMessage(model.getSelectedTeacher(), model.getSelectedStudent(), datePicker.getValue(), cmbBoxStatus.getValue(), txtFieldMessage.getText(), model.getSelectedAttendanceStatus());
+            model.sendMessage(msg);
+            close();
+        } catch (ModelException ex)
+        {
+            Logger.getLogger(StudentMessageFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            AlertWindow.showAlert(ex);
+        }
     }
 
     @FXML
     private void btnCancelClicked(ActionEvent event)
     {  
+        close();
+    }
+
+    private void close()
+    {
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));

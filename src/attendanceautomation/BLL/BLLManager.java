@@ -4,8 +4,12 @@ import attendanceautomation.DAL.DALManager;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
+import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
+import attendanceautomation.DAL.DALException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Serves as a pass-through layer for now.
@@ -59,5 +63,16 @@ public class BLLManager {
      */
     public Person attemptLogin(String email, String password) {
         return dManager.attemptLogin(email, encrypter.hash(password));
+    }
+
+    public void sendMessage(StudentMessage msg) throws BLLException
+    {
+        try
+        {
+            dManager.saveMessage(msg);
+        } catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
     }
 }
