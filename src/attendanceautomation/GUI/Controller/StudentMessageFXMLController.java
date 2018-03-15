@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextArea;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,8 +36,6 @@ public class StudentMessageFXMLController implements Initializable {
     @FXML
     private JFXButton btnSend;
     @FXML
-    private Label teacherLbl;
-    @FXML
     private Label dateLbl;
 
     private Model model = Model.getInstance();
@@ -47,7 +46,7 @@ public class StudentMessageFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LocalDate date = model.getSelectedAttendanceStatus().getDateAsLocalDate();
-        dateLbl.setText(dateLbl.getText() + date);
+        dateLbl.setText(date.format(DateTimeFormatter.ISO_DATE));
         lblTeacher.setText(model.getSelectedTeacher().getName());
     }
 
