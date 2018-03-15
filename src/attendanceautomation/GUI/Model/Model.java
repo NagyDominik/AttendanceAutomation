@@ -19,6 +19,7 @@ public class Model implements Initializable {
     private BLLManager bllManager = new BLLManager();
     private Person currentUser;
     private Student selectedStudent;
+    private Teacher selectedTeacher;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,4 +78,13 @@ public class Model implements Initializable {
         return this.selectedStudent;
     }
 
+    public void setSelectedTeacher(Teacher selectedTeacher)
+    {
+        this.selectedTeacher = selectedTeacher;
+    }
+
+    public Teacher getSelectedTeacher()
+    {
+        return selectedTeacher;
+    }
 }
