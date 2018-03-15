@@ -29,13 +29,14 @@ public class DALManager {
     }
 
     private void setUpMockData() {
-        mockClassData = new ArrayList();
-        mockClassData.add(new ClassData("CS2017A"));
-        mockClassData.add(new ClassData("CS2017B"));
-
         mockTeacher = new ArrayList();
         mockTeacher.add(new Teacher("teacher@easv.dk", "Jeppe Moritz"));
         mockTeacher.add(new Teacher("teacher1@easv.dk", "Lars Jorgensen"));
+        
+        mockClassData = new ArrayList();
+        mockClassData.add(new ClassData("CS2017A", new Teacher("teacher@easv.dk", "Jeppe Moritz")));
+        mockClassData.add(new ClassData("CS2017B" , new Teacher("teacher@easv.dk", "Jeppe Moritz")));
+
    
         mockStudent = new ArrayList();
         mockStudent.add(new Student("student@easv.dk", "Thomas White"));

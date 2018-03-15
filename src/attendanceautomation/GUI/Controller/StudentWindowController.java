@@ -7,6 +7,7 @@ package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.Student;
+import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.Model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -102,6 +103,31 @@ public class StudentWindowController implements Initializable {
             historyTV.refresh();
         } else {
             Model.newAlert(new Exception("Your teacher set your status. Please contact him to modify it!"));
+        }
+    }
+
+    @FXML
+    private void btnStatusChangeRequestClicked(ActionEvent event)
+    {
+        Teacher selectedTeacher = historyTV.getSelectionModel().getSelectedItem().getClassData().getTeacher();
+        
+        try {
+            if (selectedTeacher == null)
+            {
+                throw new Exception("No class selected!");
+            }
+            
+            model.setSelectedTeacher(selectedTeacher);
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentMessageFXML.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = (Stage) nameLbl.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (Exception ex) {
+            Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

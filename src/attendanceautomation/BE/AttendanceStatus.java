@@ -14,7 +14,8 @@ import javafx.beans.property.SimpleBooleanProperty;
  */
 public class AttendanceStatus {
 
-    private String className;
+   // private String className;
+    private ClassData classData;
     private Calendar date;
     private final BooleanProperty status = new SimpleBooleanProperty();
 
@@ -40,14 +41,14 @@ public class AttendanceStatus {
         this.teacherSet = teacherSet;
     }
 
-    public AttendanceStatus(String className, Calendar date, Boolean status) {
-        this.className = className;
+    public AttendanceStatus(ClassData data, Calendar date, Boolean status) {
+        this.classData = data;
         this.date = date;
         this.status.set(status);
     }
 
     public String getClassName() {
-        return className;
+        return classData.getClassName();
     }
 
     public String getDate() {
@@ -68,4 +69,8 @@ public class AttendanceStatus {
         return status.getValue();
     }
 
+    public ClassData getClassData()
+    {
+        return classData;
+    }
 }

@@ -52,11 +52,11 @@ public class Student extends Person {
      */
     private void setAttendanceeMockData() {
         Calendar date = Calendar.getInstance();
-        this.attendance.add(new AttendanceStatus("CS2017_B", date, Boolean.TRUE));
+        this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher1@easv.dk", "Teacher 1")), date, Boolean.TRUE));
         date.add(Calendar.HOUR, -24);
-        this.attendance.add(new AttendanceStatus("CS2017_B", date, Boolean.FALSE));
+        this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher1@easv.dk", "Teacher 1")), date, Boolean.FALSE));
         date.add(Calendar.HOUR, -24);
-        this.attendance.add(new AttendanceStatus("CS2017_B", date, Boolean.TRUE));
+        this.attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher2@easv.dk", "Teacher 2")), date, Boolean.TRUE));
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {

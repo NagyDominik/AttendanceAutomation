@@ -13,11 +13,18 @@ public class ClassData {
     private int id;
     private ObservableList<Student> participants = FXCollections.observableArrayList();
     private String className;
+    private Teacher teacher;
 
-    public ClassData(String className) {
+    public ClassData(String className, Teacher teacher) {
         this.className = className;
+        this.teacher = teacher;
     }
 
+    public Teacher getTeacher()
+    {
+        return teacher;
+    }
+    
     public ObservableList<Student> getParticipants() {
         return participants;
     }

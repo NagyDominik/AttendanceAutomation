@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="498.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentMessageFXMLController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Teacher:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="70.0" text="Date:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXDatePicker fx:id="datePicker" layoutX="99.0" layoutY="70.0" prefHeight="31.0" prefWidth="150.0" />
+      <Label layoutX="14.0" layoutY="125.0" text="Status:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbBoxStatus" layoutX="99.0" layoutY="125.0" prefWidth="150.0" />
+      <Label layoutX="14.0" layoutY="179.0" text="Additinal message:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="txtFieldMessage" layoutX="10.0" layoutY="209.0" />
+      <JFXButton fx:id="btnSendClicked" layoutX="273.0" layoutY="453.0" text="Send" />
+      <Label fx:id="lblTeacher" layoutX="98.0" layoutY="14.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
