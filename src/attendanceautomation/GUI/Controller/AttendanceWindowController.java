@@ -87,12 +87,12 @@ public class AttendanceWindowController implements Initializable {
 
     @FXML
     private void presentClicked(ActionEvent event) {
-        setAttendanceStatus(true);
+        setAttendanceStatus(1);
     }
 
     @FXML
     private void absentClicked(ActionEvent event) {
-        setAttendanceStatus(false);
+        setAttendanceStatus(0);
     }
 
     private void setUpCellValueFactories() {
@@ -101,7 +101,7 @@ public class AttendanceWindowController implements Initializable {
         teacherStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }
 
-    private void setAttendanceStatus(Boolean status) {
+    private void setAttendanceStatus(int status) {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
         selStat.setStatus(status);
         selStat.setTeacherSet(true);

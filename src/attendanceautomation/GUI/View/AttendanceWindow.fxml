@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.AttendanceWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.AttendanceWindowController">
    <children>
       <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
       <Label fx:id="teacherNameLbl" layoutX="361.0" layoutY="40.0" text="Name of Teacher" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="45.0">
@@ -17,7 +17,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" layoutX="503.0" layoutY="35.0" onAction="#logoutClicked" prefHeight="30.0" prefWidth="90.0" styleClass="logoutBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Logout" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0">
+      <JFXButton buttonType="RAISED" layoutX="503.0" layoutY="35.0" onAction="#logoutClicked" prefHeight="32.0" prefWidth="103.0" styleClass="logoutBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Logout" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="35.0">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="22.0">
                <image>
@@ -26,7 +26,7 @@
             </ImageView>
          </graphic>
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
       <Label fx:id="percentageLbl" layoutX="287.0" layoutY="115.0" prefHeight="19.0" prefWidth="259.0" text="Total percentage of participation : " AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="115.0">
@@ -34,14 +34,14 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <JFXButton id="#yellowButt" buttonType="RAISED" layoutX="604.0" layoutY="201.0" onAction="#presentClicked" prefWidth="75.0" styleClass="presentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="200.0">
+      <JFXButton id="#yellowButt" buttonType="RAISED" layoutX="575.0" layoutY="200.0" onAction="#presentClicked" prefHeight="29.0" prefWidth="90.0" styleClass="presentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="✔ Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="200.0">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="606.0" layoutY="299.0" onAction="#absentClicked" prefWidth="75.0" styleClass="absentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Absent" AnchorPane.bottomAnchor="135.0" AnchorPane.rightAnchor="35.0">
+      <JFXButton buttonType="RAISED" layoutX="575.0" layoutY="296.0" onAction="#absentClicked" prefHeight="29.0" prefWidth="90.0" styleClass="absentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="🗙 Absent" AnchorPane.bottomAnchor="134.0" AnchorPane.rightAnchor="35.0">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
       <ImageView fitHeight="63.0" fitWidth="268.0" layoutX="32.0" layoutY="18.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="20.0">
@@ -54,7 +54,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <JFXButton layoutX="594.0" layoutY="405.0" onAction="#backClicked" styleClass="grayBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Back" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="35.0">
+      <JFXButton layoutX="605.0" layoutY="398.0" onAction="#backClicked" styleClass="grayBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Back" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="22.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

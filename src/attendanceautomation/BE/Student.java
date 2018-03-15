@@ -52,9 +52,9 @@ public class Student extends Person {
      * Create mock attendance data for the student
      */
     private void setAttendanceeMockData() {
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.now(), Boolean.TRUE));
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.parse("2018-03-14"), Boolean.TRUE));
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.parse("2018-03-13"), Boolean.FALSE));
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.now(),1));
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.parse("2018-03-14"), -1));
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.parse("2018-03-13"), 0));
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {
@@ -64,7 +64,7 @@ public class Student extends Person {
     private void calculateAttPer() {
         int presCount = 0;
         for (AttendanceStatus attendanceStatus : attendance) {
-            if (attendanceStatus.getStatus().equals("Present")) {
+            if (attendanceStatus.getStatus().equals(1)) {
                 presCount++;
             }
         }

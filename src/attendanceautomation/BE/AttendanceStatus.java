@@ -3,10 +3,17 @@
  */
 package attendanceautomation.BE;
 
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.animation.Animation;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -17,21 +24,35 @@ public class AttendanceStatus {
    // private String className;
     private ClassData classData;
     private LocalDate date;
-    private final BooleanProperty status = new SimpleBooleanProperty();
+    private IntegerProperty status = new SimpleIntegerProperty() ;
+    private boolean teacherSet = Boolean.FALSE;
 
-    private boolean isStatus() {
+    public AttendanceStatus(ClassData classData, LocalDate date, int status) {
+        this.classData = classData;
+        this.date = date;
+        this.status.set(status -1);
+    }
+
+    public AttendanceStatus(ClassData classData, LocalDate date) {
+        this.classData = classData;
+        this.date = date;
+    }
+    
+    
+
+    private int isStatus() {
         return status.get();
     }
 
-    private void setStatus(boolean value) {
+    private void setStatus(int value) {
         status.set(value);
     }
 
-    private BooleanProperty statusProperty() {
+    private IntegerProperty statusProperty() {
         return status;
     }
 
-    private boolean teacherSet = Boolean.FALSE;
+    
 
     public boolean isTeacherSet() {
         return teacherSet;
@@ -39,12 +60,6 @@ public class AttendanceStatus {
 
     public void setTeacherSet(boolean teacherSet) {
         this.teacherSet = teacherSet;
-    }
-
-    public AttendanceStatus(ClassData data, LocalDate date, Boolean status) {
-        this.classData = data;
-        this.date = date;
-        this.status.set(status);
     }
 
     public String getClassName() {
@@ -60,16 +75,25 @@ public class AttendanceStatus {
         return this.date;
     }
     
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status.set(status);
     }
 
     public String getStatus() {
-        return status.getValue() ? "Present" : "Absent";
+                
+        switch(status.getValue()){        
+            case 0 : return "🗙";
+            case 1 : return "✔";
+            default: return "-";
+        }
     }
 
     public Boolean getStatusAsBoolean() {
-        return status.getValue();
+        if(status.equals(1)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public ClassData getClassData()
