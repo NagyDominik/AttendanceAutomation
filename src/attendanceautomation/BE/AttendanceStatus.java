@@ -1,5 +1,5 @@
 /**
- * Represents a
+ * Represents the attendance on a given date.
  */
 package attendanceautomation.BE;
 
@@ -14,23 +14,10 @@ import javafx.beans.property.SimpleBooleanProperty;
  */
 public class AttendanceStatus {
 
-   // private String className;
+    private int id;
     private ClassData classData;
     private LocalDate date;
     private final BooleanProperty status = new SimpleBooleanProperty();
-
-    private boolean isStatus() {
-        return status.get();
-    }
-
-    private void setStatus(boolean value) {
-        status.set(value);
-    }
-
-    private BooleanProperty statusProperty() {
-        return status;
-    }
-
     private boolean teacherSet = Boolean.FALSE;
 
     public boolean isTeacherSet() {
@@ -75,5 +62,15 @@ public class AttendanceStatus {
     public ClassData getClassData()
     {
         return classData;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 }

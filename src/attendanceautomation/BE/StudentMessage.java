@@ -1,5 +1,6 @@
 package attendanceautomation.BE;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 /**
@@ -8,19 +9,32 @@ import java.util.Calendar;
  */
 public class StudentMessage
 {
+    int id;
     private Teacher recipient;
     private Student sender;
-    private Calendar date;
+    private LocalDate date;
+    private AttendanceStatus history;
     private String status;
     private String message;
 
-    public StudentMessage(Teacher recipient, Student sender, Calendar date, String status, String message)
+    public StudentMessage(Teacher recipient, Student sender, LocalDate date, String status, String message, AttendanceStatus history)
     {
         this.recipient = recipient;
         this.sender = sender;
         this.date = date;
         this.status = status;
         this.message = message;
+        this.history = history;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public Teacher getRecipient()
@@ -43,12 +57,12 @@ public class StudentMessage
         this.sender = sender;
     }
 
-    public Calendar getDate()
+    public LocalDate getDate()
     {
         return date;
     }
 
-    public void setDate(Calendar date)
+    public void setDate(LocalDate date)
     {
         this.date = date;
     }
@@ -71,5 +85,15 @@ public class StudentMessage
     public void setMessage(String message)
     {
         this.message = message;
+    }
+
+    public AttendanceStatus getHistory()
+    {
+        return history;
+    }
+
+    public void setHistory(AttendanceStatus history)
+    {
+        this.history = history;
     }
 }

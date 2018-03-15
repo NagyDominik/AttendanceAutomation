@@ -12,11 +12,22 @@ import java.sql.Connection;
 public class ConnectionManager {
 
     private SQLServerDataSource source = new SQLServerDataSource();
+    
+    private static ConnectionManager instance;
 
+    public static ConnectionManager getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new ConnectionManager();
+        }
+        return instance;
+    }
+    
     /**
      * Creates a new ConnectionManager, and set the values
      */
-    public ConnectionManager() {
+    private ConnectionManager() {
         source.setDatabaseName("CS2017B_7_AttendanceAutomation");
         source.setUser("CS2017B_7_java");
         source.setPassword("javajava");

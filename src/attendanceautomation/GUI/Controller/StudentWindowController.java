@@ -126,6 +126,7 @@ public class StudentWindowController implements Initializable {
             
             model.setSelectedTeacher(selectedTeacher);
             model.setSelectedAttendanceInfo(stat);
+            model.setSelectedStudent((Student)model.getCurrentUser());
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentMessageFXML.fxml"));
             Parent root = (Parent) loader.load();
