@@ -1,7 +1,6 @@
 package attendanceautomation.BE;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.collections.ObservableList;
@@ -20,9 +19,10 @@ public class Student extends Person {
     private final FloatProperty presencePercentage = new SimpleFloatProperty();
     private ObservableList<AttendanceStatus> attendance = FXCollections.observableArrayList();
 
-    public Student(String email, String name) {
+    public Student(String email, String name, int id) {
         this.email = email;
         this.name = name;
+        this.id = id;
         setAttendanceeMockData();
         calculateAttPer();
     }
@@ -48,13 +48,19 @@ public class Student extends Person {
         return name;
     }
 
+    public int getId()
+    {
+        return id;
+    }
+    
     /**
      * Create mock attendance data for the student
      */
     private void setAttendanceeMockData() {
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.now(),1));
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.parse("2018-03-14"), -1));
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher")), LocalDate.parse("2018-03-13"), 0));
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher",0)), LocalDate.now(),1));
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher",0)), LocalDate.parse("2018-03-14"), -1));
+        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher",0)), LocalDate.parse("2018-03-13"), 0));
+
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {

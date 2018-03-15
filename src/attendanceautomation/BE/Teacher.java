@@ -14,9 +14,10 @@ public class Teacher extends Person {
     private String email;
     private String name;
 
-    public Teacher(String email, String name) {
+    public Teacher(String email, String name, int id) {
         this.name = name;
         this.email = email;
+        this.id = id;
     }
 
     public String getEmail() {
@@ -31,4 +32,8 @@ public class Teacher extends Person {
         return name;
     }
 
+    public int getId()
+    {
+        return id;
+    }
 }

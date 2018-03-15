@@ -1,19 +1,12 @@
 /**
- * Represents a
+ * Represents the attendance on a given date.
  */
 package attendanceautomation.BE;
 
-import java.awt.Color;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javafx.animation.Animation;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 
 /**
  *
@@ -21,9 +14,10 @@ import javafx.scene.text.Text;
  */
 public class AttendanceStatus {
 
-   // private String className;
+    private int id;
     private ClassData classData;
     private LocalDate date;
+
     private IntegerProperty status = new SimpleIntegerProperty() ;
     private boolean teacherSet = Boolean.FALSE;
 
@@ -51,8 +45,6 @@ public class AttendanceStatus {
     private IntegerProperty statusProperty() {
         return status;
     }
-
-    
 
     public boolean isTeacherSet() {
         return teacherSet;
@@ -99,5 +91,15 @@ public class AttendanceStatus {
     public ClassData getClassData()
     {
         return classData;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 }
