@@ -16,4 +16,6 @@ public abstract class Person {
     public String getName() {
         return name;
     }
+    
+    public abstract int getId();
 }

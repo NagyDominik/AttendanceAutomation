@@ -49,7 +49,17 @@
          </columnResizePolicy>
       </TableView>
       <ChoiceBox fx:id="classChoiceBox" layoutX="35.0" layoutY="111.0" prefWidth="150.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="110.0" />
-      <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="303.0" layoutY="110.0" promptText="Start date" showWeekNumbers="true" />
+      <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="289.0" layoutY="110.0" promptText="Start date" showWeekNumbers="true" />
       <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="494.0" layoutY="110.0" promptText="End date" />
+      <JFXButton layoutX="359.0" layoutY="39.0" text="Messages">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="29.0" fitWidth="28.0" layoutX="336.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/message.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
