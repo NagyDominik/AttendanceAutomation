@@ -17,22 +17,19 @@ public class AttendanceStatus {
     private int id;
     private ClassData classData;
     private LocalDate date;
-
-    private IntegerProperty status = new SimpleIntegerProperty() ;
+    private IntegerProperty status = new SimpleIntegerProperty();
     private boolean teacherSet = Boolean.FALSE;
 
     public AttendanceStatus(ClassData classData, LocalDate date, int status) {
         this.classData = classData;
         this.date = date;
-        this.status.set(status -1);
+        this.status.set(status - 1);
     }
 
     public AttendanceStatus(ClassData classData, LocalDate date) {
         this.classData = classData;
         this.date = date;
     }
-    
-    
 
     private int isStatus() {
         return status.get();
@@ -62,44 +59,49 @@ public class AttendanceStatus {
         return date.format(DateTimeFormatter.ISO_DATE);
     }
 
-    public LocalDate getDateAsLocalDate()
-    {
+    public LocalDate getDateAsLocalDate() {
         return this.date;
     }
-    
+
     public void setStatus(Integer status) {
         this.status.set(status);
     }
 
+    public int getStatusAsNumber() {
+        switch (status.getValue()) {
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+            default:
+                return -1;
+        }
+    }
+
     public String getStatus() {
-                
-        switch(status.getValue()){        
-            case 0 : return "🗙";
-            case 1 : return "✔";
-            default: return "-";
+        switch (status.getValue().intValue()) {
+            case 0:
+                return "🗙";
+            case 1:
+                return "✔";
+            default:
+                return "-";
         }
     }
 
     public Boolean getStatusAsBoolean() {
-        if(status.equals(1)){
-            return true;
-        }else{
-            return false;
-        }
+        return status.equals(1);
     }
 
-    public ClassData getClassData()
-    {
+    public ClassData getClassData() {
         return classData;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 }
