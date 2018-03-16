@@ -16,6 +16,7 @@ public class StudentMessage
     private AttendanceStatus history;
     private String status;
     private String message;
+    boolean hasBeenSeen;
 
     public StudentMessage(Teacher recipient, Student sender, LocalDate date, String status, String message, AttendanceStatus history)
     {
@@ -25,6 +26,7 @@ public class StudentMessage
         this.status = status;
         this.message = message;
         this.history = history;
+        this.hasBeenSeen = false;
     }
 
     public int getId()
@@ -95,5 +97,10 @@ public class StudentMessage
     public void setHistory(AttendanceStatus history)
     {
         this.history = history;
+    }
+
+    public boolean getHasBeenSeen()
+    {
+        return hasBeenSeen;
     }
 }

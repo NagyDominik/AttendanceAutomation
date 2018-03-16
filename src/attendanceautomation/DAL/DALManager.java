@@ -114,13 +114,14 @@ public class DALManager {
     {
         try(Connection con = cm.getConnection())
         {
-            String sql = "INSERT INTO StudentMessage(teacherId, studentId, historyId, message, status) VALUES(?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO StudentMessage(teacherId, studentId, historyId, message, status, seen) VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, msg.getRecipient().getId());
             ps.setInt(2, msg.getSender().getId());
             ps.setInt(3, msg.getHistory().getId());
             ps.setString(4, msg.getMessage());
             ps.setBoolean(5, msg.getStatus().equals("Present")?true:false);
+            ps.setBoolean(6, msg.getHasBeenSeen());
             int affected = ps.executeUpdate();
             if (affected < 1) {
                 throw new DALException("Movie could not be saved!");

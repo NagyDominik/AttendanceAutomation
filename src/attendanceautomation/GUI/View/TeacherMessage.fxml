@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="461.0" prefWidth="818.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="attendanceautomation.GUI.Controller.TeacherMessageController">
+   <children>
+      <Label layoutX="228.0" layoutY="29.0" text="From:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblFrom" layoutX="71.0" layoutY="14.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="228.0" layoutY="75.0" text="Date:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDate" layoutX="71.0" layoutY="60.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="229.0" layoutY="122.0" text="Request:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRequest" layoutX="103.0" layoutY="107.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="txtAreaMessage" editable="false" layoutX="224.0" layoutY="175.0" prefHeight="235.0" prefWidth="580.0" />
+      <Separator layoutX="201.0" layoutY="7.0" orientation="VERTICAL" prefHeight="451.0" prefWidth="5.0" />
+      <TableView fx:id="tableViewMessages" layoutX="12.0" layoutY="14.0" prefHeight="437.0" prefWidth="182.0">
+        <columns>
+          <TableColumn fx:id="tableColumnsMessages" editable="false" prefWidth="181.0" resizable="false" sortable="false" text="Messages" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
