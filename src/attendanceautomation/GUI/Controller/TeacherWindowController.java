@@ -1,11 +1,13 @@
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +25,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import sun.plugin2.jvm.RemoteJVMLauncher;
 
 /**
  * FXML Controller class
@@ -43,11 +47,11 @@ public class TeacherWindowController implements Initializable {
     private TableColumn<Student, String> stattodayCol;
     @FXML
     private ChoiceBox<ClassData> classChoiceBox;
-    private Model model = Model.getInstance();
     @FXML
     private JFXDatePicker startdatePicker;
     @FXML
     private JFXDatePicker enddatePicker;
+    private Model model = Model.getInstance();
 
     /**
      * Initializes the controller class.
@@ -56,7 +60,7 @@ public class TeacherWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentsTV.setItems(model.getStudent());
-        calculateAttendance();
+        calculateAttendance();                                          //Look into it later.
         classChoiceBox.setItems(model.getClassData());
         classChoiceBox.getSelectionModel().selectFirst();
         setCellValueFactories();
@@ -100,7 +104,18 @@ public class TeacherWindowController implements Initializable {
 
     private void setCellValueFactories() {
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
-        studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("presencePercentage"));
+        studentAbsenceCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String> param) {
+                return param.getValue().getPercentageStringProperty();
+            }
+        });
+        stattodayCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String> param) {
+                return param.getValue().getTodaysStatusProperty();
+            }
+        });
     }
 
     private void addListenersAndHandlers() {
@@ -118,5 +133,4 @@ public class TeacherWindowController implements Initializable {
             s.getPresencePercentage();
         }
     }
-
 }
