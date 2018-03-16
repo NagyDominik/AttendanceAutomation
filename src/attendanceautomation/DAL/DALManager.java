@@ -119,13 +119,13 @@ public class DALManager {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, msg.getTeacherId());
             ps.setInt(2, msg.getStudentId());
-            ps.setInt(3, msg.getHistory().getId());
+            ps.setInt(3, msg.getAttendanceHistoryId());
             ps.setString(4, msg.getMessage());
             ps.setBoolean(5, msg.getStatus().equals("Present")?true:false);
             ps.setBoolean(6, msg.getHasBeenSeen());
             int affected = ps.executeUpdate();
             if (affected < 1) {
-                throw new DALException("Movie could not be saved!");
+                throw new DALException("Message could not be saved!");
             }
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -150,11 +150,12 @@ public class DALManager {
         {
             String sql = "SELECT * FROM StudentMessage WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(0, id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next())
             {
-
+                StudentMessage msg = new StudentMessage(rs.getInt("teacherId"), rs.getInt("studentId"), rs.getBoolean("status")?"Absent":"Present", rs.getString("message"), rs.getInt("historyId"));
+                msg.setId(rs.getInt("id"));
             }
         }
         catch (SQLException ex)

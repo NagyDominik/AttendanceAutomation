@@ -12,20 +12,18 @@ public class StudentMessage
     int id;
     private int teacherId;
     private int studentId;
-    private LocalDate date;
-    private AttendanceStatus history;
+    private int attendanceHistoryId;
     private String status;
     private String message;
     boolean hasBeenSeen;
 
-    public StudentMessage(int teacherId, int studentId, LocalDate date, String status, String message, AttendanceStatus history)
+    public StudentMessage(int teacherId, int studentId, String status, String message, int attendanceId)
     {
         this.teacherId = teacherId;
         this.studentId = studentId;
-        this.date = date;
+        this.attendanceHistoryId = attendanceId;
         this.status = status;
         this.message = message;
-        this.history = history;
         this.hasBeenSeen = false;
     }
 
@@ -37,16 +35,6 @@ public class StudentMessage
     public void setId(int id)
     {
         this.id = id;
-    }
-
-    public LocalDate getDate()
-    {
-        return date;
-    }
-
-    public void setDate(LocalDate date)
-    {
-        this.date = date;
     }
 
     public String getStatus()
@@ -68,17 +56,7 @@ public class StudentMessage
     {
         this.message = message;
     }
-
-    public AttendanceStatus getHistory()
-    {
-        return history;
-    }
-
-    public void setHistory(AttendanceStatus history)
-    {
-        this.history = history;
-    }
-
+    
     public boolean getHasBeenSeen()
     {
         return hasBeenSeen;
@@ -92,6 +70,21 @@ public class StudentMessage
     public int getStudentId()
     {
         return studentId;
+    }
+
+    public int getAttendanceHistoryId()
+    {
+        return attendanceHistoryId;
+    }
+
+    public boolean isHasBeenSeen()
+    {
+        return hasBeenSeen;
+    }
+
+    public void setHasBeenSeen(boolean hasBeenSeen)
+    {
+        this.hasBeenSeen = hasBeenSeen;
     }
     
     

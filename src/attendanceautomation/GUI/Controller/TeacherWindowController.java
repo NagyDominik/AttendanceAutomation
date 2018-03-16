@@ -2,6 +2,7 @@ package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
+import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
@@ -116,6 +117,23 @@ public class TeacherWindowController implements Initializable {
     private void calculateAttendance() {
         for (Student s : model.getStudent()) {
             s.getPresencePercentage();
+        }
+    }
+
+    @FXML
+    private void btnMessagesClicked(ActionEvent event)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherMessage.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            AlertWindow.showAlert(ex);
         }
     }
 
