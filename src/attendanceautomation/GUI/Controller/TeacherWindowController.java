@@ -104,18 +104,8 @@ public class TeacherWindowController implements Initializable {
 
     private void setCellValueFactories() {
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
-        studentAbsenceCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String> param) {
-                return param.getValue().getPercentageStringProperty();
-            }
-        });
-        stattodayCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String> param) {
-                return param.getValue().getTodaysStatusProperty();
-            }
-        });
+        studentAbsenceCol.setCellValueFactory((TableColumn.CellDataFeatures<Student, String> param) -> param.getValue().getPercentageStringProperty());
+        stattodayCol.setCellValueFactory((TableColumn.CellDataFeatures<Student, String> param) -> param.getValue().getTodaysStatusProperty());
     }
 
     private void addListenersAndHandlers() {

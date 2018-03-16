@@ -156,9 +156,7 @@ public class StudentWindowController implements Initializable {
 
     private void setPercentage() {
         Student user = (Student) model.getCurrentUser();
-        DecimalFormat df = new DecimalFormat("#.##");
-        String formatted = df.format(user.getPresencePercentage());
-        percentageLbl.setText("Total percentage of participation: " + formatted + " %");
+        percentageLbl.setText("Total percentage of participation: " + user.getPercentageStringProperty().getValue() + " %");
     }
 
 }
