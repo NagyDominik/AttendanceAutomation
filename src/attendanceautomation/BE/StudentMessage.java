@@ -10,18 +10,18 @@ import java.util.Calendar;
 public class StudentMessage
 {
     int id;
-    private Teacher recipient;
-    private Student sender;
+    private int teacherId;
+    private int studentId;
     private LocalDate date;
     private AttendanceStatus history;
     private String status;
     private String message;
     boolean hasBeenSeen;
 
-    public StudentMessage(Teacher recipient, Student sender, LocalDate date, String status, String message, AttendanceStatus history)
+    public StudentMessage(int teacherId, int studentId, LocalDate date, String status, String message, AttendanceStatus history)
     {
-        this.recipient = recipient;
-        this.sender = sender;
+        this.teacherId = teacherId;
+        this.studentId = studentId;
         this.date = date;
         this.status = status;
         this.message = message;
@@ -37,26 +37,6 @@ public class StudentMessage
     public void setId(int id)
     {
         this.id = id;
-    }
-
-    public Teacher getRecipient()
-    {
-        return recipient;
-    }
-
-    public void setRecipient(Teacher recipient)
-    {
-        this.recipient = recipient;
-    }
-
-    public Student getSender()
-    {
-        return sender;
-    }
-
-    public void setSender(Student sender)
-    {
-        this.sender = sender;
     }
 
     public LocalDate getDate()
@@ -103,4 +83,16 @@ public class StudentMessage
     {
         return hasBeenSeen;
     }
+
+    public int getTeacherId()
+    {
+        return teacherId;
+    }
+
+    public int getStudentId()
+    {
+        return studentId;
+    }
+    
+    
 }
