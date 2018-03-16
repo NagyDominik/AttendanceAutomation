@@ -59,7 +59,6 @@ public class Student extends Person {
         attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.now(), 1));
         attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.parse("2018-03-14"), -1));
         attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.parse("2018-03-13"), 0));
-
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {
@@ -69,6 +68,7 @@ public class Student extends Person {
     private void calculateAttPer() {
         int presCount = 0;
         for (AttendanceStatus attendanceStatus : attendance) {
+
             if (attendanceStatus.getStatusAsNumber() == 1) {
                 presCount++;
             }

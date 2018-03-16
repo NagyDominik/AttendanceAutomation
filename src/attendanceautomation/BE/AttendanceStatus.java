@@ -23,7 +23,7 @@ public class AttendanceStatus {
     public AttendanceStatus(ClassData classData, LocalDate date, int status) {
         this.classData = classData;
         this.date = date;
-        this.status.set(status - 1);
+        this.status.set(status);
     }
 
     public AttendanceStatus(ClassData classData, LocalDate date) {
