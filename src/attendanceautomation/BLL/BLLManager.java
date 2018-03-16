@@ -75,4 +75,19 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
+
+    /**
+     * Load the messages
+     * @return The list of messages
+     */
+    public List<StudentMessage> getStudentMessages(int id) throws BLLException
+    {
+        try
+        {
+            return dManager.getStudentMessages(id);
+        } catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
+    }
 }

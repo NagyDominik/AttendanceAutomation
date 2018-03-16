@@ -1,8 +1,11 @@
 package attendanceautomation.BE;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
@@ -30,6 +33,20 @@ public class Student extends Person {
     public float getPresencePercentage() {
         this.calculateAttPer();
         return presencePercentage.get();
+    }
+    
+    public StringProperty getPercentageStringProperty() {
+        StringProperty property = new SimpleStringProperty();
+        DecimalFormat df = new DecimalFormat("#.##");
+        String formated = df.format(presencePercentage.get());
+        property.set(formated);
+        return property;
+    }
+    
+    public StringProperty getTodaysStatusProperty() {
+        StringProperty property = new SimpleStringProperty();
+        property.set(attendance.get(0).getStatus());
+        return property;
     }
 
     public void setPresencePercentage(float value) {
@@ -68,7 +85,6 @@ public class Student extends Person {
     private void calculateAttPer() {
         int presCount = 0;
         for (AttendanceStatus attendanceStatus : attendance) {
-
             if (attendanceStatus.getStatusAsNumber() == 1) {
                 presCount++;
             }

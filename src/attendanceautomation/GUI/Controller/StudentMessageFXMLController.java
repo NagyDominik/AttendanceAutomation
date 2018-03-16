@@ -55,7 +55,7 @@ public class StudentMessageFXMLController implements Initializable {
     {
         try
         {
-            StudentMessage msg = new StudentMessage(model.getSelectedTeacher(), model.getSelectedStudent(), model.getSelectedAttendanceStatus().getDateAsLocalDate(), 
+            StudentMessage msg = new StudentMessage(model.getSelectedTeacher().getId(), model.getSelectedStudent().getId(), model.getSelectedAttendanceStatus().getDateAsLocalDate(), 
             model.getSelectedAttendanceStatus().getStatus().equals("Present")?"Absent":"Present", txtFieldMessage.getText(), model.getSelectedAttendanceStatus());
             model.sendMessage(msg);
             close();

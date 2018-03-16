@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,13 +115,14 @@ public class DALManager {
     {
         try(Connection con = cm.getConnection())
         {
-            String sql = "INSERT INTO StudentMessage(teacherId, studentId, historyId, message, status) VALUES(?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO StudentMessage(teacherId, studentId, historyId, message, status, seen) VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, msg.getRecipient().getId());
-            ps.setInt(2, msg.getSender().getId());
+            ps.setInt(1, msg.getTeacherId());
+            ps.setInt(2, msg.getStudentId());
             ps.setInt(3, msg.getHistory().getId());
             ps.setString(4, msg.getMessage());
             ps.setBoolean(5, msg.getStatus().equals("Present")?true:false);
+            ps.setBoolean(6, msg.getHasBeenSeen());
             int affected = ps.executeUpdate();
             if (affected < 1) {
                 throw new DALException("Movie could not be saved!");
@@ -134,6 +136,32 @@ public class DALManager {
         {
             throw new DALException(ex);
         }
+    }
+
+    
+    /**
+     * Load the messages
+     * @return The list of messages
+     */
+    public List<StudentMessage> getStudentMessages(int id) throws DALException
+    {
+        List<StudentMessage> messages = new ArrayList<>();
+        try (Connection con = cm.getConnection())
+        {
+            String sql = "SELECT * FROM StudentMessage WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(0, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+            {
+
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex);
+        }
+        return messages;
     }
 
 }

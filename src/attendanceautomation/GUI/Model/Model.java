@@ -9,6 +9,7 @@ import attendanceautomation.BE.Teacher;
 import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -109,6 +110,17 @@ public class Model implements Initializable {
         try
         {
             bllManager.sendMessage(msg);
+        } catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
+    }
+
+    public List<StudentMessage> getMessages(int id) throws ModelException
+    {
+        try
+        {
+            return bllManager.getStudentMessages(id);
         } catch (BLLException ex)
         {
             throw new ModelException(ex);
