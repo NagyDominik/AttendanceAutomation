@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.LoginController">
    <children>
       <Group layoutX="56.0" layoutY="187.0" AnchorPane.bottomAnchor="120.0">
          <children>
@@ -35,7 +35,7 @@
             </ImageView>
          </children>
       </Group>
-      <JFXButton buttonType="RAISED" layoutX="158.0" layoutY="321.0" onAction="#loginClicked" prefHeight="25.0" prefWidth="90.0" ripplerFill="#5c5c5c00" style="-fx-background-color: #FBBB2C;" text="Login" AnchorPane.bottomAnchor="45.0">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="158.0" layoutY="321.0" onAction="#loginClicked" prefHeight="25.0" prefWidth="90.0" ripplerFill="#5c5c5c00" style="-fx-background-color: #FBBB2C;" text="Login" AnchorPane.bottomAnchor="45.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -52,7 +52,7 @@
             <Image url="@../../../img/easvlogo.png" />
          </image>
       </ImageView>
-      <JFXButton ellipsisString="" layoutY="356.0" onAction="#helpClicked" prefHeight="19.0" prefWidth="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0">
+      <JFXButton ellipsisString="" focusTraversable="false" layoutY="356.0" onAction="#helpClicked" prefHeight="19.0" prefWidth="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0">
                <image>

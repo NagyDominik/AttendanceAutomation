@@ -73,7 +73,7 @@ public class Student extends Person {
                 presCount++;
             }
         }
-        presencePercentage.set((float) presCount / attendance.size() * 100);
+        presencePercentage.set((float) presCount / attendance.size() *100);
     }
 
 }
