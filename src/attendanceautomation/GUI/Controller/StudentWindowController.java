@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,14 +42,14 @@ public class StudentWindowController implements Initializable {
     private TableColumn<AttendanceStatus, String> studentDateCol;
     @FXML
     private TableColumn<AttendanceStatus, String> studentStatusCol;
-
-    private Model model = Model.getInstance();
     @FXML
     private JFXButton btnRequestStatusChange;
     @FXML
     private JFXButton btnPresent;
     @FXML
     private JFXButton btnAbsent;
+
+    private Model model = Model.getInstance();
 
     /**
      * Initializes the controller class.
@@ -113,21 +112,19 @@ public class StudentWindowController implements Initializable {
     }
 
     @FXML
-    private void btnStatusChangeRequestClicked(ActionEvent event)
-    {
+    private void btnStatusChangeRequestClicked(ActionEvent event) {
         Teacher selectedTeacher = historyTV.getSelectionModel().getSelectedItem().getClassData().getTeacher();
         AttendanceStatus stat = historyTV.getSelectionModel().getSelectedItem();
-        
+
         try {
-            if (selectedTeacher == null)
-            {
+            if (selectedTeacher == null) {
                 throw new Exception("No class selected!");
             }
-            
+
             model.setSelectedTeacher(selectedTeacher);
             model.setSelectedAttendanceInfo(stat);
-            model.setSelectedStudent((Student)model.getCurrentUser());
-            
+            model.setSelectedStudent((Student) model.getCurrentUser());
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentMessageFXML.fxml"));
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) nameLbl.getScene().getWindow();
@@ -140,24 +137,20 @@ public class StudentWindowController implements Initializable {
         }
     }
 
-    private void setEvents()
-    {
+    private void setEvents() {
         this.historyTV.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-        if (newSelection != null) {
-            if (newSelection.getDateAsLocalDate().isEqual(LocalDate.now()))
-            {
-                btnRequestStatusChange.setDisable(true);
-                btnAbsent.setDisable(false);
-                btnPresent.setDisable(false);
-                
+            if (newSelection != null) {
+                if (newSelection.getDateAsLocalDate().isEqual(LocalDate.now())) {
+                    btnRequestStatusChange.setDisable(true);
+                    btnAbsent.setDisable(false);
+                    btnPresent.setDisable(false);
+
+                } else {
+                    btnRequestStatusChange.setDisable(false);
+                    btnAbsent.setDisable(true);
+                    btnPresent.setDisable(true);
+                }
             }
-            else
-            {
-                btnRequestStatusChange.setDisable(false);
-                btnAbsent.setDisable(true);
-                btnPresent.setDisable(true);
-            }
-        }
         });
     }
 
