@@ -2,8 +2,10 @@ package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.GUI.Model.Model;
+import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +42,10 @@ public class AttendanceWindowController implements Initializable {
     private TableColumn<AttendanceStatus, String> teacherDateCol;
     @FXML
     private TableColumn<AttendanceStatus, String> teacherStatusCol;
+    @FXML
+    private JFXDatePicker startdatePicker;
+    @FXML
+    private JFXDatePicker enddatePicker;
 
     private Model model = Model.getInstance();
 
@@ -48,6 +54,7 @@ public class AttendanceWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        enddatePicker.setValue(LocalDate.now());
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentNameLbl.setText(model.getSelectedStudent().getName());
         setUpCellValueFactories();
@@ -95,6 +102,16 @@ public class AttendanceWindowController implements Initializable {
         setAttendanceStatus(0);
     }
 
+    @FXML
+    private void startdateSelected(ActionEvent event) {
+        filterDates();
+    }
+
+    @FXML
+    private void enddateSelected(ActionEvent event) {
+        filterDates();
+    }
+
     private void setUpCellValueFactories() {
         teacherClassCol.setCellValueFactory(new PropertyValueFactory("className"));
         teacherDateCol.setCellValueFactory(new PropertyValueFactory("date"));
@@ -107,6 +124,12 @@ public class AttendanceWindowController implements Initializable {
         selStat.setTeacherSet(true);
         percentageLbl.setText("Total percentage of participation: " + model.getSelectedStudent().getPercentageStringProperty().getValue() + " %");
         historyTV.refresh();
+    }
+
+    private void filterDates() {
+        LocalDate startDate = startdatePicker.getValue();
+        LocalDate endDate = enddatePicker.getValue();
+        historyTV.setItems(model.filterStudentHistory(startDate, endDate));
     }
 
 }

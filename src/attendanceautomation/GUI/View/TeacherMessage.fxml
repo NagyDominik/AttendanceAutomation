@@ -5,48 +5,39 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="461.0" prefWidth="818.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="attendanceautomation.GUI.Controller.TeacherMessageController">
+<AnchorPane id="AnchorPane" prefHeight="461.0" prefWidth="818.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherMessageController">
    <children>
-      <Label layoutX="228.0" layoutY="29.0" text="From:">
+      <Label fx:id="lblFrom" text="From:" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="100.0">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lblFrom" layoutX="71.0" layoutY="14.0">
+      <Label fx:id="lblDate" layoutX="245.0" layoutY="138.0" text="Date:" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="135.0">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="228.0" layoutY="75.0" text="Date:">
+      <Label fx:id="lblRequest" text="Request:" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="170.0">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lblDate" layoutX="71.0" layoutY="60.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="229.0" layoutY="122.0" text="Request:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblRequest" layoutX="103.0" layoutY="107.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <JFXTextArea fx:id="txtAreaMessage" editable="false" layoutX="224.0" layoutY="175.0" prefHeight="235.0" prefWidth="580.0" />
-      <Separator layoutX="201.0" layoutY="7.0" orientation="VERTICAL" prefHeight="451.0" prefWidth="5.0" />
-      <TableView fx:id="tableViewMessages" layoutX="12.0" layoutY="14.0" prefHeight="437.0" prefWidth="182.0">
+      <JFXTextArea fx:id="txtAreaMessage" editable="false" focusColor="#009fe3" layoutX="240.0" layoutY="223.0" prefHeight="218.0" prefWidth="548.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0" />
+      <Separator layoutX="201.0" layoutY="7.0" orientation="VERTICAL" prefWidth="5.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="225.0" AnchorPane.topAnchor="100.0" />
+      <TableView fx:id="tableViewMessages" layoutX="12.0" layoutY="14.0" prefHeight="437.0" prefWidth="180.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
         <columns>
-          <TableColumn fx:id="tableColumnsMessages" editable="false" prefWidth="181.0" resizable="false" sortable="false" text="Messages" />
+          <TableColumn fx:id="tableColumnsMessages" editable="false" prefWidth="180.0" resizable="false" sortable="false" text="Messages" />
         </columns>
       </TableView>
+      <ImageView fitHeight="63.0" fitWidth="268.0" layoutX="14.0" layoutY="28.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
+         <image>
+            <Image url="@../../../img/easvlogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

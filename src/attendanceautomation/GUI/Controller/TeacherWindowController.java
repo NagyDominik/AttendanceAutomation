@@ -1,13 +1,12 @@
 package attendanceautomation.GUI.Controller;
 
-import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +24,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import sun.plugin2.jvm.RemoteJVMLauncher;
 
 /**
  * FXML Controller class
@@ -102,6 +99,16 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
+    @FXML
+    private void startdateSelected(ActionEvent event) {
+        filterDates();
+    }
+
+    @FXML
+    private void enddateSelected(ActionEvent event) {
+        filterDates();
+    }
+
     private void setCellValueFactories() {
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
         studentAbsenceCol.setCellValueFactory((TableColumn.CellDataFeatures<Student, String> param) -> param.getValue().getPercentageStringProperty());
@@ -123,4 +130,11 @@ public class TeacherWindowController implements Initializable {
             s.getPresencePercentage();
         }
     }
+
+    private void filterDates() {
+        LocalDate startDate = startdatePicker.getValue();
+        LocalDate endDate = enddatePicker.getValue();
+        model.filterStudentHistory(startDate, endDate);
+    }
+    
 }

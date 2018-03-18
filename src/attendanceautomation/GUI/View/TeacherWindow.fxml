@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherWindowController">
    <children>
       <Label fx:id="teacherNameLbl" layoutX="459.0" layoutY="32.0" text="Name of Teacher" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="45.0">
          <font>
@@ -49,8 +49,8 @@
          </columnResizePolicy>
       </TableView>
       <ChoiceBox fx:id="classChoiceBox" layoutX="35.0" layoutY="111.0" prefWidth="150.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="110.0" />
-      <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="289.0" layoutY="110.0" promptText="Start date" showWeekNumbers="true" />
-      <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="494.0" layoutY="110.0" promptText="End date" />
+      <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="289.0" layoutY="110.0" onAction="#startdateSelected" promptText="Start date" showWeekNumbers="true" />
+      <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="494.0" layoutY="110.0" onAction="#enddateSelected" promptText="End date" />
       <JFXButton layoutX="359.0" layoutY="39.0" text="Messages">
          <font>
             <Font name="System Bold" size="14.0" />
