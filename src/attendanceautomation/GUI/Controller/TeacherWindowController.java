@@ -7,6 +7,7 @@ import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,6 +100,16 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
+    @FXML
+    private void startdateSelected(ActionEvent event) {
+        filterDates();
+    }
+
+    @FXML
+    private void enddateSelected(ActionEvent event) {
+        filterDates();
+    }
+
     private void setCellValueFactories() {
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
         studentAbsenceCol.setCellValueFactory((TableColumn.CellDataFeatures<Student, String> param) -> param.getValue().getPercentageStringProperty());
@@ -137,4 +148,10 @@ public class TeacherWindowController implements Initializable {
             AlertWindow.showAlert(ex);
         }
     }
+    private void filterDates() {
+        LocalDate startDate = startdatePicker.getValue();
+        LocalDate endDate = enddatePicker.getValue();
+        model.filterStudentHistory(startDate, endDate);
+    }
+    
 }

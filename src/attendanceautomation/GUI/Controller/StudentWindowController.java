@@ -7,7 +7,6 @@ import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;

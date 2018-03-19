@@ -9,10 +9,9 @@ import attendanceautomation.BE.Teacher;
 import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -126,4 +125,21 @@ public class Model implements Initializable {
             throw new ModelException(ex);
         }
     }
+    
+    public ObservableList<AttendanceStatus> filterStudentHistory(LocalDate start, LocalDate end) {
+        ObservableList<AttendanceStatus> filtered = FXCollections.observableArrayList();
+        if (start == null) {
+            start = LocalDate.MIN;
+        }
+        if (end == null) {
+            end = LocalDate.MAX;
+        }
+        for (AttendanceStatus attendanceStatus : selectedStudent.getAttendanceInfo()) {
+            if (attendanceStatus.getDateAsLocalDate().isAfter(start) && attendanceStatus.getDateAsLocalDate().isBefore(end.plusDays(1))) {
+                filtered.add(attendanceStatus);
+            }
+        }
+        return filtered;
+    }
+    
 }
