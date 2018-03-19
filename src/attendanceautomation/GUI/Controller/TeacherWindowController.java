@@ -44,11 +44,11 @@ public class TeacherWindowController implements Initializable {
     private TableColumn<Student, String> stattodayCol;
     @FXML
     private ChoiceBox<ClassData> classChoiceBox;
-    private Model model = Model.getInstance();
     @FXML
     private JFXDatePicker startdatePicker;
     @FXML
     private JFXDatePicker enddatePicker;
+    private Model model = Model.getInstance();
 
     /**
      * Initializes the controller class.
@@ -57,7 +57,7 @@ public class TeacherWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentsTV.setItems(model.getStudent());
-        calculateAttendance();
+        calculateAttendance();                                          //Look into it later.
         classChoiceBox.setItems(model.getClassData());
         classChoiceBox.getSelectionModel().selectFirst();
         setCellValueFactories();
@@ -101,7 +101,8 @@ public class TeacherWindowController implements Initializable {
 
     private void setCellValueFactories() {
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
-        studentAbsenceCol.setCellValueFactory(new PropertyValueFactory("presencePercentage"));
+        studentAbsenceCol.setCellValueFactory((TableColumn.CellDataFeatures<Student, String> param) -> param.getValue().getPercentageStringProperty());
+        stattodayCol.setCellValueFactory((TableColumn.CellDataFeatures<Student, String> param) -> param.getValue().getTodaysStatusProperty());
     }
 
     private void addListenersAndHandlers() {
@@ -136,5 +137,4 @@ public class TeacherWindowController implements Initializable {
             AlertWindow.showAlert(ex);
         }
     }
-
 }

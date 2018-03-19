@@ -7,6 +7,7 @@ import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -65,7 +66,7 @@ public class StudentWindowController implements Initializable {
         Student user = (Student) model.getCurrentUser();
         historyTV.setItems(user.getAttendanceInfo());
         btnRequestStatusChange.setDisable(true);
-        percentageLbl.setText("Total percentage of participation: " + user.getPresencePercentage() + " %");
+        setPercentage();
     }
 
     @FXML
@@ -103,8 +104,7 @@ public class StudentWindowController implements Initializable {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
         if (!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
             selStat.setStatus(status);
-            Student user = (Student) model.getCurrentUser();
-            percentageLbl.setText("Total percentage of participation: " + user.getPresencePercentage() + " %");
+            setPercentage();
             historyTV.refresh();
         } else {
             Model.newAlert(new Exception("Your teacher set your status. Please contact him to modify it!"));
@@ -152,6 +152,11 @@ public class StudentWindowController implements Initializable {
                 }
             }
         });
+    }
+
+    private void setPercentage() {
+        Student user = (Student) model.getCurrentUser();
+        percentageLbl.setText("Total percentage of participation: " + user.getPercentageStringProperty().getValue() + " %");
     }
 
 }

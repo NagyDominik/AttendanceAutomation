@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="700.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherWindowController">
    <children>
       <Label fx:id="teacherNameLbl" layoutX="459.0" layoutY="32.0" text="Name of Teacher" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="45.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <JFXButton buttonType="RAISED" layoutX="588.0" layoutY="379.0" onAction="#attendanceClicked" prefWidth="100.0" styleClass="grayBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Attendance" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="35.0">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="588.0" layoutY="379.0" onAction="#attendanceClicked" prefWidth="100.0" styleClass="grayBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Attendance" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="35.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></JFXButton>
@@ -26,7 +26,7 @@
             <Image url="@../../../img/easvlogo.png" />
          </image>
       </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="503.0" layoutY="35.0" onAction="#logoutClicked" prefHeight="30.0" prefWidth="90.0" styleClass="logoutBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Logout" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="503.0" layoutY="35.0" onAction="#logoutClicked" prefHeight="30.0" prefWidth="90.0" styleClass="logoutBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Logout" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="22.0">
                <image>
