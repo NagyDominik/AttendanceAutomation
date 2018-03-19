@@ -11,11 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD
-<AnchorPane id="AnchorPane" prefHeight="461.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherMessageController">
-=======
 <AnchorPane id="AnchorPane" prefHeight="461.0" prefWidth="818.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.TeacherMessageController">
->>>>>>> 5ea83c2dfd2e22f00ecc9f38106c53ddb36ca686
    <children>
       <Label fx:id="lblFrom" text="From:" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="100.0">
          <font>
@@ -39,14 +35,11 @@
           <TableColumn fx:id="tableColumnsMessages" editable="false" prefWidth="180.0" resizable="false" sortable="false" text="Messages" />
         </columns>
       </TableView>
-<<<<<<< HEAD
       <JFXButton layoutX="739.0" layoutY="420.0" onAction="#btnCancelClicked" text="Cancel" />
-=======
       <ImageView fitHeight="63.0" fitWidth="268.0" layoutX="14.0" layoutY="28.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
          <image>
             <Image url="@../../../img/easvlogo.png" />
          </image>
       </ImageView>
->>>>>>> 5ea83c2dfd2e22f00ecc9f38106c53ddb36ca686
    </children>
 </AnchorPane>

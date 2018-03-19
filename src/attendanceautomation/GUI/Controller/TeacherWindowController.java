@@ -57,7 +57,7 @@ public class TeacherWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         teacherNameLbl.setText(model.getCurrentUser().getName());
-        studentsTV.setItems(model.getStudent());
+        studentsTV.setItems(model.getStudents());
         calculateAttendance();                                          //Look into it later.
         classChoiceBox.setItems(model.getClassData());
         classChoiceBox.getSelectionModel().selectFirst();
@@ -127,7 +127,7 @@ public class TeacherWindowController implements Initializable {
     }
 
     private void calculateAttendance() {
-        for (Student s : model.getStudent()) {
+        for (Student s : model.getStudents()) {
             s.getPresencePercentage();
         }
     }

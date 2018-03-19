@@ -45,19 +45,12 @@
             <TableColumn fx:id="stattodayCol" prefWidth="75.0" text="Today's status" />
         </columns>
          <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
       <ChoiceBox fx:id="classChoiceBox" layoutX="35.0" layoutY="111.0" prefWidth="150.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="110.0" />
-<<<<<<< HEAD
       <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="289.0" layoutY="110.0" promptText="Start date" showWeekNumbers="true" />
       <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="494.0" layoutY="110.0" promptText="End date" />
       <JFXButton layoutX="359.0" layoutY="39.0" onAction="#btnMessagesClicked" text="Messages">
-=======
-      <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="289.0" layoutY="110.0" onAction="#startdateSelected" promptText="Start date" showWeekNumbers="true" />
-      <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="494.0" layoutY="110.0" onAction="#enddateSelected" promptText="End date" />
-      <JFXButton layoutX="359.0" layoutY="39.0" text="Messages">
->>>>>>> 5ea83c2dfd2e22f00ecc9f38106c53ddb36ca686
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

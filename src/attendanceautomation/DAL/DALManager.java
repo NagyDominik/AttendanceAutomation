@@ -36,12 +36,12 @@ public class DALManager {
 
     private void setUpMockData() {
         mockTeacher = new ArrayList();
-        mockTeacher.add(new Teacher("teacher@easv.dk", "Jeppe Moritz", 0));
+        mockTeacher.add(new Teacher("teacher@easv.dk", "Jeppe Moritz", 2));
         mockTeacher.add(new Teacher("teacher1@easv.dk", "Lars Jorgensen", 1));
         
         mockClassData = new ArrayList();
-        mockClassData.add(new ClassData("CS2017A", new Teacher("teacher@easv.dk", "Jeppe Moritz", 0)));
-        mockClassData.add(new ClassData("CS2017B" , new Teacher("teacher@easv.dk", "Jeppe Moritz", 0)));
+        mockClassData.add(new ClassData("CS2017A", new Teacher("teacher@easv.dk", "Jeppe Moritz", 2)));
+        mockClassData.add(new ClassData("CS2017B" , new Teacher("teacher@easv.dk", "Jeppe Moritz", 2)));
 
    
         mockStudent = new ArrayList();
@@ -148,14 +148,15 @@ public class DALManager {
         List<StudentMessage> messages = new ArrayList<>();
         try (Connection con = cm.getConnection())
         {
-            String sql = "SELECT * FROM StudentMessage WHERE id = ?";
+            String sql = "SELECT * FROM StudentMessage";// WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            //ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next())
             {
                 StudentMessage msg = new StudentMessage(rs.getInt("teacherId"), rs.getInt("studentId"), rs.getBoolean("status")?"Absent":"Present", rs.getString("message"), rs.getInt("historyId"));
                 msg.setId(rs.getInt("id"));
+                messages.add(msg);
             }
         }
         catch (SQLException ex)
