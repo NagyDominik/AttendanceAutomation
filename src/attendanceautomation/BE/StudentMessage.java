@@ -15,11 +15,11 @@ public class StudentMessage
     private int teacherId;
     private int studentId;
     private int attendanceHistoryId;
-    private String status;
+    private Boolean status; //0 = absent, 1 = present
     private String message;
     private final BooleanProperty hasBeenSeen = new SimpleBooleanProperty();
 
-    public StudentMessage(int teacherId, int studentId, String status, String message, int attendanceId)
+    public StudentMessage(int teacherId, int studentId, Boolean status, String message, int attendanceId)
     {
         this.teacherId = teacherId;
         this.studentId = studentId;
@@ -48,12 +48,12 @@ public class StudentMessage
         this.id = id;
     }
 
-    public String getStatus()
+    public Boolean getStatus()
     {
         return status;
     }
 
-    public void setStatus(String status)
+    public void setStatus(Boolean status)
     {
         this.status = status;
     }

@@ -148,13 +148,13 @@ public class DALManager {
         List<StudentMessage> messages = new ArrayList<>();
         try (Connection con = cm.getConnection())
         {
-            String sql = "SELECT * FROM StudentMessage";// WHERE id = ?";
+            String sql = "SELECT * FROM StudentMessage WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            //ps.setInt(1, id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next())
             {
-                StudentMessage msg = new StudentMessage(rs.getInt("teacherId"), rs.getInt("studentId"), rs.getBoolean("status")?"Absent":"Present", rs.getString("message"), rs.getInt("historyId"));
+                StudentMessage msg = new StudentMessage(rs.getInt("teacherId"), rs.getInt("studentId"), rs.getBoolean("status"), rs.getString("message"), rs.getInt("historyId"));
                 msg.setId(rs.getInt("id"));
                 messages.add(msg);
             }
@@ -164,6 +164,36 @@ public class DALManager {
             throw new DALException(ex);
         }
         return messages;
+    }
+    
+    
+    /**
+     * Update an existing StudentMessage object in the database.
+     * @param msg The message that will be updated.
+     * @throws DALException If something goes wrong during database operations.
+     */
+    public void updateMessage(StudentMessage msg) throws DALException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            String sql = "UPDATE StudentMessage SET teacherId = ?, studentId = ?, historyId = ?, message = ?, status = ?, seen = ? WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, msg.getTeacherId());
+            ps.setInt(2, msg.getStudentId());
+            ps.setInt(3, msg.getAttendanceHistoryId());
+            ps.setString(4, msg.getMessage());
+            ps.setBoolean(5, msg.getStatus());
+            ps.setBoolean(6, msg.hasBeenSeen());
+            ps.setInt(7, msg.getId());
+            int affected = ps.executeUpdate();
+            if (affected < 0) {
+                throw new DALException("Movie could not be edited!");
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex);
+        }
     }
 
 }

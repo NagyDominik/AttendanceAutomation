@@ -12,6 +12,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -249,5 +251,20 @@ public class Model {
     public boolean hasUnreadMessage() {
         return true;
     }
-
+    
+    /**
+     * Update an existing StudentMessage object in the database.
+     * @param msg The message that will be updated.
+     * @throws ModelException If something goes wrong during database operations.
+     */
+    public void updateMessage(StudentMessage msg) throws ModelException
+    {
+        try
+        {
+            bllManager.updateMessage(msg);
+        } catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
+    }
 }

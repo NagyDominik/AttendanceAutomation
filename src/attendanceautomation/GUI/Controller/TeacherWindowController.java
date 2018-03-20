@@ -172,9 +172,20 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
+    private void filterDates() {
+        LocalDate startDate = startdatePicker.getValue();
+        LocalDate endDate = enddatePicker.getValue();
+        model.filterStudentHistory(startDate, endDate);
+    }
+
+    /**
+     * Set the messages image view depending on the number of unread messages.
+     */
     private void setMessageIcon() {
         if (model.hasUnreadMessage()) {
             imgViewMessage.setImage(new Image("img/newMessage.png"));
+        } else {
+            imgViewMessage.setImage(new Image("img/message.png"));
         }
     }
 }
