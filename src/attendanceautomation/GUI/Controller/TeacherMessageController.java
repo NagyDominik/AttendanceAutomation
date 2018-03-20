@@ -9,6 +9,8 @@ import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXTextArea;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -125,10 +127,18 @@ public class TeacherMessageController implements Initializable
         tableViewMessages.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                StudentMessage sm = (StudentMessage) newValue;
-                setLabels(sm);
-                sm.setHasBeenSeen(true);
-                tableViewMessages.refresh();
+                try
+                {
+                    StudentMessage sm = (StudentMessage) newValue;
+                    setLabels(sm);
+                    sm.setHasBeenSeen(true);
+                    tableViewMessages.refresh();
+                    model.updateMessage(sm);
+                } catch (ModelException ex)
+                {
+                    Logger.getLogger(TeacherMessageController.class.getName()).log(Level.SEVERE, null, ex);
+                    AlertWindow.showAlert(ex);
+                }
             }
 
             private void setLabels(StudentMessage newValue)

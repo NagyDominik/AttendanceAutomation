@@ -90,4 +90,20 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
+    
+    /**
+     * Update an existing StudentMessage object in the database.
+     * @param msg The message that will be updated.
+     * @throws BLLException If something goes wrong during database operations.
+     */
+    public void updateMessage(StudentMessage msg) throws BLLException
+    {
+        try
+        {
+            dManager.updateMessage(msg);
+        } catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
+    }
 }

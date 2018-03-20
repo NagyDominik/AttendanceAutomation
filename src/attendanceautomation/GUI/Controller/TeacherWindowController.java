@@ -158,11 +158,18 @@ public class TeacherWindowController implements Initializable {
         model.filterStudentHistory(startDate, endDate);
     }
     
+    /**
+     * Set the messages image view depending on the number of unread messages.
+     */
     private void setMessageIcon()
     {
         if (model.hasUnreadMessage())
         {
             imgViewMessage.setImage(new Image("img/newMessage.png"));
+        }
+        else
+        {
+            imgViewMessage.setImage(new Image("img/message.png"));
         }
     }
 }
