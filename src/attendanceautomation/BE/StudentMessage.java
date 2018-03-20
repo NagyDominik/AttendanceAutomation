@@ -2,6 +2,8 @@ package attendanceautomation.BE;
 
 import java.time.LocalDate;
 import java.util.Calendar;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  * Represents a message sent to a teacher by a student (usually asking for status change).
@@ -15,7 +17,7 @@ public class StudentMessage
     private int attendanceHistoryId;
     private String status;
     private String message;
-    boolean hasBeenSeen;
+    private final BooleanProperty hasBeenSeen = new SimpleBooleanProperty();
 
     public StudentMessage(int teacherId, int studentId, String status, String message, int attendanceId)
     {
@@ -24,9 +26,18 @@ public class StudentMessage
         this.attendanceHistoryId = attendanceId;
         this.status = status;
         this.message = message;
-        this.hasBeenSeen = false;
     }
 
+    public boolean hasBeenSeen()
+    {
+        return hasBeenSeen.get();
+    }
+
+    public void setHasBeenSeen(boolean value)
+    {
+        hasBeenSeen.set(value);
+    }
+    
     public int getId()
     {
         return id;
@@ -57,11 +68,6 @@ public class StudentMessage
         this.message = message;
     }
     
-    public boolean getHasBeenSeen()
-    {
-        return hasBeenSeen;
-    }
-
     public int getTeacherId()
     {
         return teacherId;
@@ -76,16 +82,4 @@ public class StudentMessage
     {
         return attendanceHistoryId;
     }
-
-    public boolean isHasBeenSeen()
-    {
-        return hasBeenSeen;
-    }
-
-    public void setHasBeenSeen(boolean hasBeenSeen)
-    {
-        this.hasBeenSeen = hasBeenSeen;
-    }
-    
-    
 }

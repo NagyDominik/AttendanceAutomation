@@ -122,7 +122,7 @@ public class DALManager {
             ps.setInt(3, msg.getAttendanceHistoryId());
             ps.setString(4, msg.getMessage());
             ps.setBoolean(5, msg.getStatus().equals("Present")?true:false);
-            ps.setBoolean(6, msg.getHasBeenSeen());
+            ps.setBoolean(6, msg.hasBeenSeen());
             int affected = ps.executeUpdate();
             if (affected < 1) {
                 throw new DALException("Message could not be saved!");
