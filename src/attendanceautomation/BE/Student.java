@@ -2,15 +2,12 @@ package attendanceautomation.BE;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-import javafx.util.converter.LocalDateTimeStringConverter;
 
 /**
  * Represents a student
