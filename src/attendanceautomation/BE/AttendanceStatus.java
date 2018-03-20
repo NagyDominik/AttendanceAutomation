@@ -5,6 +5,7 @@ package attendanceautomation.BE;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -56,7 +57,8 @@ public class AttendanceStatus {
     }
 
     public String getDate() {
-        return date.format(DateTimeFormatter.ISO_DATE);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("w, yyyy-MM-dd");
+        return "Week " + date.format(formatter);
     }
 
     public LocalDate getDateAsLocalDate() {
@@ -79,7 +81,7 @@ public class AttendanceStatus {
     }
 
     public String getStatus() {
-        switch (status.getValue().intValue()) {
+        switch (status.getValue()) {
             case 0:
                 return "🗙";
             case 1:
