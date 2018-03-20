@@ -24,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -50,6 +52,8 @@ public class TeacherWindowController implements Initializable {
     @FXML
     private JFXDatePicker enddatePicker;
     private Model model = Model.getInstance();
+    @FXML
+    private ImageView imgViewMessage;
 
     /**
      * Initializes the controller class.
@@ -63,6 +67,7 @@ public class TeacherWindowController implements Initializable {
         classChoiceBox.getSelectionModel().selectFirst();
         setCellValueFactories();
         addListenersAndHandlers();
+        setMessageIcon();
     }
 
     @FXML
@@ -100,12 +105,10 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
-    @FXML
     private void startdateSelected(ActionEvent event) {
         filterDates();
     }
 
-    @FXML
     private void enddateSelected(ActionEvent event) {
         filterDates();
     }
@@ -148,10 +151,18 @@ public class TeacherWindowController implements Initializable {
             AlertWindow.showAlert(ex);
         }
     }
+    
     private void filterDates() {
         LocalDate startDate = startdatePicker.getValue();
         LocalDate endDate = enddatePicker.getValue();
         model.filterStudentHistory(startDate, endDate);
     }
     
+    private void setMessageIcon()
+    {
+        if (model.hasUnreadMessage())
+        {
+            imgViewMessage.setImage(new Image("img/newMessage.png"));
+        }
+    }
 }

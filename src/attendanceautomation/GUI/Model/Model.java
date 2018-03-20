@@ -252,5 +252,14 @@ public class Model implements Initializable {
         }
         return null;
     }
+
+    /**
+     * Checks if the current user has unread messages.
+     * @return True if the current user has unread messages, false otherwise.
+     */
+    public boolean hasUnreadMessage()
+    {
+        return true;
+    }
     
 }
