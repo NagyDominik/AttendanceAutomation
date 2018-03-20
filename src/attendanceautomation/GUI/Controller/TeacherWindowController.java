@@ -5,6 +5,7 @@ import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
+import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
@@ -56,11 +57,11 @@ public class TeacherWindowController implements Initializable {
     private JFXDatePicker startdatePicker;
     @FXML
     private JFXDatePicker enddatePicker;
-
     private Model model = Model.getInstance();
     @FXML
     private ImageView imgViewMessage;
-
+    private final Image message = new Image("img/message.png");
+    private final Image newMessage = new Image("img/newMessage.png");
     /**
      * Initializes the controller class.
      */
@@ -165,6 +166,7 @@ public class TeacherWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
+            imgViewMessage.setImage(message);
         }
         catch (IOException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,10 +184,16 @@ public class TeacherWindowController implements Initializable {
      * Set the messages image view depending on the number of unread messages.
      */
     private void setMessageIcon() {
-        if (model.hasUnreadMessage()) {
-            imgViewMessage.setImage(new Image("img/newMessage.png"));
-        } else {
-            imgViewMessage.setImage(new Image("img/message.png"));
+        try
+        {
+            if (model.hasUnreadMessage(model.getCurrentUser().getId())) {
+                imgViewMessage.setImage(newMessage);
+            } else {
+                imgViewMessage.setImage(message);
+            }
+        } catch (ModelException ex)
+        {
+            AlertWindow.showAlert(ex);
         }
     }
 }

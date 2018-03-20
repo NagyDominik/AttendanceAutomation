@@ -75,7 +75,7 @@ public class TeacherMessageController implements Initializable
      */
     private void close()
     {
-
+        
         Stage stage = (Stage) txtAreaMessage.getScene().getWindow();
         stage.close();
     }

@@ -106,4 +106,15 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
+
+    public boolean hasUnreadMessages(int id) throws BLLException
+    {
+        try
+        {
+            return dManager.hasUnreadMessages(id);
+        } catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
+    }
 }

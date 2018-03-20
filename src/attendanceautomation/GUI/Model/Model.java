@@ -10,6 +10,8 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -244,8 +246,14 @@ public class Model {
      *
      * @return True if the current user has unread messages, false otherwise.
      */
-    public boolean hasUnreadMessage() {
-        return true;
+    public boolean hasUnreadMessage(int id) throws ModelException{
+        try
+        {
+            return bllManager.hasUnreadMessages(id);
+        } catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
     }
     
     /**

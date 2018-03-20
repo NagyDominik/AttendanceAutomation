@@ -197,4 +197,24 @@ public class DALManager {
         }
     }
 
+    public boolean hasUnreadMessages(int id) throws DALException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            String sql = "SELECT [teacherid], COUNT([seen]) as SeenCount FROM [CS2017B_7_AttendanceAutomation].[dbo].[StudentMessage] WHERE [seen] = 0 GROUP BY teacherid;"; //AND [teacherId] = ? GROUP BY teacherid;"; //" AND teacherId = id"
+            PreparedStatement ps = con.prepareStatement(sql);
+            //ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                return true;
+            }
+            return false;
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex);
+        }
+    }
+
 }
