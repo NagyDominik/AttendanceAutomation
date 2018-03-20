@@ -54,17 +54,17 @@ public class TeacherMessageController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        setUpTableColumn();
-        setUpListeners();
-        try
-        {
-            messages.addAll(model.getMessages(model.getCurrentUser().getId()));
-            tableViewMessages.setItems(messages);
-        } catch (ModelException ex)
-        {
-            AlertWindow.showAlert(ex);
-        }
-        System.out.println("");
+//        setUpTableColumn();
+//        setUpListeners();
+//        try
+//        {
+//            messages.addAll(model.getMessages(model.getCurrentUser().getId()));
+//            tableViewMessages.setItems(messages);
+//        } catch (ModelException ex)
+//        {
+//            AlertWindow.showAlert(ex);
+//        }
+//        System.out.println("");
     }    
 
        @FXML
@@ -78,18 +78,9 @@ public class TeacherMessageController implements Initializable
      */
     private void close()
     {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
-            Parent root = (Parent) loader.load();
-            Stage stage = (Stage) lblDate.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.show();
-        }
-        catch (IOException ex) {
-            Logger.getLogger(StudentMessageFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        Stage stage = (Stage) txtAreaMessage.getScene().getWindow();
+        stage.close();
     }
 
     private void setUpTableColumn()

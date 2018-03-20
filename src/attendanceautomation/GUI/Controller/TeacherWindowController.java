@@ -138,7 +138,7 @@ public class TeacherWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherMessage.fxml"));
             Parent root = (Parent) loader.load();
-            Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
