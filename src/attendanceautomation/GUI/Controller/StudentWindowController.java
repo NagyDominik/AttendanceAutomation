@@ -155,6 +155,7 @@ public class StudentWindowController implements Initializable {
 
     private void setPercentage() {
         Student user = (Student) model.getCurrentUser();
+        user.calculateAttPer();
         percentageLbl.setText("Total percentage of participation: " + user.getPercentageStringProperty().getValue() + " %");
     }
 

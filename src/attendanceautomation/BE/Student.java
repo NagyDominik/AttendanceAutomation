@@ -2,12 +2,15 @@ package attendanceautomation.BE;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.util.converter.LocalDateTimeStringConverter;
 
 /**
  * Represents a student
@@ -27,14 +30,12 @@ public class Student extends Person {
         this.name = name;
         this.id = id;
         setAttendanceeMockData();
-        calculateAttPer();
     }
 
     public float getPresencePercentage() {
-        this.calculateAttPer();
         return presencePercentage.get();
     }
-    
+
     public StringProperty getPercentageStringProperty() {
         StringProperty property = new SimpleStringProperty();
         DecimalFormat df = new DecimalFormat("#.##");
@@ -42,7 +43,7 @@ public class Student extends Person {
         property.set(formated);
         return property;
     }
-    
+
     public StringProperty getTodaysStatusProperty() {
         StringProperty property = new SimpleStringProperty();
         property.set(attendance.get(0).getStatus());
@@ -82,14 +83,28 @@ public class Student extends Person {
         return attendance;
     }
 
-    private void calculateAttPer() {
+    public void calculateAttPer() {
         int presCount = 0;
         for (AttendanceStatus attendanceStatus : attendance) {
             if (attendanceStatus.getStatusAsNumber() == 1) {
                 presCount++;
             }
         }
-        presencePercentage.set((float) presCount / attendance.size() *100);
+        presencePercentage.set((float) presCount / attendance.size() * 100);
     }
 
+    public void calculateAttPer(LocalDate start, LocalDate end) {
+        int presCount = 0;
+        int size = 0;
+        for (AttendanceStatus attendanceStatus : attendance) {
+            LocalDate date = attendanceStatus.getDateAsLocalDate();
+            if (date.isAfter(start) && date.isBefore(end)) {
+                size++;
+                if (attendanceStatus.getStatusAsNumber() == 1) {
+                    presCount++;
+                }
+            }
+        }
+        presencePercentage.set((float) presCount / size * 100);
+    }
 }
