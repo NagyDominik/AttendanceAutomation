@@ -147,7 +147,7 @@ public class TeacherMessageController implements Initializable
                 AttendanceStatus as = model.getAttendanceStatusBasedOnId(newValue.getStudentId(), newValue.getAttendanceHistoryId());
                 lblDate.setText("Date: " + as.getDateAsLocalDate().toString());
                 lblFrom.setText("From: " + student.getName());
-                lblRequest.setText("Request to change to: " + newValue.getStatus());
+                lblRequest.setText("Request to change to: " + (newValue.getStatus()?"Present":"Absent"));
                 txtAreaMessage.setText(newValue.getMessage());
             }
         });
