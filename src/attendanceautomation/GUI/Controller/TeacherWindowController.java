@@ -28,6 +28,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -56,6 +58,8 @@ public class TeacherWindowController implements Initializable {
     private JFXDatePicker enddatePicker;
 
     private Model model = Model.getInstance();
+    @FXML
+    private ImageView imgViewMessage;
 
     /**
      * Initializes the controller class.
@@ -71,6 +75,7 @@ public class TeacherWindowController implements Initializable {
         setCellValueFactories();
         addListenersAndHandlers();
         calculateAttendance();
+        setMessageIcon();
     }
 
     @FXML
@@ -148,7 +153,7 @@ public class TeacherWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherMessage.fxml"));
             Parent root = (Parent) loader.load();
-            Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
@@ -159,4 +164,11 @@ public class TeacherWindowController implements Initializable {
         }
     }
     
+    private void setMessageIcon()
+    {
+        if (model.hasUnreadMessage())
+        {
+            imgViewMessage.setImage(new Image("img/newMessage.png"));
+        }
+    }
 }

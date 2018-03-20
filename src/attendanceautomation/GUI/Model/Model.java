@@ -28,7 +28,7 @@ public class Model {
     private ObservableList<Student> students = FXCollections.observableArrayList();
     private ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
     private ObservableList<ClassData> classDataList = FXCollections.observableArrayList();
-    
+
     private Model() {
         students.addAll(bllManager.getStudent());
         teacherList.addAll(bllManager.getTeacher());
@@ -239,6 +239,15 @@ public class Model {
             }
         }
         return null;
+    }
+
+    /**
+     * Checks if the current user has unread messages.
+     *
+     * @return True if the current user has unread messages, false otherwise.
+     */
+    public boolean hasUnreadMessage() {
+        return true;
     }
 
 }

@@ -7,25 +7,20 @@ import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXTextArea;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -56,6 +51,7 @@ public class TeacherMessageController implements Initializable
     {
         setUpTableColumn();
         setUpListeners();
+        setRowFactory();
         try
         {
             messages.addAll(model.getMessages(model.getCurrentUser().getId()));
@@ -64,7 +60,6 @@ public class TeacherMessageController implements Initializable
         {
             AlertWindow.showAlert(ex);
         }
-        System.out.println("");
     }    
 
        @FXML
@@ -78,23 +73,48 @@ public class TeacherMessageController implements Initializable
      */
     private void close()
     {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
-            Parent root = (Parent) loader.load();
-            Stage stage = (Stage) lblDate.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.show();
-        }
-        catch (IOException ex) {
-            Logger.getLogger(StudentMessageFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        Stage stage = (Stage) txtAreaMessage.getScene().getWindow();
+        stage.close();
     }
 
-    private void setUpTableColumn()
+    /**
+     * Set up a cellValue factory so that the correct date and name is displayed.
+     */
+    private void setUpTableColumn() {
+        tableColumnsMessages.setCellValueFactory((TableColumn.CellDataFeatures<StudentMessage, String> param) ->
+        {
+            AttendanceStatus as = model.getAttendanceStatusBasedOnId(param.getValue().getStudentId(), param.getValue().getAttendanceHistoryId());
+            Student s = model.getStudents(param.getValue().getStudentId());
+            return new ReadOnlyStringWrapper(as.getDate() + " " + s.getName());
+        });
+    }
+    
+    /**
+     * Override the updateItem() method, so that the unseen messages are highlighted with bold font.
+     */
+    private void setRowFactory()
     {
-        tableColumnsMessages.setCellValueFactory(new PropertyValueFactory("id"));
+        tableViewMessages.setRowFactory((TableView<StudentMessage> param) -> new TableRow<StudentMessage>()
+        {
+            @Override
+            protected void updateItem(StudentMessage item, boolean empty)
+            {
+                super.updateItem(item, empty);
+                if(item == null)
+                {
+                    setStyle("");
+                }
+                else if (!item.hasBeenSeen())
+                {
+                    setStyle("-fx-font-weight: bold");
+                }
+                else
+                {
+                    setStyle("");
+                }
+            }
+        });
     }
 
     /**
@@ -105,18 +125,20 @@ public class TeacherMessageController implements Initializable
         tableViewMessages.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                setLabels(newValue);
+                StudentMessage sm = (StudentMessage) newValue;
+                setLabels(sm);
+                sm.setHasBeenSeen(true);
+                tableViewMessages.refresh();
             }
 
-            private void setLabels(Object newValue)
+            private void setLabels(StudentMessage newValue)
             {
-                StudentMessage sm = (StudentMessage) newValue;
-                Student student = model.getStudents(sm.getStudentId());
-                AttendanceStatus as = model.getAttendanceStatusBasedOnId(sm.getStudentId(), sm.getAttendanceHistoryId());
+                Student student = model.getStudents(newValue.getStudentId());
+                AttendanceStatus as = model.getAttendanceStatusBasedOnId(newValue.getStudentId(), newValue.getAttendanceHistoryId());
                 lblDate.setText("Date: " + as.getDateAsLocalDate().toString());
                 lblFrom.setText("From: " + student.getName());
-                lblRequest.setText("Request to change to: " + sm.getStatus());
-                txtAreaMessage.setText(sm.getMessage());
+                lblRequest.setText("Request to change to: " + newValue.getStatus());
+                txtAreaMessage.setText(newValue.getMessage());
             }
         });
     }
