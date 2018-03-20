@@ -125,7 +125,7 @@ public class AttendanceWindowController implements Initializable {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
         selStat.setStatus(status);
         selStat.setTeacherSet(true);
-        percentageLbl.setText("Total percentage of participation: " + model.getSelectedStudent().getPercentageStringProperty().getValue() + " %");
+        filterDates();
         historyTV.refresh();
     }
 
