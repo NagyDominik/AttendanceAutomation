@@ -30,3 +30,7 @@
 .grayBtn{
     -fx-background-color: #A1A1A1;
 }
+
+.text-area *.text {
+    -fx-text-alignment: center;
+}
