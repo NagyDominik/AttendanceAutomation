@@ -38,19 +38,19 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="studentsTV" layoutX="52.0" layoutY="24.0" prefHeight="250.0" prefWidth="613.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="145.0">
+      <TableView fx:id="studentsTV" fixedCellSize="0.0" layoutX="52.0" layoutY="24.0" prefHeight="250.0" prefWidth="613.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="145.0">
         <columns>
-          <TableColumn fx:id="studentNameCol" prefWidth="257.0" text="Name" />
-          <TableColumn fx:id="studentAbsenceCol" prefWidth="162.0" text="\% of absence" />
-            <TableColumn fx:id="stattodayCol" prefWidth="75.0" text="Today's status" />
+          <TableColumn fx:id="studentNameCol" minWidth="300.0" prefWidth="-1.0" text="Name" />
+          <TableColumn fx:id="studentAbsenceCol" minWidth="150.0" prefWidth="-1.0" text="\% of absence" />
+            <TableColumn fx:id="stattodayCol" minWidth="100.0" prefWidth="100.0" text="Today's status" />
         </columns>
          <columnResizePolicy>
          </columnResizePolicy>
       </TableView>
       <ChoiceBox fx:id="classChoiceBox" layoutX="35.0" layoutY="111.0" prefWidth="150.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="110.0" />
-      <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="289.0" layoutY="110.0" promptText="Start date" showWeekNumbers="true" />
-      <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="494.0" layoutY="110.0" promptText="End date" />
-      <JFXButton focusTraversable="false" layoutX="326.0" layoutY="36.0" onAction="#btnMessagesClicked" text="Messages">
+      <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="289.0" layoutY="110.0" onAction="#startdateSelected" promptText="Start date" showWeekNumbers="true" />
+      <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="494.0" layoutY="110.0" onAction="#enddateSelected" promptText="End date" />
+      <JFXButton layoutX="359.0" layoutY="39.0" onAction="#btnMessagesClicked" text="Messages">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

@@ -1,11 +1,13 @@
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
+import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +56,7 @@ public class AttendanceWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
         enddatePicker.setValue(LocalDate.now());
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentNameLbl.setText(model.getSelectedStudent().getName());
@@ -122,14 +125,20 @@ public class AttendanceWindowController implements Initializable {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
         selStat.setStatus(status);
         selStat.setTeacherSet(true);
-        percentageLbl.setText("Total percentage of participation: " + model.getSelectedStudent().getPercentageStringProperty().getValue() + " %");
+        filterDates();
         historyTV.refresh();
     }
 
     private void filterDates() {
-        LocalDate startDate = startdatePicker.getValue();
-        LocalDate endDate = enddatePicker.getValue();
-        historyTV.setItems(model.filterStudentHistory(startDate, endDate));
+        LocalDate start = startdatePicker.getValue().minusDays(1);
+        LocalDate end = enddatePicker.getValue().plusDays(1);
+        historyTV.setItems(model.filterStudentHistory(start, end));
+        calculateAttendance(start, end);
+    }
+
+    private void calculateAttendance(LocalDate start, LocalDate end) {
+        model.getSelectedStudent().calculateAttPer(start, end);
+        percentageLbl.setText("Total percentage of participation: " + model.getSelectedStudent().getPercentageStringProperty().getValue() + " %");
     }
 
 }

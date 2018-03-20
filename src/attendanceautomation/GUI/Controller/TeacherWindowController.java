@@ -1,5 +1,6 @@
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.AlertWindow;
@@ -8,9 +9,12 @@ import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -27,6 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -51,6 +56,7 @@ public class TeacherWindowController implements Initializable {
     private JFXDatePicker startdatePicker;
     @FXML
     private JFXDatePicker enddatePicker;
+
     private Model model = Model.getInstance();
     @FXML
     private ImageView imgViewMessage;
@@ -60,13 +66,15 @@ public class TeacherWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear()-1, Month.AUGUST, 15));
+        enddatePicker.setValue(LocalDate.now());
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentsTV.setItems(model.getStudents());
-        calculateAttendance();                                          //Look into it later.
         classChoiceBox.setItems(model.getClassData());
         classChoiceBox.getSelectionModel().selectFirst();
         setCellValueFactories();
         addListenersAndHandlers();
+        calculateAttendance();
         setMessageIcon();
     }
 
@@ -105,12 +113,14 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
+    @FXML
     private void startdateSelected(ActionEvent event) {
-        filterDates();
+        calculateAttendance();
     }
 
+    @FXML
     private void enddateSelected(ActionEvent event) {
-        filterDates();
+        calculateAttendance();
     }
 
     private void setCellValueFactories() {
@@ -131,13 +141,15 @@ public class TeacherWindowController implements Initializable {
 
     private void calculateAttendance() {
         for (Student s : model.getStudents()) {
-            s.getPresencePercentage();
+            LocalDate start = startdatePicker.getValue().minusDays(1);
+            LocalDate end = enddatePicker.getValue().plusDays(1);
+            s.calculateAttPer(start, end);
         }
+        studentsTV.refresh();
     }
 
     @FXML
-    private void btnMessagesClicked(ActionEvent event)
-    {
+    private void btnMessagesClicked(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherMessage.fxml"));
             Parent root = (Parent) loader.load();
