@@ -148,13 +148,14 @@ public class DALManager {
         List<StudentMessage> messages = new ArrayList<>();
         try (Connection con = cm.getConnection())
         {
-            String sql = "SELECT * FROM StudentMessage WHERE id = ?";
+            String sql = "SELECT * FROM StudentMessage";//WHERE teacherid = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+           // ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next())
             {
                 StudentMessage msg = new StudentMessage(rs.getInt("teacherId"), rs.getInt("studentId"), rs.getBoolean("status"), rs.getString("message"), rs.getInt("historyId"));
+                msg.setHasBeenSeen(rs.getBoolean("seen"));
                 msg.setId(rs.getInt("id"));
                 messages.add(msg);
             }

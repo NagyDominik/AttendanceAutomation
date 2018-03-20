@@ -81,7 +81,7 @@ public class AttendanceStatus {
     }
 
     public String getStatus() {
-        switch (status.getValue().intValue()) {
+        switch (status.getValue()) {
             case 0:
                 return "🗙";
             case 1:
