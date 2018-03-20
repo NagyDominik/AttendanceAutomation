@@ -66,7 +66,7 @@ public class TeacherWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear()-1, Month.AUGUST, 15));
+        startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
         enddatePicker.setValue(LocalDate.now());
         teacherNameLbl.setText(model.getCurrentUser().getName());
         studentsTV.setItems(model.getStudents());
@@ -115,12 +115,20 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void startdateSelected(ActionEvent event) {
-        calculateAttendance();
+        if (startdatePicker.getValue().minusDays(1).isBefore(enddatePicker.getValue())) {
+            calculateAttendance();
+        } else {
+            AlertWindow.showAlert(new Exception("The start date cannot be set after the end date!"));
+        }
     }
 
     @FXML
     private void enddateSelected(ActionEvent event) {
-        calculateAttendance();
+        if (enddatePicker.getValue().plusDays(1).isAfter(startdatePicker.getValue())) {
+            calculateAttendance();
+        } else {
+            AlertWindow.showAlert(new Exception("The end date cannot be set before the end date!"));
+        }
     }
 
     private void setCellValueFactories() {
@@ -163,11 +171,9 @@ public class TeacherWindowController implements Initializable {
             AlertWindow.showAlert(ex);
         }
     }
-    
-    private void setMessageIcon()
-    {
-        if (model.hasUnreadMessage())
-        {
+
+    private void setMessageIcon() {
+        if (model.hasUnreadMessage()) {
             imgViewMessage.setImage(new Image("img/newMessage.png"));
         }
     }

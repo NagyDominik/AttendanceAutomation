@@ -2,6 +2,7 @@ package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.Student;
+import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class AttendanceWindowController implements Initializable {
         studentNameLbl.setText(model.getSelectedStudent().getName());
         setUpCellValueFactories();
         historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
-        percentageLbl.setText("Total percentage of participation: " + model.getSelectedStudent().getPercentageStringProperty().getValue() + " %");
+        filterDates();
     }
 
     @FXML
@@ -107,12 +108,20 @@ public class AttendanceWindowController implements Initializable {
 
     @FXML
     private void startdateSelected(ActionEvent event) {
-        filterDates();
+        if (startdatePicker.getValue().minusDays(1).isBefore(enddatePicker.getValue())) {
+            filterDates();
+        } else {
+            AlertWindow.showAlert(new Exception("The start date cannot be set after the end date!"));
+        }
     }
 
     @FXML
     private void enddateSelected(ActionEvent event) {
-        filterDates();
+        if (enddatePicker.getValue().plusDays(1).isAfter(startdatePicker.getValue())) {
+            filterDates();
+        } else {
+            AlertWindow.showAlert(new Exception("The end date cannot be set before the end date!"));
+        }
     }
 
     private void setUpCellValueFactories() {

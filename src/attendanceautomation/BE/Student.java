@@ -105,6 +105,11 @@ public class Student extends Person {
                 }
             }
         }
-        presencePercentage.set((float) presCount / size * 100);
+        if (size > 0) {
+            presencePercentage.set((float) presCount / size * 100);
+        } else {
+            presencePercentage.set(0);
+        }
+
     }
 }
