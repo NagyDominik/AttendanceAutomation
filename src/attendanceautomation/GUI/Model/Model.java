@@ -271,4 +271,19 @@ public class Model {
             throw new ModelException(ex);
         }
     }
+
+    /**
+     * Update an existing AttendanceStatus in the database
+     * @param attendatnceStatus The attendance status that will be updated
+     */
+    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws ModelException
+    {
+        try
+        {
+            bllManager.updateAttendanceStatus(attendatnceStatus);
+        } catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
+    }
 }

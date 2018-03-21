@@ -45,8 +45,11 @@ public class TeacherMessageController implements Initializable
     private TableView<StudentMessage> tableViewMessages;
     @FXML
     private TableColumn<StudentMessage, String> tableColumnsMessages;
-    ObservableList<StudentMessage> messages = FXCollections.observableArrayList();
-    Model model = Model.getInstance();
+    private ObservableList<StudentMessage> messages = FXCollections.observableArrayList();
+    private Model model = Model.getInstance();
+    private StudentMessage message;
+    private AttendanceStatus attendatnceStatus;
+    private Student student;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -86,9 +89,9 @@ public class TeacherMessageController implements Initializable
     private void setUpTableColumn() {
         tableColumnsMessages.setCellValueFactory((TableColumn.CellDataFeatures<StudentMessage, String> param) ->
         {
-            AttendanceStatus as = model.getAttendanceStatusBasedOnId(param.getValue().getStudentId(), param.getValue().getAttendanceHistoryId());
-            Student s = model.getStudents(param.getValue().getStudentId());
-            return new ReadOnlyStringWrapper(as.getDate() + " " + s.getName());
+            attendatnceStatus = model.getAttendanceStatusBasedOnId(param.getValue().getStudentId(), param.getValue().getAttendanceHistoryId());
+            student = model.getStudents(param.getValue().getStudentId());
+            return new ReadOnlyStringWrapper(attendatnceStatus.getDate() + " " + student.getName());
         });
     }
     
@@ -129,11 +132,11 @@ public class TeacherMessageController implements Initializable
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 try
                 {
-                    StudentMessage sm = (StudentMessage) newValue;
-                    setLabels(sm);
-                    sm.setHasBeenSeen(true);
+                    message = (StudentMessage) newValue;
+                    setLabels(message);
+                    message.setHasBeenSeen(true);
                     tableViewMessages.refresh();
-                    model.updateMessage(sm);
+                    model.updateMessage(message);
                 } catch (ModelException ex)
                 {
                     Logger.getLogger(TeacherMessageController.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,13 +146,56 @@ public class TeacherMessageController implements Initializable
 
             private void setLabels(StudentMessage newValue)
             {
-                Student student = model.getStudents(newValue.getStudentId());
-                AttendanceStatus as = model.getAttendanceStatusBasedOnId(newValue.getStudentId(), newValue.getAttendanceHistoryId());
-                lblDate.setText("Date: " + as.getDateAsLocalDate().toString());
+                student = model.getStudents(newValue.getStudentId());
+                attendatnceStatus = model.getAttendanceStatusBasedOnId(newValue.getStudentId(), newValue.getAttendanceHistoryId());
+                lblDate.setText("Date: " + attendatnceStatus.getDateAsLocalDate().toString());
                 lblFrom.setText("From: " + student.getName());
                 lblRequest.setText("Request to change to: " + (newValue.getStatus()?"Present":"Absent"));
                 txtAreaMessage.setText(newValue.getMessage());
             }
         });
+    }
+
+    @FXML
+    private void btnAcceptClicked(ActionEvent event)
+    {
+        if (attendatnceStatus != null)
+        {
+            switch(attendatnceStatus.getStatusAsNumber())
+            {
+                case 0: //Status was swt to absent 
+                    if (message.getStatus())
+                    {
+                        attendatnceStatus.setStatus(1);
+                    }
+                    break;
+                case 1: //Status was set to present
+                    if (!message.getStatus())
+                    {
+                        attendatnceStatus.setStatus(0);
+                    }
+                    break;
+                case -1:    //Status was not set befor
+                    if (message.getStatus())
+                    {
+                        attendatnceStatus.setStatus(1);
+                    }
+                    else
+                    {
+                        attendatnceStatus.setStatus(0);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            attendatnceStatus.setTeacherSet(true);
+//            try
+//            {
+//                model.updateAttendanceStatus(attendatnceStatus);  //Currently not working, because we use mock data, not the database.
+//            } catch (ModelException ex)
+//            {
+//                AlertWindow.showAlert(ex);
+//            }
+        }
     }
 }

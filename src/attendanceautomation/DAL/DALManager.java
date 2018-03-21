@@ -1,15 +1,16 @@
 package attendanceautomation.DAL;
 
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -212,6 +213,33 @@ public class DALManager {
             return false;
         }
         catch (SQLException ex)
+        {
+            throw new DALException(ex);
+        }
+    }
+    
+    /**
+     * Update an existing AttendanceStatus in the database
+     * @param attendatnceStatus The attendance status that will be updated
+     */
+    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws DALException
+    {
+        Date d = Date.valueOf(attendatnceStatus.getDateAsLocalDate());
+        try(Connection con = cm.getConnection())
+        {
+            String sql = "UPDATE History SET date = ?, status = ?, teacherset = ? WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, d);
+            ps.setInt(2, attendatnceStatus.getStatusAsNumber());
+            ps.setBoolean(3, attendatnceStatus.isTeacherSet());
+            ps.setInt(4, attendatnceStatus.getId());
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DALException("Update unsuccessfull!");
+            }
+        }
+        catch(SQLException ex)
         {
             throw new DALException(ex);
         }

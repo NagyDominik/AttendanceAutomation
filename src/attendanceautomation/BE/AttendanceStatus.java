@@ -1,16 +1,11 @@
-/**
- * Represents the attendance on a given date.
- */
 package attendanceautomation.BE;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
- *
  * @author sebok
  */
 public class AttendanceStatus {

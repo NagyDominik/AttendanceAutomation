@@ -1,5 +1,6 @@
 package attendanceautomation.BLL;
 
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.DAL.DALManager;
 import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
@@ -18,11 +19,11 @@ import java.util.logging.Logger;
  */
 public class BLLManager {
 
-    private DALManager dManager;
+    private DALManager dao;
     private Hasher encrypter = new Hasher();
 
     public BLLManager() {
-        dManager = new DALManager();
+        dao = new DALManager();
     }
 
     /**
@@ -31,7 +32,7 @@ public class BLLManager {
      * @return A class with the corresponding id.
      */
     public List<ClassData> getClassData() {
-        return dManager.getMockClassData();
+        return dao.getMockClassData();
     }
 
     /**
@@ -40,7 +41,7 @@ public class BLLManager {
      * @return A teacher with the corresponding id.
      */
     public List<Teacher> getTeacher() {
-        return dManager.getMockTeacher();
+        return dao.getMockTeacher();
     }
 
     /**
@@ -50,7 +51,7 @@ public class BLLManager {
      */
 
     public List<Student> getStudent() {
-        return dManager.getMockStudent();
+        return dao.getMockStudent();
     }
 
     /**
@@ -62,14 +63,14 @@ public class BLLManager {
      * "Student" for students or "None" if there is no match for the email.
      */
     public Person attemptLogin(String email, String password) {
-        return dManager.attemptLogin(email, encrypter.hash(password));
+        return dao.attemptLogin(email, encrypter.hash(password));
     }
 
     public void sendMessage(StudentMessage msg) throws BLLException
     {
         try
         {
-            dManager.saveMessage(msg);
+            dao.saveMessage(msg);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -84,7 +85,7 @@ public class BLLManager {
     {
         try
         {
-            return dManager.getStudentMessages(id);
+            return dao.getStudentMessages(id);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -100,7 +101,7 @@ public class BLLManager {
     {
         try
         {
-            dManager.updateMessage(msg);
+            dao.updateMessage(msg);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -111,7 +112,22 @@ public class BLLManager {
     {
         try
         {
-            return dManager.hasUnreadMessages(id);
+            return dao.hasUnreadMessages(id);
+        } catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
+    }
+
+    /**
+     * Update an existing AttendanceStatus in the database
+     * @param attendatnceStatus The attendance status that will be updated
+     */
+    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws BLLException
+    {
+        try
+        {
+            dao.updateAttendanceStatus(attendatnceStatus);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
