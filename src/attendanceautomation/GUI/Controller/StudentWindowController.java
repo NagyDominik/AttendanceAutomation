@@ -3,6 +3,7 @@ package attendanceautomation.GUI.Controller;
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
+import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
@@ -106,7 +107,7 @@ public class StudentWindowController implements Initializable {
             setPercentage();
             historyTV.refresh();
         } else {
-            Model.newAlert(new Exception("Your teacher set your status. Please contact him to modify it!"));
+            AlertWindow.showAlert(new Exception("Your teacher set your status. Please contact him to modify it!"));
         }
     }
 

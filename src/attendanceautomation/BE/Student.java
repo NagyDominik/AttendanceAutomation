@@ -71,9 +71,9 @@ public class Student extends Person {
      * Create mock attendance data for the student
      */
     private void setAttendanceeMockData() {
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.now(), 1));
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.parse("2018-03-14"), -1));
-        attendance.add(new AttendanceStatus(new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.parse("2018-03-13"), 0));
+        attendance.add(new AttendanceStatus(2, new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.now(), 1));
+        attendance.add(new AttendanceStatus(1, new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.parse("2018-03-14"), -1));
+        attendance.add(new AttendanceStatus(0, new ClassData("CS2017_B", new Teacher("teacher@easv.dk", "Teacher", 0)), LocalDate.parse("2018-03-13"), 0));
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {

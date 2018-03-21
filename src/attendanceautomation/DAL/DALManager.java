@@ -122,7 +122,7 @@ public class DALManager {
             ps.setInt(2, msg.getStudentId());
             ps.setInt(3, msg.getAttendanceHistoryId());
             ps.setString(4, msg.getMessage());
-            ps.setBoolean(5, msg.getStatus().equals("Present")?true:false);
+            ps.setBoolean(5, msg.getStatus());
             ps.setBoolean(6, msg.hasBeenSeen());
             int affected = ps.executeUpdate();
             if (affected < 1) {
@@ -198,6 +198,12 @@ public class DALManager {
         }
     }
 
+    /**
+     * Checks if there are unread messages of teacher with the given id
+     * @param id The id of the teacher.
+     * @return True if there are  unread messages, false otherwise.
+     * @throws DALException If something goes wrong during database operations.
+     */
     public boolean hasUnreadMessages(int id) throws DALException
     {
         try(Connection con = cm.getConnection())

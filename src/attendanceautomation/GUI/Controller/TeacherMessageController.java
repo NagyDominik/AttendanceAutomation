@@ -133,6 +133,7 @@ public class TeacherMessageController implements Initializable
                 try
                 {
                     message = (StudentMessage) newValue;
+                    attendatnceStatus = model.getAttendanceStatusBasedOnId(message.getStudentId(), message.getAttendanceHistoryId());
                     setLabels(message);
                     message.setHasBeenSeen(true);
                     tableViewMessages.refresh();

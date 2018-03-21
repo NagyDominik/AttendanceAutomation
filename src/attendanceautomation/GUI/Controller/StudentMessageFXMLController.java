@@ -23,8 +23,6 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
  * @author sebok
  */
 public class StudentMessageFXMLController implements Initializable {
@@ -55,7 +53,7 @@ public class StudentMessageFXMLController implements Initializable {
     {
         try
         {
-            boolean changeTo = !model.getSelectedAttendanceStatus().getStatusAsBoolean();
+            boolean changeTo = !(model.getSelectedAttendanceStatus().getStatusAsBoolean());
             StudentMessage msg = new StudentMessage(model.getSelectedTeacher().getId(), model.getSelectedStudent().getId(), changeTo, txtFieldMessage.getText(), model.getSelectedAttendanceStatus().getId());
             model.sendMessage(msg);
             close();

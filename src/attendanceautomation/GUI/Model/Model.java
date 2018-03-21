@@ -10,12 +10,8 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 public class Model {
 
@@ -40,11 +36,6 @@ public class Model {
             instance = new Model();
         }
         return instance;
-    }
-
-    public static void newAlert(Exception ex) {
-        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
-        a.show();
     }
 
     /**

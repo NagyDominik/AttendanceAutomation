@@ -16,10 +16,11 @@ public class AttendanceStatus {
     private IntegerProperty status = new SimpleIntegerProperty();
     private boolean teacherSet = Boolean.FALSE;
 
-    public AttendanceStatus(ClassData classData, LocalDate date, int status) {
+    public AttendanceStatus(int id, ClassData classData, LocalDate date, int status) {
         this.classData = classData;
         this.date = date;
         this.status.set(status);
+        this.id = id;
     }
 
     public AttendanceStatus(ClassData classData, LocalDate date) {
@@ -65,14 +66,7 @@ public class AttendanceStatus {
     }
 
     public int getStatusAsNumber() {
-        switch (status.getValue()) {
-            case 0:
-                return 0;
-            case 1:
-                return 1;
-            default:
-                return -1;
-        }
+        return status.getValue();
     }
 
     public String getStatus() {
