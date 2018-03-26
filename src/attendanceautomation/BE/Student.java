@@ -26,7 +26,6 @@ public class Student extends Person {
         this.email = email;
         this.name = name;
         this.id = id;
-        //setAttendanceeMockData();
     }
 
     public float getPresencePercentage() {

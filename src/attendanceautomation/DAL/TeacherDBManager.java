@@ -7,6 +7,7 @@ package attendanceautomation.DAL;
 
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.StudentMessage;
+import attendanceautomation.BE.Teacher;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -23,6 +24,26 @@ public class TeacherDBManager {
     
     private ConnectionManager cm = ConnectionManager.getInstance();
     
+    
+    
+    
+    
+    public List<Teacher> getTeacherFromDB () throws DALException
+    {
+        List<Teacher> teachers = new ArrayList<>();
+        
+        try(Connection con = cm.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Teacher");
+            ps.executeQuery();    
+
+        }
+        catch (Exception ex)
+        {
+            throw new DALException(ex);
+        }
+        return teachers;
+    }
     /**
      * Load the messages
      * @return The list of messages
