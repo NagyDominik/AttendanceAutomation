@@ -18,17 +18,14 @@ import java.util.List;
  * @author Bence
  */
 public class StudentDBManager {
- 
+
     private ConnectionManager cm = ConnectionManager.getInstance();
-    
-    
-    
-    public List<Student> getStudentFromDB() throws DALException{
+
+    public List<Student> getStudentFromDB() throws DALException {
         List<Student> students = new ArrayList();
-        
-        try(Connection con = cm.getConnection())
-        {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Student");
+
+        try (Connection con = cm.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT id, name, email FROM Student");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Student temp = new Student();
@@ -37,24 +34,20 @@ public class StudentDBManager {
                 temp.setName(rs.getString("name"));
             }
 
-                
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             throw new DALException(ex);
         }
         return students;
     }
-    
-    
-     /**
+
+    /**
      * Save message to DB
+     *
      * @param msg The message that will be saved to the database.
      */
-    public void saveMessage(StudentMessage msg) throws DALException
-    {
-        try(Connection con = cm.getConnection())
-        {
+    public void saveMessage(StudentMessage msg) throws DALException {
+        try (Connection con = cm.getConnection()) {
             String sql = "INSERT INTO StudentMessage(teacherId, studentId, historyId, message, status, seen) VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, msg.getTeacherId());
@@ -72,8 +65,7 @@ public class StudentDBManager {
                 msg.setId(rs.getInt(1));
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             throw new DALException(ex);
         }
     }

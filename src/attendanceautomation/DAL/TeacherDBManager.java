@@ -87,7 +87,7 @@ public class TeacherDBManager {
             ps.setInt(7, msg.getId());
             int affected = ps.executeUpdate();
             if (affected < 0) {
-                throw new DALException("Movie could not be edited!");
+                throw new DALException("Message could not be edited!");
             }
         }
         catch (SQLException ex) {
