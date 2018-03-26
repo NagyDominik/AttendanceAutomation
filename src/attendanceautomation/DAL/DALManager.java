@@ -6,6 +6,9 @@ import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +42,13 @@ public class DALManager {
      */
     public List<ClassData> getClassData() 
     {
+         List<ClassData> classData = new ArrayList();
+        try(Connection con = cm.getConnection()) 
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
+            ps.executeQuery();
+        } catch (Exception e) {
+        }
         return classData;
     }
 
@@ -47,9 +57,9 @@ public class DALManager {
      *
      * @return A student with the corresponding id.
      */
-    public List<Student> getStudent() 
+    public List<Student> getStudent() throws DALException 
     {
-        return student;
+        return studentDBManager.getStudentFromDB();
     }
 
     /**
@@ -58,9 +68,9 @@ public class DALManager {
      *
      * @return The class associated with the id.
      */
-    public List<Teacher> getTeacher() 
+    public List<Teacher> getTeacher() throws DALException 
     {
-        return teacher;
+        return teacherDBManager.getTeacherFromDB();
     }
 
     /**

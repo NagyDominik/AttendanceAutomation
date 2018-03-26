@@ -5,10 +5,13 @@
  */
 package attendanceautomation.DAL;
 
+import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,6 +20,34 @@ import java.sql.ResultSet;
 public class StudentDBManager {
  
     private ConnectionManager cm = ConnectionManager.getInstance();
+    
+    
+    
+    public List<Student> getStudentFromDB() throws DALException{
+        List<Student> students = new ArrayList();
+        
+        try(Connection con = cm.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Student");
+            ps.executeQuery();
+
+           /* ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student tmp = new Student();
+                tmp.setId(rs.getInt("email"));
+                tmp.setName(rs.getString("name"));
+                categories.add(tmp);
+            }*/
+
+                
+        }
+        catch (Exception ex)
+        {
+            throw new DALException(ex);
+        }
+        return students;
+    }
+    
     
      /**
      * Save message to DB
