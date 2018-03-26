@@ -3,6 +3,7 @@ package attendanceautomation.GUI.Controller;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.Model.Model;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -30,6 +31,9 @@ public class LoginController implements Initializable {
     private JFXPasswordField passwordField;
     @FXML
     private JFXTextField emailField;
+    @FXML
+    private JFXCheckBox rememberCBox;
+
     private Model model;
 
     @Override
@@ -49,7 +53,7 @@ public class LoginController implements Initializable {
             } else {
                 newAlert(new Exception("Invalid email or password"));
             }
-
+            
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root));
