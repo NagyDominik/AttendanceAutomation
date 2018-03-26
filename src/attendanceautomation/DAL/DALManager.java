@@ -157,8 +157,31 @@ public class DALManager {
         return teacherDBManager.hasUnreadMessages(id);
     }
     
-     public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws DALException
-     {
+    /**
+     * Update an already existing attendance status in the database.
+     * @param attendatnceStatus The attendance status that will be updated.
+     * @throws DALException If something goes wrong during database operations.
+     */
+    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws DALException
+    {
          teacherDBManager.updateAttendanceStatus(attendatnceStatus);
-     }
+    }
+
+    public void saveImage(Person p) throws DALException
+    {
+        if (p instanceof Teacher)
+        {
+            Teacher t = (Teacher) p;
+            teacherDBManager.saveImage(t);
+        }
+        else if (p instanceof Student)
+        {
+            Student s = (Student) p;
+            studentDBManager.saveImage(s);
+        }
+        else
+        {
+            throw new DALException("Not supported class! Parameter must be an instance of a Teacher or a Student!");
+        }
+    }
 }

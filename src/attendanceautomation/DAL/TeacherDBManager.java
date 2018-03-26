@@ -1,13 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.DAL;
 
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,6 +17,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -139,6 +144,34 @@ public class TeacherDBManager {
         }
         catch (SQLException ex) {
             throw new DALException(ex);
+        }
+    }
+
+     /**
+     * Save an image of a Teacher to the database.
+     * @param p The person whose image will be saved.
+     */
+    void saveImage(Teacher t) throws DALException
+    {
+        try (Connection con = cm.getConnection())
+        {
+            FileInputStream f = new FileInputStream(t.getImage());
+            
+            String sql = "INSERT INTO Teacher (image) VALUES (?);";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBinaryStream(1, (InputStream)f);
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DALException("Could not save image to database.");
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex);
+        } catch (FileNotFoundException ex)
+        {
+            throw new DALException("Image file not found! " + ex.getMessage()); 
         }
     }
 }

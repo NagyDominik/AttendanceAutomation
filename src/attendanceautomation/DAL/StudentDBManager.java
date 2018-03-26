@@ -1,15 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.DAL;
 
+import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +67,31 @@ public class StudentDBManager {
         }
         catch (Exception ex) {
             throw new DALException(ex);
+        }
+    }
+
+    void saveImage(Student s) throws DALException
+    {
+        
+        try (Connection con = cm.getConnection())
+        {
+            FileInputStream f = new FileInputStream(s.getImage());
+            
+            String sql = "INSERT INTO Student (image) VALUES (?);";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBinaryStream(1, (InputStream)f);
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DALException("Could not save image to database.");
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex);
+        } catch (FileNotFoundException ex)
+        {
+            throw new DALException("Image file not found! " + ex.getMessage()); 
         }
     }
 }

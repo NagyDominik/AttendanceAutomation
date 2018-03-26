@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  */
 public class BLLManager {
 
-    private DALManager dal;
+    private DALManager dalManager;
     private Hasher encrypter = new Hasher();
 
     public BLLManager() {
-        dal = new DALManager();
+        dalManager = new DALManager();
     }
 
     /**
@@ -32,7 +32,7 @@ public class BLLManager {
      * @return A class with the corresponding id.
      */
     public List<ClassData> getClassData() {
-        return dal.getClassData();
+        return dalManager.getClassData();
     }
 
     /**
@@ -42,7 +42,7 @@ public class BLLManager {
      */
     public List<Teacher> getTeacher() throws BLLException {
         try {
-            return dal.getTeacher();
+            return dalManager.getTeacher();
         } catch (DALException ex) {
            throw new BLLException(ex);
         }
@@ -56,7 +56,7 @@ public class BLLManager {
 
     public List<Student> getStudent() throws BLLException {
         try {
-            return dal.getStudent();
+            return dalManager.getStudent();
         } catch (DALException ex) {
            throw new BLLException(ex);
         }
@@ -72,7 +72,7 @@ public class BLLManager {
      */
     public Person attemptLogin(String email, String password) throws BLLException {
         try {
-            return dal.attemptLogin(email, encrypter.hash(password));
+            return dalManager.attemptLogin(email, encrypter.hash(password));
         }
         catch (DALException ex) {
             throw new BLLException(ex);
@@ -83,7 +83,7 @@ public class BLLManager {
     {
         try
         {
-            dal.saveMessage(msg);
+            dalManager.saveMessage(msg);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -98,7 +98,7 @@ public class BLLManager {
     {
         try
         {
-            return dal.getStudentMessages(id);
+            return dalManager.getStudentMessages(id);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -114,7 +114,7 @@ public class BLLManager {
     {
         try
         {
-            dal.updateMessage(msg);
+            dalManager.updateMessage(msg);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -125,7 +125,7 @@ public class BLLManager {
     {
         try
         {
-            return dal.hasUnreadMessages(id);
+            return dalManager.hasUnreadMessages(id);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -140,7 +140,22 @@ public class BLLManager {
     {
         try
         {
-            dal.updateAttendanceStatus(attendatnceStatus);
+            dalManager.updateAttendanceStatus(attendatnceStatus);
+        } catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
+    }
+
+    /**
+     * Save an image of a Person (Teacher or Student) to the database.
+     * @param p The person whose image will be saved.
+     */
+    public void saveImage(Person p) throws BLLException
+    {
+        try    
+        {
+            dalManager.saveImage(p);
         } catch (DALException ex)
         {
             throw new BLLException(ex);

@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.scene.image.Image;
 
 /**
  * Represents a student
@@ -21,7 +22,8 @@ public class Student extends Person {
     private String name;
     private final FloatProperty presencePercentage = new SimpleFloatProperty();
     private ObservableList<AttendanceStatus> attendance = FXCollections.observableArrayList();
-
+    private Image image;
+    
     public Student(String email, String name, int id) {
         this.email = email;
         this.name = name;
@@ -47,7 +49,7 @@ public class Student extends Person {
     public float getPresencePercentage() {
         return presencePercentage.get();
     }
-
+    
     public StringProperty getPercentageStringProperty() {
         StringProperty property = new SimpleStringProperty();
         DecimalFormat df = new DecimalFormat("#.##");

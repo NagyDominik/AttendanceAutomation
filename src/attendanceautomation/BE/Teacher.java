@@ -1,6 +1,7 @@
 package attendanceautomation.BE;
 
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 /**
  * Represents a teacher.
@@ -13,7 +14,8 @@ public class Teacher extends Person {
     private ArrayList<ClassData> classes;
     private String email;
     private String name;
-
+    private Image image;
+    
     public Teacher(String email, String name, int id) {
         this.name = name;
         this.email = email;
@@ -57,4 +59,5 @@ public class Teacher extends Person {
     {
         return id;
     }
+
 }

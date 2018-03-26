@@ -289,4 +289,19 @@ public class Model {
             throw new ModelException(ex);
         }
     }
+    
+    /**
+     * Save an image of a Person (Teacher or Student) to the database.
+     * @param p The person whose image will be saved.
+     */
+    public void saveImage(Person p) throws ModelException
+    {
+        try
+        {
+            bllManager.saveImage(p);
+        } catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
+    }
 }
