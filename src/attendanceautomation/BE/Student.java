@@ -32,6 +32,18 @@ public class Student extends Person {
         
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public float getPresencePercentage() {
         return presencePercentage.get();
     }
