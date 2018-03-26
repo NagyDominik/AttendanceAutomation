@@ -58,6 +58,7 @@ public class TeacherWindowController implements Initializable {
     private ImageView imgViewMessage;
     private final Image message = new Image("img/message.png");
     private final Image newMessage = new Image("img/newMessage.png");
+
     /**
      * Initializes the controller class.
      */
@@ -130,7 +131,17 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void optionsClicked(ActionEvent event) {
-        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/OptionsWindow.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void setCellValueFactories() {
@@ -168,9 +179,11 @@ public class TeacherWindowController implements Initializable {
             stage.setResizable(false);
             stage.show();
             imgViewMessage.setImage(message);
+
         }
         catch (IOException ex) {
-            Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TeacherWindowController.class
+                    .getName()).log(Level.SEVERE, null, ex);
             AlertWindow.showAlert(ex);
         }
     }
@@ -185,17 +198,16 @@ public class TeacherWindowController implements Initializable {
      * Set the messages image view depending on the number of unread messages.
      */
     private void setMessageIcon() {
-        try
-        {
+        try {
             if (model.hasUnreadMessage(model.getCurrentUser().getId())) {
                 imgViewMessage.setImage(newMessage);
             } else {
                 imgViewMessage.setImage(message);
             }
-        } catch (ModelException ex)
-        {
+        }
+        catch (ModelException ex) {
             AlertWindow.showAlert(ex);
         }
     }
-    
+
 }

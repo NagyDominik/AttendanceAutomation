@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
             } else {
                 newAlert(new Exception("Invalid email or password"));
             }
-            
+            loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root));

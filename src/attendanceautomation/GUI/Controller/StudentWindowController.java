@@ -93,10 +93,20 @@ public class StudentWindowController implements Initializable {
     private void absentClicked(ActionEvent event) {
         setAttendanceStatus(0);
     }
-    
+
     @FXML
     private void optionsClicked(ActionEvent event) {
-        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/OptionsWindow.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void setCellValueFactories() {
