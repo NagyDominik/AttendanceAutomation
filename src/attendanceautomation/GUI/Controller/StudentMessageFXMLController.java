@@ -43,17 +43,15 @@ public class StudentMessageFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try
-        {
+        try {
             model = Model.getInstance();
+            LocalDate date = model.getSelectedAttendanceStatus().getDateAsLocalDate();
+            lblTeacher.setText(lblTeacher.getText() + model.getSelectedTeacher().getName());
+            dateLbl.setText(date.format(DateTimeFormatter.ISO_DATE));
         }
-        catch (Exception e)
-        {
-            AlertWindow.showAlert(e);
+        catch (ModelException ex) {
+            Logger.getLogger(StudentMessageFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        LocalDate date = model.getSelectedAttendanceStatus().getDateAsLocalDate();
-        lblTeacher.setText(lblTeacher.getText() + model.getSelectedTeacher().getName());
-        dateLbl.setText(date.format(DateTimeFormatter.ISO_DATE));
     }
 
     @FXML

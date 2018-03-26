@@ -28,7 +28,7 @@ public class TeacherDBManager {
         List<Teacher> teachers = new ArrayList<>();
 
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Teacher");
+            PreparedStatement ps = con.prepareStatement("SELECT email, id, name FROM Teacher");
             ResultSet rs =ps.executeQuery();
             while (rs.next()) {
                 Teacher temp = new Teacher();
