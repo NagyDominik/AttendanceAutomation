@@ -29,9 +29,7 @@ public class StudentDBManager {
         try(Connection con = cm.getConnection())
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Student");
-            ps.executeQuery();
-
-           ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Student temp = new Student();
                 temp.setEmail(rs.getString("email"));
