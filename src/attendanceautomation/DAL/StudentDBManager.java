@@ -31,13 +31,13 @@ public class StudentDBManager {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Student");
             ps.executeQuery();
 
-           /* ResultSet rs = ps.executeQuery();
+           ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Student tmp = new Student();
-                tmp.setId(rs.getInt("email"));
-                tmp.setName(rs.getString("name"));
-                categories.add(tmp);
-            }*/
+                Student temp = new Student();
+                temp.setEmail(rs.getString("email"));
+                temp.setId(rs.getInt("id"));
+                temp.setName(rs.getString("name"));
+            }
 
                 
         }
