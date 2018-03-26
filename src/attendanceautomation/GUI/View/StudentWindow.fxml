@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="735.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="735.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentWindowController">
     <children>
         <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
         <Label fx:id="nameLbl" layoutX="361.0" layoutY="40.0" text="Name of Student" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="45.0">
@@ -56,7 +56,7 @@
          </columnResizePolicy>
       </TableView>
       <JFXButton fx:id="btnRequestStatusChange" buttonType="RAISED" layoutX="575.0" layoutY="323.0" onAction="#btnStatusChangeRequestClicked" prefHeight="30.0" prefWidth="140.0" text="Request status change" AnchorPane.rightAnchor="30.0" />
-      <JFXButton buttonType="RAISED" layoutX="626.0" layoutY="83.0" onAction="#optionsClicked" prefHeight="30.0" prefWidth="90.0" styleClass="grayBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Options" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="626.0" layoutY="83.0" onAction="#optionsClicked" prefHeight="30.0" prefWidth="90.0" styleClass="grayBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Options" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
