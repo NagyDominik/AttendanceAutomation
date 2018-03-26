@@ -46,7 +46,7 @@ public class TeacherMessageController implements Initializable
     @FXML
     private TableColumn<StudentMessage, String> tableColumnsMessages;
     private ObservableList<StudentMessage> messages = FXCollections.observableArrayList();
-    private Model model = Model.getInstance();
+    private Model model;
     private StudentMessage message;
     private AttendanceStatus attendatnceStatus;
     private Student student;
@@ -59,6 +59,7 @@ public class TeacherMessageController implements Initializable
         setRowFactory();
         try
         {
+            model = Model.getInstance();
             messages.addAll(model.getMessages(model.getCurrentUser().getId()));
             tableViewMessages.setItems(messages);
         } catch (ModelException ex)

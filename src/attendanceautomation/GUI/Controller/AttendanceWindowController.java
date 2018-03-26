@@ -50,13 +50,22 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private JFXDatePicker enddatePicker;
 
-    private Model model = Model.getInstance();
+    private Model model;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try
+        {
+            model = Model.getInstance();
+        }
+        catch (Exception e)
+        {
+            AlertWindow.showAlert(e);
+        }
+                
         startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
         enddatePicker.setValue(LocalDate.now());
         teacherNameLbl.setText(model.getCurrentUser().getName());
