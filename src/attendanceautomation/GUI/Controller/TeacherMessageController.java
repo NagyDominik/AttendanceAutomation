@@ -50,13 +50,11 @@ public class TeacherMessageController implements Initializable {
     private AttendanceStatus attendatnceStatus;
     private Student student;
 
-    @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             setUpTableColumn();
             setUpListeners();
             setRowFactory();
-
             model = Model.getInstance();
             messages.addAll(model.getMessages(model.getCurrentUser().getId()));
             tableViewMessages.setItems(messages);
