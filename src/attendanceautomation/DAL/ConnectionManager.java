@@ -27,7 +27,7 @@ public class ConnectionManager {
     /**
      * Creates a new ConnectionManager, and set the values
      */
-    private ConnectionManager() {
+    ConnectionManager() {
         source.setDatabaseName("CS2017B_7_AttendanceAutomation");
         source.setUser("CS2017B_7_java");
         source.setPassword("javajava");
