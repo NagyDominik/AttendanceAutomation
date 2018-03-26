@@ -93,6 +93,11 @@ public class StudentWindowController implements Initializable {
     private void absentClicked(ActionEvent event) {
         setAttendanceStatus(0);
     }
+    
+    @FXML
+    private void optionsClicked(ActionEvent event) {
+        
+    }
 
     private void setCellValueFactories() {
         studentClassCol.setCellValueFactory(new PropertyValueFactory("className"));

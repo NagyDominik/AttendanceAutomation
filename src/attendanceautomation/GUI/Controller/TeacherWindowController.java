@@ -128,6 +128,11 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
+    @FXML
+    private void optionsClicked(ActionEvent event) {
+        
+    }
+
     private void setCellValueFactories() {
         studentNameCol.setCellValueFactory(new PropertyValueFactory("name"));
         studentAbsenceCol.setCellValueFactory((TableColumn.CellDataFeatures<Student, String> param) -> param.getValue().getPercentageStringProperty());
@@ -192,4 +197,5 @@ public class TeacherWindowController implements Initializable {
             AlertWindow.showAlert(ex);
         }
     }
+    
 }
