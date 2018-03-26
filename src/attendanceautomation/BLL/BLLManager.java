@@ -9,6 +9,8 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.DAL.DALException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Serves as a pass-through layer for now.
@@ -38,8 +40,12 @@ public class BLLManager {
      *
      * @return A teacher with the corresponding id.
      */
-    public List<Teacher> getTeacher() {
-        return dal.getTeacher();
+    public List<Teacher> getTeacher() throws BLLException {
+        try {
+            return dal.getTeacher();
+        } catch (DALException ex) {
+           throw new BLLException(ex);
+        }
     }
 
     /**
@@ -48,8 +54,12 @@ public class BLLManager {
      * @return A student with the corresponding id.
      */
 
-    public List<Student> getStudent() {
-        return dal.getStudent();
+    public List<Student> getStudent() throws BLLException {
+        try {
+            return dal.getStudent();
+        } catch (DALException ex) {
+           throw new BLLException(ex);
+        }
     }
 
     /**
