@@ -36,16 +36,22 @@ public class StudentMessageFXMLController implements Initializable {
     @FXML
     private Label dateLbl;
 
-    private Model model = Model.getInstance();
+    private Model model;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        LocalDate date = model.getSelectedAttendanceStatus().getDateAsLocalDate();
-        lblTeacher.setText(lblTeacher.getText() + model.getSelectedTeacher().getName());
-        dateLbl.setText(date.format(DateTimeFormatter.ISO_DATE));
+        try {
+            model = Model.getInstance();
+            LocalDate date = model.getSelectedAttendanceStatus().getDateAsLocalDate();
+            lblTeacher.setText(lblTeacher.getText() + model.getSelectedTeacher().getName());
+            dateLbl.setText(date.format(DateTimeFormatter.ISO_DATE));
+        }
+        catch (ModelException ex) {
+            Logger.getLogger(StudentMessageFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

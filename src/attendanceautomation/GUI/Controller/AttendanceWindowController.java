@@ -1,9 +1,9 @@
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
-import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
+import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
@@ -50,20 +50,26 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private JFXDatePicker enddatePicker;
 
-    private Model model = Model.getInstance();
+    private Model model;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
-        enddatePicker.setValue(LocalDate.now());
-        teacherNameLbl.setText(model.getCurrentUser().getName());
-        studentNameLbl.setText(model.getSelectedStudent().getName());
-        setUpCellValueFactories();
-        historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
-        filterDates();
+        try {
+            model = Model.getInstance();
+            startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
+            enddatePicker.setValue(LocalDate.now());
+            teacherNameLbl.setText(model.getCurrentUser().getName());
+            studentNameLbl.setText(model.getSelectedStudent().getName());
+            setUpCellValueFactories();
+            historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
+            filterDates();
+        }
+        catch (ModelException ex) {
+            Logger.getLogger(AttendanceWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

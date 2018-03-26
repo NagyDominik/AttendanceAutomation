@@ -19,7 +19,7 @@
                   <Font size="15.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField id="loginText" fx:id="passwordField" focusColor="#009fe3" labelFloat="true" layoutX="40.0" layoutY="60.0" prefHeight="25.0" prefWidth="250.0" promptText="Password" stylesheets="@../../../img/AttendanceCSS.css" unFocusColor="BLACK">
+            <JFXPasswordField id="loginText" fx:id="passwordField" focusColor="#009fe3" labelFloat="true" layoutX="40.0" layoutY="60.0" prefHeight="25.0" prefWidth="250.0" promptText="Password" stylesheets="@../../../img/AttendanceCSS.css" text="user" unFocusColor="BLACK">
                <font>
                   <Font size="15.0" />
                </font>
