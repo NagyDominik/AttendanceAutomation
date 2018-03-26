@@ -26,7 +26,7 @@ public class Student extends Person {
         this.email = email;
         this.name = name;
         this.id = id;
-        setAttendanceeMockData();
+        //setAttendanceeMockData();
     }
 
     public float getPresencePercentage() {
@@ -65,14 +65,6 @@ public class Student extends Person {
 
     public int getId() {
         return id;
-    }
-
-    /**
-     * Create mock attendance data for the student
-     */
-    private void setAttendanceeMockData() {
-
-        //mockdatawas here
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {

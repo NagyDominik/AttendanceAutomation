@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  */
 public class BLLManager {
 
-    private DALManager dao;
+    private DALManager dal;
     private Hasher encrypter = new Hasher();
 
     public BLLManager() {
-        dao = new DALManager();
+        dal = new DALManager();
     }
 
     /**
@@ -32,7 +32,7 @@ public class BLLManager {
      * @return A class with the corresponding id.
      */
     public List<ClassData> getClassData() {
-        return dao.getMockClassData();
+        return dal.getClassData();
     }
 
     /**
@@ -41,7 +41,7 @@ public class BLLManager {
      * @return A teacher with the corresponding id.
      */
     public List<Teacher> getTeacher() {
-        return dao.getMockTeacher();
+        return dal.getTeacher();
     }
 
     /**
@@ -51,7 +51,7 @@ public class BLLManager {
      */
 
     public List<Student> getStudent() {
-        return dao.getMockStudent();
+        return dal.getStudent();
     }
 
     /**
@@ -63,14 +63,14 @@ public class BLLManager {
      * "Student" for students or "None" if there is no match for the email.
      */
     public Person attemptLogin(String email, String password) {
-        return dao.attemptLogin(email, encrypter.hash(password));
+        return dal.attemptLogin(email, encrypter.hash(password));
     }
 
     public void sendMessage(StudentMessage msg) throws BLLException
     {
         try
         {
-            dao.saveMessage(msg);
+            dal.saveMessage(msg);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -85,7 +85,7 @@ public class BLLManager {
     {
         try
         {
-            return dao.getStudentMessages(id);
+            return dal.getStudentMessages(id);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -101,7 +101,7 @@ public class BLLManager {
     {
         try
         {
-            dao.updateMessage(msg);
+            dal.updateMessage(msg);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -112,7 +112,7 @@ public class BLLManager {
     {
         try
         {
-            return dao.hasUnreadMessages(id);
+            return dal.hasUnreadMessages(id);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
@@ -127,7 +127,7 @@ public class BLLManager {
     {
         try
         {
-            dao.updateAttendanceStatus(attendatnceStatus);
+            dal.updateAttendanceStatus(attendatnceStatus);
         } catch (DALException ex)
         {
             throw new BLLException(ex);
