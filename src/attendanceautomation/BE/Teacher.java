@@ -20,6 +20,27 @@ public class Teacher extends Person {
         this.id = id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setClasses(ArrayList<ClassData> classes) {
+        this.classes = classes;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    
+    public Teacher() {
+        
+    }
+
     public String getEmail() {
         return email;
     }

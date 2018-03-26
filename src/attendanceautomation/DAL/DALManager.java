@@ -8,6 +8,7 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,17 +82,36 @@ public class DALManager {
      * @return A string representing the user type - "Teacher" for teachers,
      * "Student" for students or "None" if there is no match for the email.
      */
-    public Person attemptLogin(String email, String password) 
+    public Person attemptLogin(String email, String password) throws DALException 
     {
-        
-            if ( password.equals("c596e268fea18473ea763797c0d7f4ef2cc1b13528fa7a8186c96f7da4e81cd")) {
-                return loginTeacher;
+        try (Connection con = cm.getConnection()){
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Teacher "
+                                                      + "WHERE email = ? AND password = ?");
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Teacher();
             }
-      
+        }
+        catch (Exception e) {
+            throw new DALException(e);
+        }
         
-            if ( password.equals("643a5b5e16012e258750c07e363c41568b45165b4fc43874b88c21d99cb55")) {
-                return loginStudent;
+        try (Connection con = cm.getConnection()){
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Student "
+                                                      + "WHERE email = ? AND password = ?");
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Student();
             }
+        }
+        catch (Exception e) {
+            throw new DALException(e);
+        }
+        return null;
     }
     
     /**

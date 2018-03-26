@@ -53,9 +53,10 @@ public class TeacherWindowController implements Initializable {
     private JFXDatePicker startdatePicker;
     @FXML
     private JFXDatePicker enddatePicker;
-    private Model model = Model.getInstance();
     @FXML
     private ImageView imgViewMessage;
+    
+    private Model model;
     private final Image message = new Image("img/message.png");
     private final Image newMessage = new Image("img/newMessage.png");
 
@@ -64,16 +65,22 @@ public class TeacherWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
-        enddatePicker.setValue(LocalDate.now());
-        teacherNameLbl.setText(model.getCurrentUser().getName());
-        studentsTV.setItems(model.getStudents());
-        classChoiceBox.setItems(model.getClassData());
-        classChoiceBox.getSelectionModel().selectFirst();
-        setCellValueFactories();
-        addListenersAndHandlers();
-        calculateAttendance();
-        setMessageIcon();
+        try {
+            model = Model.getInstance();
+            startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
+            enddatePicker.setValue(LocalDate.now());
+            teacherNameLbl.setText(model.getCurrentUser().getName());
+            studentsTV.setItems(model.getStudents());
+            classChoiceBox.setItems(model.getClassData());
+            classChoiceBox.getSelectionModel().selectFirst();
+            setCellValueFactories();
+            addListenersAndHandlers();
+            calculateAttendance();
+            setMessageIcon();
+        }
+        catch (ModelException ex) {
+            Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

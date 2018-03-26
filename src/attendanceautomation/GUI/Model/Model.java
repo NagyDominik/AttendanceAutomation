@@ -10,6 +10,8 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -25,13 +27,18 @@ public class Model {
     private ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
     private ObservableList<ClassData> classDataList = FXCollections.observableArrayList();
 
-    private Model() {
-        students.addAll(bllManager.getStudent());
-        teacherList.addAll(bllManager.getTeacher());
-        classDataList.addAll(bllManager.getClassData());
+    private Model() throws ModelException {
+        try {
+            students.addAll(bllManager.getStudent());
+            teacherList.addAll(bllManager.getTeacher());
+            classDataList.addAll(bllManager.getClassData());
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
     }
 
-    public static Model getInstance() {
+    public static Model getInstance() throws ModelException {
         if (instance == null) {
             instance = new Model();
         }
@@ -45,15 +52,20 @@ public class Model {
      * @param password The login password.
      * @return The user with the given email and password.
      */
-    public Person authenticate(String email, String password) {
-        Person user = bllManager.attemptLogin(email, password);
-        if (user instanceof Teacher) {
-            currentUser = (Teacher) user;
+    public Person authenticate(String email, String password) throws ModelException {
+        try {
+            Person user = bllManager.attemptLogin(email, password);
+            if (user instanceof Teacher) {
+                currentUser = (Teacher) user;
+            }
+            if (user instanceof Student) {
+                currentUser = (Student) user;
+            }
+            return user;
         }
-        if (user instanceof Student) {
-            currentUser = (Student) user;
+        catch (BLLException ex) {
+            throw new ModelException(ex);
         }
-        return user;
     }
 
     /**

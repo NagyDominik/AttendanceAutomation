@@ -3,6 +3,7 @@ package attendanceautomation.GUI.Controller;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.Model.Model;
+import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -38,8 +39,13 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.model = Model.getInstance();
-        addListenersAndHandlers();
+        try {
+            this.model = Model.getInstance();
+            addListenersAndHandlers();
+        }
+        catch (ModelException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -60,7 +66,7 @@ public class LoginController implements Initializable {
             stage.setResizable(false);
             stage.show();
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             newAlert(ex);
         }

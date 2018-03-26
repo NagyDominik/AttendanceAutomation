@@ -70,8 +70,13 @@ public class BLLManager {
      * @return A string representing the user type - "Teacher" for teachers,
      * "Student" for students or "None" if there is no match for the email.
      */
-    public Person attemptLogin(String email, String password) {
-        return dal.attemptLogin(email, encrypter.hash(password));
+    public Person attemptLogin(String email, String password) throws BLLException {
+        try {
+            return dal.attemptLogin(email, encrypter.hash(password));
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
+        }
     }
 
     public void sendMessage(StudentMessage msg) throws BLLException

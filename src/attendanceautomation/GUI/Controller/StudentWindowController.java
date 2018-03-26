@@ -5,6 +5,7 @@ import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
+import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +51,7 @@ public class StudentWindowController implements Initializable {
     @FXML
     private JFXButton btnAbsent;
 
-    private Model model = Model.getInstance();
+    private Model model;
 
     /**
      * Initializes the controller class.
@@ -60,13 +61,19 @@ public class StudentWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nameLbl.setText(model.getCurrentUser().getName());
-        setCellValueFactories();
-        setEvents();
-        Student user = (Student) model.getCurrentUser();
-        historyTV.setItems(user.getAttendanceInfo());
-        btnRequestStatusChange.setDisable(true);
-        setPercentage();
+        try {
+            model = Model.getInstance();
+            nameLbl.setText(model.getCurrentUser().getName());
+            setCellValueFactories();
+            setEvents();
+            Student user = (Student) model.getCurrentUser();
+            historyTV.setItems(user.getAttendanceInfo());
+            btnRequestStatusChange.setDisable(true);
+            setPercentage();
+        }
+        catch (ModelException ex) {
+            Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

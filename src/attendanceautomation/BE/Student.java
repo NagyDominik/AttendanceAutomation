@@ -28,6 +28,10 @@ public class Student extends Person {
         this.id = id;
     }
 
+    public Student() {
+        
+    }
+
     public float getPresencePercentage() {
         return presencePercentage.get();
     }
