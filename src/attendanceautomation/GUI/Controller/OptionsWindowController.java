@@ -46,7 +46,7 @@ public class OptionsWindowController implements Initializable {
             File file = fileChooser.showOpenDialog(this.currentPField.getScene().getWindow());
             if (file.getAbsolutePath().endsWith("jpg") || file.getAbsolutePath().endsWith("png")) { //only alowed jpg and png
                 //Image image = new Image(file.getAbsolutePath());
-                profileImg.setImage(new Image(file.getAbsolutePath()));
+                profileImg.setImage(new Image("file:" + file.getAbsolutePath()));
                 System.out.println("MŰKÖDJ");
                 
             } else {
