@@ -62,7 +62,6 @@ public class LoginController implements Initializable {
             if (rememberCBox.isSelected()) {
                 model.saveLocalData(emailField.getText(), passwordField.getText());
             }
-            loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root));
