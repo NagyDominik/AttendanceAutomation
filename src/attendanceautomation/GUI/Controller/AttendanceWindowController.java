@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -51,6 +52,8 @@ public class AttendanceWindowController implements Initializable {
     private JFXDatePicker enddatePicker;
 
     private Model model;
+    @FXML
+    private ImageView imgViewStudentImage;
 
     /**
      * Initializes the controller class.
@@ -65,6 +68,7 @@ public class AttendanceWindowController implements Initializable {
             studentNameLbl.setText(model.getSelectedStudent().getName());
             setUpCellValueFactories();
             historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
+            imgViewStudentImage.setImage(model.getSelectedStudent().getImage());
             filterDates();
         }
         catch (ModelException ex) {

@@ -35,7 +35,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <JFXButton id="#yellowButt" buttonType="RAISED" focusTraversable="false" layoutX="575.0" layoutY="200.0" onAction="#presentClicked" prefHeight="29.0" prefWidth="90.0" styleClass="presentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="✔ Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="200.0">
+      <JFXButton id="#yellowButt" buttonType="RAISED" focusTraversable="false" layoutX="575.0" layoutY="230.0" onAction="#presentClicked" prefHeight="29.0" prefWidth="90.0" styleClass="presentBtn" stylesheets="@../../../img/AttendanceCSS.css" text="✔ Present" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="230.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -79,5 +79,6 @@
       </TableView>
       <JFXDatePicker fx:id="startdatePicker" defaultColor="#009fe3" layoutX="369.0" layoutY="148.0" onAction="#startdateSelected" promptText="Start date" showWeekNumbers="true" AnchorPane.bottomAnchor="320.0" AnchorPane.rightAnchor="160.0" />
       <JFXDatePicker fx:id="enddatePicker" defaultColor="#009fe3" layoutX="369.0" layoutY="118.0" onAction="#enddateSelected" promptText="End date" showWeekNumbers="true" AnchorPane.bottomAnchor="290.0" AnchorPane.rightAnchor="160.0" />
+      <ImageView fx:id="imgViewStudentImage" fitHeight="130.0" fitWidth="130.0" layoutX="555.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

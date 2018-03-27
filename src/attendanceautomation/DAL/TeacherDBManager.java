@@ -3,9 +3,6 @@ package attendanceautomation.DAL;
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
-import java.awt.image.RenderedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,9 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -31,15 +25,21 @@ public class TeacherDBManager {
 
     public List<Teacher> getTeacherFromDB() throws DALException {
         List<Teacher> teachers = new ArrayList<>();
+        
+        InputStream inputStream = null;
 
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT email, id, name FROM Teacher");
+            PreparedStatement ps = con.prepareStatement("SELECT email, id, name, image FROM Teacher");
             ResultSet rs =ps.executeQuery();
             while (rs.next()) {
                 Teacher temp = new Teacher();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
+                inputStream = rs.getBinaryStream("image");
+                File target = new File(temp.getName()+".png");
+                java.nio.file.Files.copy(inputStream, target.toPath());
+                temp.setImage(target);
             }
         }
         catch (Exception ex) {
@@ -155,7 +155,7 @@ public class TeacherDBManager {
     {
         try (Connection con = cm.getConnection())
         {
-            FileInputStream f = new FileInputStream(t.getImage());
+            FileInputStream f = new FileInputStream(t.getImageFile());
             
             String sql = "INSERT INTO Teacher (image) VALUES (?);";
             PreparedStatement ps = con.prepareStatement(sql);

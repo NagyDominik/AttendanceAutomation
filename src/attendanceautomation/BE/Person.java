@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.BE;
 
 import java.io.File;
@@ -15,7 +10,8 @@ import javafx.scene.image.Image;
 public abstract class Person {
 
     private String name;
-    private File image;
+    private File imageFile;
+    private Image image;
     
     public String getName() {
         return name;
@@ -23,13 +19,19 @@ public abstract class Person {
     
     public abstract int getId();
 
-    public File getImage()
+    public File getImageFile()
     {
-        return image;
+        return imageFile;
     }
 
     public void setImage(File image)
     {
-        this.image = image;
+        this.imageFile = image;
+        this.image = new Image(image.getAbsolutePath());
+    }
+    
+    public Image getImage()
+    {
+        return this.image;
     }
 }
