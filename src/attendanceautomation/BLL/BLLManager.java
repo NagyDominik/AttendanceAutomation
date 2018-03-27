@@ -148,7 +148,7 @@ public class BLLManager {
     }
 
     /**
-     * Save an image of a Person (Teacher or Student) to the database.
+     * Save an image of a imageFile (Teacher or Student) to the database.
      * @param p The person whose image will be saved.
      */
     public void saveImage(Person p) throws BLLException

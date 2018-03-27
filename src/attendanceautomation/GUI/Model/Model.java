@@ -10,8 +10,6 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -46,7 +44,7 @@ public class Model {
     }
 
     /**
-     * Return a Person (Teacher or Student) based on the email and password.
+     * Return a imageFile (Teacher or Student) based on the email and password.
      *
      * @param email The login email.
      * @param password The login password.
@@ -291,7 +289,7 @@ public class Model {
     }
     
     /**
-     * Save an image of a Person (Teacher or Student) to the database.
+     * Save an image of a imageFile (Teacher or Student) to the database.
      * @param p The person whose image will be saved.
      */
     public void saveImage(Person p) throws ModelException

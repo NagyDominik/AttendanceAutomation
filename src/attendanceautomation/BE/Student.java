@@ -22,7 +22,6 @@ public class Student extends Person {
     private String name;
     private final FloatProperty presencePercentage = new SimpleFloatProperty();
     private ObservableList<AttendanceStatus> attendance = FXCollections.observableArrayList();
-    private Image image;
     
     public Student(String email, String name, int id) {
         this.email = email;
