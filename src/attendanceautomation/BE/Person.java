@@ -24,10 +24,10 @@ public abstract class Person {
         return imageFile;
     }
 
-    public void setImage(File image)
+    public void setImageFile(File image)
     {
         this.imageFile = image;
-        this.image = new Image(image.getAbsolutePath());
+        this.image = new Image("file:" + image.getAbsolutePath());
     }
     
     public Image getImage()

@@ -2,6 +2,7 @@ package attendanceautomation.DAL;
 
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -23,7 +24,7 @@ public class StudentDBManager {
     public List<Student> getStudentFromDB() throws DALException {
         List<Student> students = new ArrayList();
         
-        InputStream inputStream = null;
+        InputStream inputStream;
         
         try (Connection con = cm.getConnection()) {
             //PreparedStatement ps = con.prepareStatement("SELECT id, name, email, image FROM Student");
@@ -37,7 +38,7 @@ public class StudentDBManager {
 //                inputStream = rs.getBinaryStream("image");
 //                File target = new File(temp.getName()+".png");
 //                java.nio.file.Files.copy(inputStream, target.toPath());
-//                temp.setImage(target);
+//                temp.setImageFile(target);
                 students.add(temp);
             }
 
@@ -82,8 +83,7 @@ public class StudentDBManager {
      * @param p The person whose image will be saved.
      */
     void saveImage(Student s) throws DALException
-    {
-        
+    {        
         try (Connection con = cm.getConnection())
         {
             FileInputStream f = new FileInputStream(s.getImageFile());
