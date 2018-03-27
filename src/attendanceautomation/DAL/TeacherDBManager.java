@@ -155,7 +155,7 @@ public class TeacherDBManager {
     {
         try (Connection con = cm.getConnection())
         {
-            FileInputStream f = new FileInputStream(t.getImage());
+            FileInputStream f = new FileInputStream(t.getImageFile());
             
             String sql = "INSERT INTO Teacher (image) VALUES (?);";
             PreparedStatement ps = con.prepareStatement(sql);

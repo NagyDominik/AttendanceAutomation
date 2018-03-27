@@ -87,7 +87,7 @@ public class StudentDBManager {
         
         try (Connection con = cm.getConnection())
         {
-            FileInputStream f = new FileInputStream(s.getImage());
+            FileInputStream f = new FileInputStream(s.getImageFile());
             
             String sql = "INSERT INTO Student (image) VALUES (?);";
             PreparedStatement ps = con.prepareStatement(sql);

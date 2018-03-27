@@ -19,7 +19,7 @@ public abstract class Person {
     
     public abstract int getId();
 
-    public File getImage()
+    public File getImageFile()
     {
         return imageFile;
     }
@@ -28,5 +28,10 @@ public abstract class Person {
     {
         this.imageFile = image;
         this.image = new Image(image.getAbsolutePath());
+    }
+    
+    public Image getImage()
+    {
+        return this.image;
     }
 }
