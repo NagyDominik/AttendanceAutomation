@@ -18,11 +18,11 @@ import java.util.List;
  * @author sebok
  */
 public class DALManager {
-
+    
     private ConnectionManager cm = ConnectionManager.getInstance();
     private StudentDBManager studentDBManager = new StudentDBManager();
     private TeacherDBManager teacherDBManager = new TeacherDBManager();
-    
+    private LocalDataManager ldm = new LocalDataManager();
 
     /**
      * *******************
@@ -31,24 +31,23 @@ public class DALManager {
     private List<ClassData> classData;
     private List<Student> student;
     private List<Teacher> teacher;
-
+    
     public DALManager() {
         
     }
-    
+
     /**
      * Retrieve a class based on their id.
      *
      * @return The class associated with the id.
      */
-    public List<ClassData> getClassData() 
-    {
-         List<ClassData> classData = new ArrayList();
-        try(Connection con = cm.getConnection()) 
-        {
+    public List<ClassData> getClassData() {
+        List<ClassData> classData = new ArrayList();
+        try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
             ps.executeQuery();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
         return classData;
     }
@@ -58,8 +57,7 @@ public class DALManager {
      *
      * @return A student with the corresponding id.
      */
-    public List<Student> getStudent() throws DALException 
-    {
+    public List<Student> getStudent() throws DALException {
         return studentDBManager.getStudentFromDB();
     }
 
@@ -69,8 +67,7 @@ public class DALManager {
      *
      * @return The class associated with the id.
      */
-    public List<Teacher> getTeacher() throws DALException 
-    {
+    public List<Teacher> getTeacher() throws DALException {
         return teacherDBManager.getTeacherFromDB();
     }
 
@@ -82,11 +79,10 @@ public class DALManager {
      * @return A string representing the user type - "Teacher" for teachers,
      * "Student" for students or "None" if there is no match for the email.
      */
-    public Person attemptLogin(String email, String password) throws DALException 
-    {
-        try (Connection con = cm.getConnection()){
+    public Person attemptLogin(String email, String password) throws DALException {
+        try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Teacher "
-                                                      + "WHERE email = ? AND password = ?");
+                    + "WHERE email = ? AND password = ?");
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -98,9 +94,9 @@ public class DALManager {
             throw new DALException(e);
         }
         
-        try (Connection con = cm.getConnection()){
+        try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Student "
-                                                      + "WHERE email = ? AND password = ?");
+                    + "WHERE email = ? AND password = ?");
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -113,75 +109,79 @@ public class DALManager {
         }
         return null;
     }
-    
+
     /**
      * Save message to DB
-     * 
+     *
      * @param msg
-     * @throws DALException 
+     * @throws DALException
      */
-    public void saveMessage(StudentMessage msg) throws DALException
-    {
+    public void saveMessage(StudentMessage msg) throws DALException {
         studentDBManager.saveMessage(msg);
     }
-    
+
     /**
      * Load the messages
+     *
      * @param id
      * @return The list of messages
-     * @throws DALException 
+     * @throws DALException
      */
-    public List<StudentMessage> getStudentMessages(int id) throws DALException
-    {
+    public List<StudentMessage> getStudentMessages(int id) throws DALException {
         return teacherDBManager.getStudentMessages(id);
     }
-    
+
     /**
      * Update an existing StudentMessage object in the database.
+     *
      * @param msg The message that will be updated.
      * @throws DALException If something goes wrong during database operations.
      */
-    public void updateMessage(StudentMessage msg) throws DALException
-    {
+    public void updateMessage(StudentMessage msg) throws DALException {
         teacherDBManager.updateMessage(msg);
     }
-    
+
     /**
      * Checks if there are unread messages of teacher with the given id
+     *
      * @param id The id of the teacher.
-     * @return True if there are  unread messages, false otherwise.
-     * @throws DALException f something goes wrong during database operations. 
+     * @return True if there are unread messages, false otherwise.
+     * @throws DALException f something goes wrong during database operations.
      */
-    public boolean hasUnreadMessages(int id) throws DALException
-    {
+    public boolean hasUnreadMessages(int id) throws DALException {
         return teacherDBManager.hasUnreadMessages(id);
     }
-    
+
     /**
      * Update an already existing attendance status in the database.
+     *
      * @param attendatnceStatus The attendance status that will be updated.
      * @throws DALException If something goes wrong during database operations.
      */
-    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws DALException
-    {
-         teacherDBManager.updateAttendanceStatus(attendatnceStatus);
+    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws DALException {
+        teacherDBManager.updateAttendanceStatus(attendatnceStatus);
     }
-
-    public void saveImage(Person p) throws DALException
-    {
-        if (p instanceof Teacher)
-        {
+    
+    public void saveImage(Person p) throws DALException {
+        if (p instanceof Teacher) {
             Teacher t = (Teacher) p;
             teacherDBManager.saveImage(t);
-        }
-        else if (p instanceof Student)
-        {
+        } else if (p instanceof Student) {
             Student s = (Student) p;
             studentDBManager.saveImage(s);
-        }
-        else
-        {
+        } else {
             throw new DALException("Not supported class! Parameter must be an instance of a Teacher or a Student!");
         }
+    }
+    
+    /**
+     * Saves the users email and password to the local drive.
+     * 
+     * @param email The user's email address
+     * @param password The password typed in by the user;
+     * @throws DALException If something goes wrong during file operations.
+     */
+    public void saveLocalData(String email, String password) throws DALException {
+        ldm.saveData(email, password);
     }
 }

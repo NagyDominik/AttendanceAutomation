@@ -3,9 +3,6 @@ package attendanceautomation.DAL;
 import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
-import java.awt.image.RenderedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,9 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *

@@ -8,6 +8,7 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
+import attendanceautomation.DAL.DALException;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -299,6 +300,15 @@ public class Model {
             bllManager.saveImage(p);
         } catch (BLLException ex)
         {
+            throw new ModelException(ex);
+        }
+    }
+    
+    public void saveLocalData(String email, String password) throws ModelException {
+        try {
+            bllManager.saveLocalData(email, password);
+        }
+        catch (BLLException ex) {
             throw new ModelException(ex);
         }
     }
