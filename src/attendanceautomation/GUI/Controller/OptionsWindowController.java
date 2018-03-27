@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javax.swing.JFileChooser;
@@ -29,8 +30,6 @@ public class OptionsWindowController implements Initializable {
     @FXML
     private JFXTextField newPAgainField;
     
-    private File file;
-
     /**
      * Initializes the controller class.
      */
@@ -44,9 +43,12 @@ public class OptionsWindowController implements Initializable {
         try {
             FileChooser fileChooser = new FileChooser();
             
-            File image = fileChooser.showOpenDialog(this.currentPField.getScene().getWindow());
-            if (image.getAbsolutePath().endsWith("jpg") || image.getAbsolutePath().endsWith("png")) { //only alowed jpg and png
-        
+            File file = fileChooser.showOpenDialog(this.currentPField.getScene().getWindow());
+            if (file.getAbsolutePath().endsWith("jpg") || file.getAbsolutePath().endsWith("png")) { //only alowed jpg and png
+                //Image image = new Image(file.getAbsolutePath());
+                profileImg.setImage(new Image(file.getAbsolutePath()));
+                System.out.println("MŰKÖDJ");
+                
             } else {
                 throw new Exception("Only .jpg and .png files allowed");
             }
