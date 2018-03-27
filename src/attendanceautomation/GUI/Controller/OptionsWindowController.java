@@ -6,12 +6,17 @@
 package attendanceautomation.GUI.Controller;
 
 import com.jfoenix.controls.JFXTextField;
+import java.io.File;
+import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javax.swing.JFileChooser;
 
 /**
  * FXML Controller class
@@ -28,6 +33,8 @@ public class OptionsWindowController implements Initializable {
     private JFXTextField newPField;
     @FXML
     private JFXTextField newPAgainField;
+    
+    private File file;
 
     /**
      * Initializes the controller class.
@@ -39,6 +46,20 @@ public class OptionsWindowController implements Initializable {
 
     @FXML
     private void selectFileClicked(ActionEvent event) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            
+            URI path = fileChooser.showOpenDialog(new ContextMenu()).toURI());
+            if (path.toString().endsWith("jpg") || path.toString().endsWith("png")) { //only alowed jpg and png
+                file = 
+               profileImg.setImage();
+            } else {
+                throw new Exception("Only .jpg and .png files allowed");
+            }
+        }
+        catch (Exception ex) {
+        }
+    
     }
 
     @FXML
