@@ -159,5 +159,4 @@ public class AttendanceWindowController implements Initializable {
         model.getSelectedStudent().calculateAttPer(start, end);
         percentageLbl.setText("Total percentage of participation: " + model.getSelectedStudent().getPercentageStringProperty().getValue() + " %");
     }
-
 }

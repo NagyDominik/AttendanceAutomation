@@ -59,7 +59,14 @@ public class Student extends Person {
 
     public StringProperty getTodaysStatusProperty() {
         StringProperty property = new SimpleStringProperty();
-        property.set(attendance.get(0).getStatus());
+        if (attendance.size() > 0)
+        {
+            property.set(attendance.get(0).getStatus());
+        }
+        else
+        {
+            property.set("0");
+        }
         return property;
     }
 

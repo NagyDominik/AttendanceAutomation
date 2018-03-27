@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package attendanceautomation.GUI.Controller;
 
 import com.jfoenix.controls.JFXTextField;
@@ -49,17 +44,15 @@ public class OptionsWindowController implements Initializable {
         try {
             FileChooser fileChooser = new FileChooser();
             
-            URI path = fileChooser.showOpenDialog(new ContextMenu()).toURI());
-            if (path.toString().endsWith("jpg") || path.toString().endsWith("png")) { //only alowed jpg and png
-                file = 
-               profileImg.setImage();
+            File image = fileChooser.showOpenDialog(this.currentPField.getScene().getWindow());
+            if (image.getAbsolutePath().endsWith("jpg") || image.getAbsolutePath().endsWith("png")) { //only alowed jpg and png
+        
             } else {
                 throw new Exception("Only .jpg and .png files allowed");
             }
         }
         catch (Exception ex) {
         }
-    
     }
 
     @FXML

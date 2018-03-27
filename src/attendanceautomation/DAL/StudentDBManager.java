@@ -2,12 +2,9 @@ package attendanceautomation.DAL;
 
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,17 +26,19 @@ public class StudentDBManager {
         InputStream inputStream = null;
         
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT id, name, email, image FROM Student");
+            //PreparedStatement ps = con.prepareStatement("SELECT id, name, email, image FROM Student");
+            PreparedStatement ps = con.prepareStatement("SELECT id, name, email FROM Student");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Student temp = new Student();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
-                inputStream = rs.getBinaryStream("image");
-                File target = new File(temp.getName()+".png");
-                java.nio.file.Files.copy(inputStream, target.toPath());
-                temp.setImage(target);
+//                inputStream = rs.getBinaryStream("image");
+//                File target = new File(temp.getName()+".png");
+//                java.nio.file.Files.copy(inputStream, target.toPath());
+//                temp.setImage(target);
+                students.add(temp);
             }
 
         }

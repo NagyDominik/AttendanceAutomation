@@ -29,17 +29,19 @@ public class TeacherDBManager {
         InputStream inputStream = null;
 
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT email, id, name, image FROM Teacher");
+//            PreparedStatement ps = con.prepareStatement("SELECT email, id, name, image FROM Teacher");
+            PreparedStatement ps = con.prepareStatement("SELECT email, id, name FROM Teacher");
             ResultSet rs =ps.executeQuery();
             while (rs.next()) {
                 Teacher temp = new Teacher();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
-                inputStream = rs.getBinaryStream("image");
-                File target = new File(temp.getName()+".png");
-                java.nio.file.Files.copy(inputStream, target.toPath());
-                temp.setImage(target);
+//                inputStream = rs.getBinaryStream("image");
+//                File target = new File(temp.getName()+".png");
+//                java.nio.file.Files.copy(inputStream, target.toPath());
+//                temp.setImage(target);
+                  teachers.add(temp);
             }
         }
         catch (Exception ex) {
