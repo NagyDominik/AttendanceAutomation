@@ -9,8 +9,6 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.DAL.DALException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Serves as a pass-through layer for now.
@@ -20,7 +18,7 @@ import java.util.logging.Logger;
 public class BLLManager {
 
     private DALManager dalManager;
-    private Hasher encrypter = new Hasher();
+    private Hasher hasher = new Hasher();
 
     public BLLManager() {
         dalManager = new DALManager();
@@ -43,8 +41,9 @@ public class BLLManager {
     public List<Teacher> getTeacher() throws BLLException {
         try {
             return dalManager.getTeacher();
-        } catch (DALException ex) {
-           throw new BLLException(ex);
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
         }
     }
 
@@ -53,12 +52,12 @@ public class BLLManager {
      *
      * @return A student with the corresponding id.
      */
-
     public List<Student> getStudent() throws BLLException {
         try {
             return dalManager.getStudent();
-        } catch (DALException ex) {
-           throw new BLLException(ex);
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
         }
     }
 
@@ -72,92 +71,93 @@ public class BLLManager {
      */
     public Person attemptLogin(String email, String password) throws BLLException {
         try {
-            return dalManager.attemptLogin(email, encrypter.hash(password));
+            return dalManager.attemptLogin(email, hasher.hash(password));
         }
         catch (DALException ex) {
             throw new BLLException(ex);
         }
     }
 
-    public void sendMessage(StudentMessage msg) throws BLLException
-    {
-        try
-        {
+    public void sendMessage(StudentMessage msg) throws BLLException {
+        try {
             dalManager.saveMessage(msg);
-        } catch (DALException ex)
-        {
+        }
+        catch (DALException ex) {
             throw new BLLException(ex);
         }
     }
 
     /**
      * Load the messages
+     *
      * @return The list of messages
      */
-    public List<StudentMessage> getStudentMessages(int id) throws BLLException
-    {
-        try
-        {
+    public List<StudentMessage> getStudentMessages(int id) throws BLLException {
+        try {
             return dalManager.getStudentMessages(id);
-        } catch (DALException ex)
-        {
-            throw new BLLException(ex);
         }
-    }
-    
-    /**
-     * Update an existing StudentMessage object in the database.
-     * @param msg The message that will be updated.
-     * @throws BLLException If something goes wrong during database operations.
-     */
-    public void updateMessage(StudentMessage msg) throws BLLException
-    {
-        try
-        {
-            dalManager.updateMessage(msg);
-        } catch (DALException ex)
-        {
+        catch (DALException ex) {
             throw new BLLException(ex);
         }
     }
 
-    public boolean hasUnreadMessages(int id) throws BLLException
-    {
-        try
-        {
+    /**
+     * Update an existing StudentMessage object in the database.
+     *
+     * @param msg The message that will be updated.
+     * @throws BLLException If something goes wrong during database operations.
+     */
+    public void updateMessage(StudentMessage msg) throws BLLException {
+        try {
+            dalManager.updateMessage(msg);
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
+
+    public boolean hasUnreadMessages(int id) throws BLLException {
+        try {
             return dalManager.hasUnreadMessages(id);
-        } catch (DALException ex)
-        {
+        }
+        catch (DALException ex) {
             throw new BLLException(ex);
         }
     }
 
     /**
      * Update an existing AttendanceStatus in the database
+     *
      * @param attendatnceStatus The attendance status that will be updated
      */
-    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws BLLException
-    {
-        try
-        {
+    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws BLLException {
+        try {
             dalManager.updateAttendanceStatus(attendatnceStatus);
-        } catch (DALException ex)
-        {
+        }
+        catch (DALException ex) {
             throw new BLLException(ex);
         }
     }
 
     /**
      * Save an image of a Person (Teacher or Student) to the database.
+     *
      * @param p The person whose image will be saved.
      */
-    public void saveImage(Person p) throws BLLException
-    {
-        try    
-        {
+    public void saveImage(Person p) throws BLLException {
+        try {
             dalManager.saveImage(p);
-        } catch (DALException ex)
-        {
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
+
+    public void saveLocalData(String email, String password) throws BLLException {
+        try {
+            dalManager.saveLocalData(email, hasher.hash(password));
+        }
+        catch (DALException ex) {
             throw new BLLException(ex);
         }
     }

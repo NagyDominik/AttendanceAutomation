@@ -1,6 +1,5 @@
 package attendanceautomation.DAL;
 
-import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import java.io.FileInputStream;
