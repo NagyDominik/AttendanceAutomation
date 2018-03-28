@@ -312,4 +312,9 @@ public class Model {
             throw new ModelException(ex);
         }
     }
+
+    public void setCurrentUser(Person user)
+    {
+        this.currentUser = user;
+    }
 }

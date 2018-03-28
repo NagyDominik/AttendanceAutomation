@@ -6,6 +6,9 @@ import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -87,7 +90,26 @@ public class DALManager {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return new Teacher();
+                Teacher temp = new Teacher();
+                temp.setEmail(rs.getString("email"));
+                temp.setId(rs.getInt("id"));
+                temp.setName(rs.getString("name"));
+                InputStream inputStream = rs.getBinaryStream("image");
+                if (inputStream != null)
+                {
+                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "")+".png");
+                    target.mkdirs();
+                    java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    temp.setImageFile(target);
+                }
+                else
+                {
+                    File dir = new File("src/img");
+                    dir.mkdirs();
+                    File imageNotFound = new File(dir, "help.png");
+                    temp.setImageFile(imageNotFound);
+                }
+                return temp;
             }
         }
         catch (Exception e) {
@@ -101,7 +123,26 @@ public class DALManager {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return new Student();
+                                Student temp = new Student();
+                temp.setEmail(rs.getString("email"));
+                temp.setId(rs.getInt("id"));
+                temp.setName(rs.getString("name"));
+                InputStream inputStream = rs.getBinaryStream("image");
+                if (inputStream != null)
+                {
+                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "")+".png");
+                    target.mkdirs();
+                    java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    temp.setImageFile(target);
+                }
+                else
+                {
+                    File dir = new File("src/img");
+                    dir.mkdirs();
+                    File imageNotFound = new File(dir, "help.png");
+                    temp.setImageFile(imageNotFound);
+                }
+                return temp;
             }
         }
         catch (Exception e) {

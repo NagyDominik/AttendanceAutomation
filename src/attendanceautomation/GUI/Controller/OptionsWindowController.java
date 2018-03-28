@@ -15,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -42,6 +44,8 @@ public class OptionsWindowController implements Initializable {
         try
         {
             model = Model.getInstance();
+            profileImg.setImage(model.getCurrentUser().getImage());
+
         } catch (ModelException ex)
         {
             AlertWindow.showAlert(ex);
@@ -69,6 +73,8 @@ public class OptionsWindowController implements Initializable {
 
     @FXML
     private void cancelClicked(ActionEvent event) {
+        Stage s = (Stage) currentPField.getScene().getWindow();
+        s.close();
     }
 
     @FXML

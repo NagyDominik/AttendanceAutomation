@@ -138,3 +138,5 @@ crashlytics-build.properties
 fabric.properties
 
 AttendanceAutomation.iml
+
+*.png

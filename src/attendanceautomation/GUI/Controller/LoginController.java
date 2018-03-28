@@ -1,5 +1,6 @@
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.Model.Model;
@@ -52,9 +53,10 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            if (model.authenticate(emailField.getText(), passwordField.getText()) instanceof Teacher) {
+            Person user = model.authenticate(emailField.getText(), passwordField.getText());
+            if (user instanceof Teacher) {
                 loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
-            } else if (model.authenticate(emailField.getText(), passwordField.getText()) instanceof Student) {
+            } else if (user instanceof Student) {
                 loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
             } else {
                 newAlert(new Exception("Invalid email or password"));
@@ -62,6 +64,7 @@ public class LoginController implements Initializable {
             if (rememberCBox.isSelected()) {
                 model.saveLocalData(emailField.getText(), passwordField.getText());
             }
+            model.setCurrentUser(user);
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root));

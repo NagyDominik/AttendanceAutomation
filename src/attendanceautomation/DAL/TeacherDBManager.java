@@ -29,18 +29,28 @@ public class TeacherDBManager {
         InputStream inputStream = null;
 
         try (Connection con = cm.getConnection()) {
-            //PreparedStatement ps = con.prepareStatement("SELECT email, id, name, image FROM Teacher");
-            PreparedStatement ps = con.prepareStatement("SELECT email, id, name FROM Teacher");
+            PreparedStatement ps = con.prepareStatement("SELECT email, id, name, image FROM Teacher");
+//            PreparedStatement ps = con.prepareStatement("SELECT email, id, name FROM Teacher");
             ResultSet rs =ps.executeQuery();
             while (rs.next()) {
                 Teacher temp = new Teacher();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
-//                inputStream = rs.getBinaryStream("image");
-//                File target = new File(temp.getName()+".png");
-//                java.nio.file.Files.copy(inputStream, target.toPath());
-//                temp.setImageFile(target);
+                inputStream = rs.getBinaryStream("image");
+                if (inputStream != null)
+                {
+                    File target = new File(temp.getName()+".png");
+                    java.nio.file.Files.copy(inputStream, target.toPath());
+                    temp.setImageFile(target);
+                }
+                else
+                {
+                    File dir = new File("src/img");
+                    dir.mkdirs();
+                    File imageNotFound = new File(dir, "help.png");
+                    temp.setImageFile(imageNotFound);
+                }
                 teachers.add(temp);
             }
         }
@@ -159,9 +169,10 @@ public class TeacherDBManager {
         {
             FileInputStream f = new FileInputStream(t.getImageFile());
             
-            String sql = "INSERT INTO Teacher (image) VALUES (?);";
+            String sql = "UPDATE Teacher SET image = ? WHERE id = ?;";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setBinaryStream(1, (InputStream)f);
+            ps.setInt(2, t.getId());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {

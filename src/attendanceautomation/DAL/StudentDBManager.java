@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,18 +28,30 @@ public class StudentDBManager {
         InputStream inputStream;
         
         try (Connection con = cm.getConnection()) {
-            //PreparedStatement ps = con.prepareStatement("SELECT id, name, email, image FROM Student");
-            PreparedStatement ps = con.prepareStatement("SELECT id, name, email FROM Student");
+            PreparedStatement ps = con.prepareStatement("SELECT id, name, email, image FROM Student");
+//            PreparedStatement ps = con.prepareStatement("SELECT id, name, email FROM Student");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Student temp = new Student();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
-//                inputStream = rs.getBinaryStream("image");
-//                File target = new File(temp.getName()+".png");
-//                java.nio.file.Files.copy(inputStream, target.toPath());
-//                temp.setImageFile(target);
+                inputStream = rs.getBinaryStream("image");
+                if (inputStream != null)
+                {
+                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "")+".png");
+                    target.mkdirs();
+                    java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    temp.setImageFile(target);
+                }
+                else
+                {
+                    File dir = new File("src/img");
+                    dir.mkdirs();
+                    File imageNotFound = new File(dir, "help.png");
+                    temp.setImageFile(imageNotFound);
+                }
+
                 students.add(temp);
             }
 
@@ -88,9 +101,10 @@ public class StudentDBManager {
         {
             FileInputStream f = new FileInputStream(s.getImageFile());
             
-            String sql = "INSERT INTO Student (image) VALUES (?);";
+            String sql = "UPDATE Student SET image = ? WHERE id = ?;";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setBinaryStream(1, (InputStream)f);
+            ps.setInt(2, s.getId());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {

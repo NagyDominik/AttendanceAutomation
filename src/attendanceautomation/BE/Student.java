@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-import javafx.scene.image.Image;
 
 /**
  * Represents a student
