@@ -16,34 +16,17 @@ import javafx.collections.FXCollections;
  */
 public class Student extends Person {
 
-    private int id;
-    private String email;
-    private String name;
     private final FloatProperty presencePercentage = new SimpleFloatProperty();
     private ObservableList<AttendanceStatus> attendance = FXCollections.observableArrayList();
     
     public Student(String email, String name, int id) {
-        this.email = email;
-        this.name = name;
-        this.id = id;
+        super(id, name, email);
     }
 
-    public Student() {
-        
+    public Student()
+    {
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    
     public float getPresencePercentage() {
         return presencePercentage.get();
     }
@@ -75,18 +58,6 @@ public class Student extends Person {
 
     public FloatProperty presencePercentageProperty() {
         return presencePercentage;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public ObservableList<AttendanceStatus> getAttendanceInfo() {

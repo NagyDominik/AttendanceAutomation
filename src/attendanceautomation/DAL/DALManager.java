@@ -12,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -224,5 +225,23 @@ public class DALManager {
      */
     public void saveLocalData(String email, String password) throws DALException {
         ldm.saveData(email, password);
+    }
+
+    /**
+     * Check if a given password is associated with a given email.
+     * @param email The email of a person.
+     * @param old The (old) hashed password of a person.
+     * @return True if the password is associated with the email address, false otherwise.
+     */
+    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws DALException
+    {
+        try (Connection con = cm.getConnection())
+        {
+            
+        }
+        catch(SQLException ex)
+        {
+            throw new DALException(ex);
+        }
     }
 }
