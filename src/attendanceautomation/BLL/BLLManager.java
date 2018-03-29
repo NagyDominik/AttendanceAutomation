@@ -9,6 +9,8 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.DAL.DALException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Serves as a pass-through layer for now.
@@ -140,12 +142,8 @@ public class BLLManager {
     }
 
     /**
-<<<<<<< HEAD
-     * Save an image of a imageFile (Teacher or Student) to the database.
-=======
      * Save an image of a Person (Teacher or Student) to the database.
      *
->>>>>>> cbf64a4d58dd4c42b8726a395009525677f1ff98
      * @param p The person whose image will be saved.
      */
     public void saveImage(Person p) throws BLLException {
@@ -160,6 +158,16 @@ public class BLLManager {
     public void saveLocalData(String email, String password) throws BLLException {
         try {
             dalManager.saveLocalData(email, hasher.hash(password));
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
+
+    public Person attemptLocalLogin() throws BLLException {
+        try {
+            String[] localdata = dalManager.getLocalData();
+            return dalManager.attemptLogin(localdata[0], localdata[1]);
         }
         catch (DALException ex) {
             throw new BLLException(ex);

@@ -21,7 +21,7 @@ import java.util.List;
  * @author sebok
  */
 public class DALManager {
-    
+
     private ConnectionManager cm = ConnectionManager.getInstance();
     private StudentDBManager studentDBManager = new StudentDBManager();
     private TeacherDBManager teacherDBManager = new TeacherDBManager();
@@ -34,9 +34,9 @@ public class DALManager {
     private List<ClassData> classData;
     private List<Student> student;
     private List<Teacher> teacher;
-    
+
     public DALManager() {
-        
+
     }
 
     /**
@@ -95,15 +95,12 @@ public class DALManager {
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
                 InputStream inputStream = rs.getBinaryStream("image");
-                if (inputStream != null)
-                {
-                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "")+".png");
+                if (inputStream != null) {
+                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "") + ".png");
                     target.mkdirs();
                     java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     temp.setImageFile(target);
-                }
-                else
-                {
+                } else {
                     File dir = new File("src/img");
                     dir.mkdirs();
                     File imageNotFound = new File(dir, "help.png");
@@ -115,7 +112,7 @@ public class DALManager {
         catch (Exception e) {
             throw new DALException(e);
         }
-        
+
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Student "
                     + "WHERE email = ? AND password = ?");
@@ -123,20 +120,17 @@ public class DALManager {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                                Student temp = new Student();
+                Student temp = new Student();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
                 InputStream inputStream = rs.getBinaryStream("image");
-                if (inputStream != null)
-                {
-                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "")+".png");
+                if (inputStream != null) {
+                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "") + ".png");
                     target.mkdirs();
                     java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     temp.setImageFile(target);
-                }
-                else
-                {
+                } else {
                     File dir = new File("src/img");
                     dir.mkdirs();
                     File imageNotFound = new File(dir, "help.png");
@@ -202,7 +196,7 @@ public class DALManager {
     public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws DALException {
         teacherDBManager.updateAttendanceStatus(attendatnceStatus);
     }
-    
+
     public void saveImage(Person p) throws DALException {
         if (p instanceof Teacher) {
             Teacher t = (Teacher) p;
@@ -214,15 +208,19 @@ public class DALManager {
             throw new DALException("Not supported class! Parameter must be an instance of a Teacher or a Student!");
         }
     }
-    
+
     /**
      * Saves the users email and password to the local drive.
-     * 
+     *
      * @param email The user's email address
      * @param password The password typed in by the user;
      * @throws DALException If something goes wrong during file operations.
      */
     public void saveLocalData(String email, String password) throws DALException {
         ldm.saveData(email, password);
+    }
+
+    public String[] getLocalData() throws DALException {
+        return ldm.getLocalData();
     }
 }

@@ -11,6 +11,8 @@ import attendanceautomation.BLL.BLLManager;
 import attendanceautomation.DAL.DALException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -316,5 +318,14 @@ public class Model {
     public void setCurrentUser(Person user)
     {
         this.currentUser = user;
+    }
+
+    public Person attemptLocalLogin() throws ModelException {
+        try {
+            return bllManager.attemptLocalLogin();
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
     }
 }
