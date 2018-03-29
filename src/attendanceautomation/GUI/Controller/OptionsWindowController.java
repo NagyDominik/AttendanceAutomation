@@ -1,5 +1,6 @@
 package attendanceautomation.GUI.Controller;
 
+import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
@@ -24,14 +25,15 @@ public class OptionsWindowController implements Initializable {
 
     @FXML
     private ImageView profileImg;
-    @FXML
     private JFXTextField currentPField;
-    @FXML
-    private JFXTextField newPField;
-    @FXML
-    private JFXTextField newPAgainField;
     
     private Model model;
+    @FXML
+    private JFXTextField txtFieldCurrentPassword;
+    @FXML
+    private JFXTextField txtFieldNewPassword;
+    @FXML
+    private JFXTextField txtFieldNewPasswordAgain;
     
     /**
      * Initializes the controller class.
@@ -76,6 +78,18 @@ public class OptionsWindowController implements Initializable {
 
     @FXML
     private void changePasswordClicked(ActionEvent event) {
+        String old = txtFieldCurrentPassword.getText();
+        boolean isTeacher = model.getCurrentUser() instanceof Teacher;
+        try
+        {
+            if (!model.authenticatePassword(model.getCurrentUser().getEmail(), old, isTeacher))            
+            {
+                
+            }
+        } catch (ModelException ex)
+        {
+            AlertWindow.showAlert(ex);
+        }
     }
     
 }

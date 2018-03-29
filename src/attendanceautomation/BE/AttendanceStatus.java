@@ -15,12 +15,20 @@ public class AttendanceStatus {
     private LocalDate date;
     private IntegerProperty status = new SimpleIntegerProperty();
     private boolean teacherSet = Boolean.FALSE;
+    
+    private Student st = new Student();
+    private int studentID = st.getId();
+    
+    private Teacher tc = new Teacher();
+    private int teacherID = tc.getId();
 
-    public AttendanceStatus(int id, ClassData classData, LocalDate date, int status) {
-        this.classData = classData;
-        this.date = date;
-        this.status.set(status);
+    public AttendanceStatus(int id, LocalDate date, ClassData classData, int status, int studentID, int teacherID) {
         this.id = id;
+        this.date = date;
+        this.classData = classData;
+        this.status.set(status);
+        this.studentID = studentID;
+        this.teacherID = teacherID;
     }
 
     public AttendanceStatus(ClassData classData, LocalDate date) {
@@ -94,5 +102,12 @@ public class AttendanceStatus {
 
     public void setId(int id) {
         this.id = id;
+    }
+    public int getStudentID() {
+        return studentID;
+    }
+
+    public int getTeacherID() {
+        return teacherID;
     }
 }
