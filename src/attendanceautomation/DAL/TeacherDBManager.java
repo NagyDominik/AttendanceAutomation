@@ -121,9 +121,9 @@ public class TeacherDBManager {
      */
     public boolean hasUnreadMessages(int id) throws DALException {
         try (Connection con = cm.getConnection()) {
-            String sql = "SELECT [teacherid], COUNT([seen]) as SeenCount FROM [CS2017B_7_AttendanceAutomation].[dbo].[StudentMessage] WHERE [seen] = 0 GROUP BY teacherid;"; //AND [teacherId] = ? GROUP BY teacherid;"; //" AND teacherId = id"
+            String sql = "SELECT [teacherid], COUNT([seen]) as SeenCount FROM [CS2017B_7_AttendanceAutomation].[dbo].[StudentMessage] WHERE [seen] = 0 AND [teacherId] = ? GROUP BY teacherid;"; //" AND teacherId = id"
             PreparedStatement ps = con.prepareStatement(sql);
-            //ps.setInt(1, id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return true;
@@ -185,6 +185,26 @@ public class TeacherDBManager {
         } catch (FileNotFoundException ex)
         {
             throw new DALException("Image file not found! " + ex.getMessage()); 
+        }
+    }
+
+    void changePassword(int userId, String hash) throws DALException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            String sql = "UPDATE Teacher SET password = ? WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, hash);
+            ps.setInt(2, userId);
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DALException("Unable to change password!");
+            }
+        }
+        catch(SQLException ex)
+        {
+            throw new DALException(ex);
         }
     }
 }
