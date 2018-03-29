@@ -232,10 +232,9 @@ public class DALManager {
         List<AttendanceStatus> attendance = new ArrayList<>();
 
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, classData, status, studentID, teacherID) VALUES(?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, status, studentID, teacherID) VALUES(?, ?, ?, ?, ?)");
             ps.setInt(0, status.getId());
             ps.setString(1, status.getDate());
-            ps.setInt(2, status.getClassData().getId());
             ps.setInt(3, status.getStatusAsNumber());
             ps.setInt(4, status.getStudentID());
             ps.setInt(5, status.getTeacherID());

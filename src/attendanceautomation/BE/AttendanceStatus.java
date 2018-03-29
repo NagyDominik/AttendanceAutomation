@@ -11,7 +11,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class AttendanceStatus {
 
     private int id;
-    private ClassData classData;
     private LocalDate date;
     private IntegerProperty status = new SimpleIntegerProperty();
     private boolean teacherSet = Boolean.FALSE;
@@ -22,17 +21,15 @@ public class AttendanceStatus {
     private Teacher tc = new Teacher();
     private int teacherID = tc.getId();
 
-    public AttendanceStatus(int id, LocalDate date, ClassData classData, int status, int studentID, int teacherID) {
+    public AttendanceStatus(int id, LocalDate date, int status, int studentID, int teacherID) {
         this.id = id;
         this.date = date;
-        this.classData = classData;
         this.status.set(status);
         this.studentID = studentID;
         this.teacherID = teacherID;
     }
 
-    public AttendanceStatus(ClassData classData, LocalDate date) {
-        this.classData = classData;
+    public AttendanceStatus(LocalDate date) {
         this.date = date;
     }
 
@@ -42,10 +39,6 @@ public class AttendanceStatus {
 
     public void setTeacherSet(boolean teacherSet) {
         this.teacherSet = teacherSet;
-    }
-
-    public String getClassName() {
-        return classData.getClassName();
     }
 
     public String getDate() {
@@ -79,11 +72,7 @@ public class AttendanceStatus {
     public Boolean getStatusAsBoolean() {
         return status.equals(1);
     }
-
-    public ClassData getClassData() {
-        return classData;
-    }
-
+    
     public int getId() {
         return id;
     }

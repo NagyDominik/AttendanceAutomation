@@ -135,7 +135,7 @@ public class StudentWindowController implements Initializable {
 
     @FXML
     private void btnStatusChangeRequestClicked(ActionEvent event) {
-        Teacher selectedTeacher = historyTV.getSelectionModel().getSelectedItem().getClassData().getTeacher();
+        Teacher selectedTeacher = model.getSelectedTeacher();
         AttendanceStatus stat = historyTV.getSelectionModel().getSelectedItem();
 
         try {
