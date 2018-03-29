@@ -32,14 +32,6 @@ public class DALManager {
     private TeacherDBManager teacherDBManager = new TeacherDBManager();
     private LocalDataManager ldm = new LocalDataManager();
 
-    /**
-     * *******************
-     */
-    //Mock data
-    private List<ClassData> classData;
-    private List<Student> student;
-    private List<Teacher> teacher;
-
     public DALManager() {
 
     }
@@ -289,32 +281,30 @@ public class DALManager {
         {
             if (isTeacher)
             {
-                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Teacher AS count "
-                    + "WHERE email = ? AND password = ? GROUP BY id");
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM Teacher "
+                        + "WHERE email = ? AND password = ?");
                 ps.setString(1, email);
                 ps.setString(2, old);
                 ResultSet rs = ps.executeQuery();
-                rs.next();
-                if (rs.getInt("count") == 1)
+                if (rs.next())
                 {
                     return true;
                 }
+                return false;
             }
             else
             {
-                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Student AS count "
-                    + "WHERE email = ? AND password = ? GROUP BY id");
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM Student "
+                        + "WHERE email = ? AND password = ?");
                 ps.setString(1, email);
                 ps.setString(2, old);
                 ResultSet rs = ps.executeQuery();
-                rs.next();
-                if (rs.getInt("count") == 1)
+                if (rs.next())
                 {
                     return true;
                 }
+                return false;
             }
-            
-            return false;
         }
         catch (SQLException ex) {
             throw new DALException(ex);

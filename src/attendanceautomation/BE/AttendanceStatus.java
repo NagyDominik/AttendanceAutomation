@@ -36,18 +36,6 @@ public class AttendanceStatus {
         this.date = date;
     }
 
-    private int isStatus() {
-        return status.get();
-    }
-
-    private void setStatus(int value) {
-        status.set(value);
-    }
-
-    private IntegerProperty statusProperty() {
-        return status;
-    }
-
     public boolean isTeacherSet() {
         return teacherSet;
     }

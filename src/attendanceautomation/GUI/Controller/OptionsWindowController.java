@@ -88,16 +88,14 @@ public class OptionsWindowController implements Initializable {
             if (!model.authenticatePassword(currentUser.getEmail(), old, isTeacher))   //Check the old password         
             {
                 AlertWindow.showAlert(new Exception("Incorrect password!"));    //If incorrect, do not let the user change it.
-                return;
             }
             else
             {
                 String newPass = passFieldNew.getText();
                 String newPassAgain = passFieldNewAgain.getText();
-                if (newPass.isEmpty() && !newPass.equals(newPassAgain))  //Check if the two entered passwords are the same, and only proceed if they are.
+                if (newPass.isEmpty() || !newPass.equals(newPassAgain))  //Check if the two entered passwords are the same, and only proceed if they are.
                 {
                     AlertWindow.showAlert(new Exception("Please enter your new password twice!"));
-                    return;
                 }
                 else
                 {
