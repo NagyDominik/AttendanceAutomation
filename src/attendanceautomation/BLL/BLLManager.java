@@ -142,9 +142,14 @@ public class BLLManager {
     }
 
     /**
-     * Save an image of a Person to the database
+     * <<<<<<< HEAD Save an image of a Person (Teacher or Student) to the
+     * database.
+     *
+     * @param p The person whose image will be saved. ======= Save an image of a
+     * Person to the database
      * @param p The Person whose image will be saved.
      * @throws BLLException If something goes wrong during database operations.
+     * >>>>>>> 99a35baa126379bc04a25512c6189094578f0237
      */
     public void saveImage(Person p) throws BLLException {
         try {
@@ -163,37 +168,51 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
-    
-    /**
-     * Check if a given password is associated with a given email.
-     * @param email The email of a person.
-     * @param old The (old) password of a person.
-     * @return True if the password is associated with the email address, false otherwise.
-     */
-    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws BLLException
-    {
-        try
-        {
+
+    public Person attemptLocalLogin() throws BLLException {
+        try {
+            String[] localdata = dalManager.getLocalData();
+            return dalManager.attemptLogin(localdata[0], localdata[1]);
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
+        /**
+         * Check if a given password is associated with a given email.
+         *
+         * @param email The email of a person.
+         * @param old The (old) password of a person.
+         * @return True if the password is associated with the email address,
+         * false otherwise.
+         */
+    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws BLLException {
+        try {
             return dalManager.authenticatePassword(email, hasher.hash(old), isTeacher);
-        } catch (DALException ex)
-        {
+        }
+        catch (DALException ex) {
             throw new BLLException(ex);
         }
     }
 
     /**
      * Change the password of the given user.
+     *
      * @param userId The id of the Person whose password will be changed.
      * @param newPass The new password.
      */
-    public void changepassword(int userId, String newPass, boolean isTeacher) throws BLLException
-    {
-        try
-        {
+    public void changepassword(int userId, String newPass, boolean isTeacher) throws BLLException {
+        try {
             dalManager.changePassword(userId, hasher.hash(newPass), isTeacher);
         }
-        catch (DALException ex)
-        {
+        catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
+    public List<AttendanceStatus> saveAttendanceToDB(AttendanceStatus status) throws BLLException{
+        try {
+            return dalManager.saveStatus(status);
+        } catch (DALException ex) {
             throw new BLLException(ex);
         }
     }

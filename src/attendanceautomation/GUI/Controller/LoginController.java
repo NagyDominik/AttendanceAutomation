@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,6 +42,7 @@ public class LoginController implements Initializable {
         try {
             this.model = Model.getInstance();
             addListenersAndHandlers();
+            //login(model.attemptLocalLogin());
         }
         catch (ModelException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,28 +52,10 @@ public class LoginController implements Initializable {
     @FXML
     private void loginClicked(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            Person user = model.authenticate(emailField.getText(), passwordField.getText());
-            if (user instanceof Teacher) {
-                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
-            } else if (user instanceof Student) {
-                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
-            } else {
-                newAlert(new Exception("Invalid email or password"));
-            }
-            if (rememberCBox.isSelected()) {
-                model.saveLocalData(emailField.getText(), passwordField.getText());
-            }
-            model.setCurrentUser(user);
-            Parent root = (Parent) loader.load();
-            Stage stage = (Stage) emailField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.show();
+            login(model.authenticate(emailField.getText(), passwordField.getText()));
         }
-        catch (ModelException | IOException ex) {
+        catch (ModelException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            newAlert(ex);
         }
     }
 
@@ -95,14 +77,34 @@ public class LoginController implements Initializable {
     }
 
     private void addListenersAndHandlers() {
-        passwordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.ENTER) {
-                    loginClicked(new ActionEvent());
-                }
+        passwordField.setOnKeyPressed((KeyEvent event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                loginClicked(new ActionEvent());
             }
         });
+
+    }
+
+    private void login(Person user) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            if (user instanceof Teacher) {
+                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/TeacherWindow.fxml"));
+            } else if (user instanceof Student) {
+                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/StudentWindow.fxml"));
+            } else {
+                newAlert(new Exception("Invalid email or password"));
+            }
+            model.setCurrentUser(user);
+            Parent root = (Parent) loader.load();
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
