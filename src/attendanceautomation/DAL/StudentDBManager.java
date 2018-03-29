@@ -23,7 +23,7 @@ public class StudentDBManager {
     private ConnectionManager cm = ConnectionManager.getInstance();
 
     public List<Student> getStudentFromDB() throws DALException {
-        List<Student> students = new ArrayList();
+        List<Student> students = new ArrayList<>();
         
         InputStream inputStream;
         

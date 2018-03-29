@@ -6,14 +6,18 @@ import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * COntains mock data (for now)
@@ -224,5 +228,35 @@ public class DALManager {
      */
     public void saveLocalData(String email, String password) throws DALException {
         ldm.saveData(email, password);
+    }
+    
+    /**
+     * Save history to DB
+     * @param status
+     * @return a list with history
+     * @throws DALException if cannot save into DB
+     */
+    public List<AttendanceStatus> saveStatus(AttendanceStatus status) throws DALException{
+         List<AttendanceStatus> attendance = new ArrayList<>();
+         
+         try (Connection con = cm.getConnection())
+         {
+             PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, classData, status, studentID, teacherID) VALUES(?, ?, ?, ?, ?, ?)");
+              ps.setInt(0, status.getId());
+              ps.setString(1, status.getDate());
+              ps.setObject(2, status.getClassData());
+              ps.setInt(3, status.getStatusAsNumber());
+              ps.setInt(4, status.getStudentID());
+              ps.setInt(5, status.getTeacherID());
+              attendance.add(status);
+              ps.executeQuery();
+             
+         } catch (Exception ex) {
+             throw new DALException(ex);
+        }
+         
+        
+        return attendance;
+        
     }
 }
