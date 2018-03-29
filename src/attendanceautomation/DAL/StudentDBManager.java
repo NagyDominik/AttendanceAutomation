@@ -24,27 +24,24 @@ public class StudentDBManager {
 
     public List<Student> getStudentFromDB() throws DALException {
         List<Student> students = new ArrayList<>();
-        
         InputStream inputStream;
         
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT id, name, email, image FROM Student");
+            PreparedStatement ps = con.prepareStatement("SELECT id, name, email, image, classid FROM Student");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Student temp = new Student();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
+                temp.setClassID(rs.getInt("classid"));
                 inputStream = rs.getBinaryStream("image");
-                if (inputStream != null)
-                {
-                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "")+".png");
+                if (inputStream != null) {
+                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "") + ".png");
                     target.mkdirs();
                     java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     temp.setImageFile(target);
-                }
-                else
-                {
+                } else {
                     File dir = new File("src/img");
                     dir.mkdirs();
                     File imageNotFound = new File(dir, "help.png");
@@ -54,8 +51,7 @@ public class StudentDBManager {
                 students.add(temp);
             }
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new DALException(ex);
         }
         return students;
@@ -84,58 +80,47 @@ public class StudentDBManager {
             if (rs.next()) {
                 msg.setId(rs.getInt(1));
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new DALException(ex);
         }
     }
 
     /**
      * Save an image of a Student to the database.
+     *
      * @param p The person whose image will be saved.
      */
-    void saveImage(Student s) throws DALException
-    {        
-        try (Connection con = cm.getConnection())
-        {
+    void saveImage(Student s) throws DALException {
+        try (Connection con = cm.getConnection()) {
             FileInputStream f = new FileInputStream(s.getImageFile());
-            
+
             String sql = "UPDATE Student SET image = ? WHERE id = ?;";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setBinaryStream(1, (InputStream)f);
+            ps.setBinaryStream(1, (InputStream) f);
             ps.setInt(2, s.getId());
             int affected = ps.executeUpdate();
-            if (affected < 1)
-            {
+            if (affected < 1) {
                 throw new DALException("Could not save image to database.");
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DALException(ex);
-        } catch (FileNotFoundException ex)
-        {
-            throw new DALException("Image file not found! " + ex.getMessage()); 
+        } catch (FileNotFoundException ex) {
+            throw new DALException("Image file not found! " + ex.getMessage());
         }
     }
 
-    void changePassword(int userId, String hash) throws DALException
-    {
-        try(Connection con = cm.getConnection())
-        {
+    void changePassword(int userId, String hash) throws DALException {
+        try (Connection con = cm.getConnection()) {
             String sql = "UPDATE Student SET password = ? WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, hash);
             ps.setInt(2, userId);
             int affected = ps.executeUpdate();
-            if (affected < 1)
-            {
+            if (affected < 1) {
                 throw new DALException("Unable to change password!");
             }
-        }
-        catch(SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DALException(ex);
-        } 
+        }
     }
 }

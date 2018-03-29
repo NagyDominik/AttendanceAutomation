@@ -2,6 +2,7 @@ package attendanceautomation.BE;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.List;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,19 +19,27 @@ public class Student extends Person {
 
     private final FloatProperty presencePercentage = new SimpleFloatProperty();
     private ObservableList<AttendanceStatus> attendance = FXCollections.observableArrayList();
-    
+    private int classID;
+
     public Student(String email, String name, int id) {
         super(id, name, email);
     }
 
-    public Student()
-    {
+    public Student() {
     }
-    
+
+    public int getClassID() {
+        return classID;
+    }
+
+    public void setClassID(int classID) {
+        this.classID = classID;
+    }
+
     public float getPresencePercentage() {
         return presencePercentage.get();
     }
-    
+
     public StringProperty getPercentageStringProperty() {
         StringProperty property = new SimpleStringProperty();
         DecimalFormat df = new DecimalFormat("#.##");
@@ -41,12 +50,9 @@ public class Student extends Person {
 
     public StringProperty getTodaysStatusProperty() {
         StringProperty property = new SimpleStringProperty();
-        if (attendance.size() > 0)
-        {
+        if (attendance.size() > 0) {
             property.set(attendance.get(0).getStatus());
-        }
-        else
-        {
+        } else {
             property.set("0");
         }
         return property;
@@ -91,6 +97,9 @@ public class Student extends Person {
         } else {
             presencePercentage.set(0);
         }
+    }
 
+    public void addHistory(List<AttendanceStatus> history) {
+        this.attendance.addAll(history);
     }
 }

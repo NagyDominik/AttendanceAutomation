@@ -11,31 +11,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class AttendanceStatus {
 
     private int id;
-    private ClassData classData;
     private LocalDate date;
     private IntegerProperty status = new SimpleIntegerProperty();
     private boolean teacherSet = Boolean.FALSE;
-    
-    private Student st = new Student();
-    private int studentID = st.getId();
-    
-    private Teacher tc = new Teacher();
-    private int teacherID = tc.getId();
 
-    public AttendanceStatus(int id, LocalDate date, ClassData classData, int status, int studentID, int teacherID) {
+    public AttendanceStatus(int id, LocalDate date,int status, boolean teacherSet) {
         this.id = id;
         this.date = date;
-        this.classData = classData;
         this.status.set(status);
-        this.studentID = studentID;
-        this.teacherID = teacherID;
+        this.teacherSet = teacherSet;
     }
-
-    public AttendanceStatus(ClassData classData, LocalDate date) {
-        this.classData = classData;
-        this.date = date;
-    }
-
+ 
     private int isStatus() {
         return status.get();
     }
@@ -55,10 +41,7 @@ public class AttendanceStatus {
     public void setTeacherSet(boolean teacherSet) {
         this.teacherSet = teacherSet;
     }
-
-    public String getClassName() {
-        return classData.getClassName();
-    }
+    
 
     public String getDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("w, yyyy-MM-dd");
@@ -92,22 +75,11 @@ public class AttendanceStatus {
         return status.equals(1);
     }
 
-    public ClassData getClassData() {
-        return classData;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-    public int getStudentID() {
-        return studentID;
-    }
-
-    public int getTeacherID() {
-        return teacherID;
     }
 }

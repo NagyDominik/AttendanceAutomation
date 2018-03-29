@@ -6,7 +6,6 @@ import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
@@ -41,6 +40,11 @@ public class DALManager {
     private List<Teacher> teacher;
 
     public DALManager() {
+        /*try {
+            loadAllData();
+        } catch (DALException ex) {
+            Logger.getLogger(DALManager.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
 
     }
 
@@ -50,14 +54,52 @@ public class DALManager {
      * @return The class associated with the id.
      */
     public List<ClassData> getClassData() {
-        List<ClassData> classData = new ArrayList();
+
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
-            ps.executeQuery();
-        }
-        catch (Exception e) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ClassData temp = new ClassData();
+                temp.setId(rs.getInt("id"));
+                temp.setClassName(rs.getString("name"));
+                classData.add(temp);
+            }
+
+        } catch (Exception e) {
         }
         return classData;
+    }
+
+    public void loadAllData() throws DALException {
+        getClassData();
+        getTeacher();
+        getStudent();
+
+        try (Connection con = cm.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM ClassTeacher");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                for (Teacher tempTeacher : teacher) {
+                    if (rs.getInt("teacherid") == tempTeacher.getId()) {
+                        for (ClassData tempClass : classData) {
+                            if (rs.getInt("classid") == tempClass.getId()) {
+                                tempClass.setTeacher(tempTeacher);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+        }
+        for (Student tempStudent : student) {
+            for (ClassData tempClass : classData) {
+                if (tempStudent.getClassID() == tempClass.getId()) {
+                    tempClass.addStudent(tempStudent);
+                }
+
+            }
+
+        }
     }
 
     /**
@@ -76,7 +118,9 @@ public class DALManager {
      * @return The class associated with the id.
      */
     public List<Teacher> getTeacher() throws DALException {
+
         return teacherDBManager.getTeacherFromDB();
+
     }
 
     /**
@@ -113,8 +157,7 @@ public class DALManager {
                 }
                 return temp;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new DALException(e);
         }
 
@@ -143,8 +186,7 @@ public class DALManager {
                 }
                 return temp;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new DALException(e);
         }
         return null;
@@ -233,46 +275,37 @@ public class DALManager {
      * Save history to DB
      *
      * @param status of the students
-     * @return a list with history
      * @throws DALException if cannot save into DB
      */
-    public List<AttendanceStatus> saveStatus(AttendanceStatus status) throws DALException {
-        List<AttendanceStatus> attendance = new ArrayList<>();
-
+    public void saveStatus(AttendanceStatus status, Student student) throws DALException {
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, classData, status, studentID, teacherID) VALUES(?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, status, studentid, teacherset) VALUES(?, ?, ?, ?, ?)");
             ps.setInt(0, status.getId());
             ps.setString(1, status.getDate());
-            ps.setInt(2, status.getClassData().getId());
-            ps.setInt(3, status.getStatusAsNumber());
-            ps.setInt(4, status.getStudentID());
-            ps.setInt(5, status.getTeacherID());
-            attendance.add(status);
-            ps.executeQuery();
-
-        }
-        catch (Exception ex) {
+            ps.setInt(2, status.getStatusAsNumber());
+            ps.setInt(3, student.getId());
+            ps.setBoolean(4, status.isTeacherSet());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
             throw new DALException(ex);
         }
-
-        return attendance;
     }
-    
-    public List<AttendanceStatus> getStatus() throws DALException{
+
+    public List<AttendanceStatus> getStatus() throws DALException {
         List<AttendanceStatus> status = new ArrayList<>();
-          try (Connection con = cm.getConnection()) {
-              PreparedStatement ps = con.prepareStatement("SELECT * FROM History");
-              ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
-                //AttendanceStatus sts = new AttendanceStatus(rs.getInt("id"), rs.getDate("date").toLocalDate(), rs.get("classData"), rs.getInt("status"), rs.getInt("studentID"), rs.getInt("teacherID"));
-                
-                //status.add(sts);
+        try (Connection con = cm.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM History");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                AttendanceStatus sts = new AttendanceStatus(rs.getInt("id"), rs.getDate("date").toLocalDate(), rs.getInt("status"), rs.getBoolean("teacherset"));
+
+                status.add(sts);
             }
-            
-        } catch (Exception ex) {
-           throw new DALException(ex);
+
+        } catch (SQLException ex) {
+            throw new DALException(ex);
         }
-          return status;
+        return status;
     }
 
     /**
@@ -283,57 +316,46 @@ public class DALManager {
      * @return True if the password is associated with the email address, false
      * otherwise.
      */
-    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws DALException
-    {
-        try (Connection con = cm.getConnection())
-        {
-            if (isTeacher)
-            {
+    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws DALException {
+        try (Connection con = cm.getConnection()) {
+            if (isTeacher) {
                 PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Teacher AS count "
-                    + "WHERE email = ? AND password = ? GROUP BY id");
+                        + "WHERE email = ? AND password = ? GROUP BY id");
                 ps.setString(1, email);
                 ps.setString(2, old);
                 ResultSet rs = ps.executeQuery();
                 rs.next();
-                if (rs.getInt("count") == 1)
-                {
+                if (rs.getInt("count") == 1) {
                     return true;
                 }
-            }
-            else
-            {
+            } else {
                 PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Student AS count "
-                    + "WHERE email = ? AND password = ? GROUP BY id");
+                        + "WHERE email = ? AND password = ? GROUP BY id");
                 ps.setString(1, email);
                 ps.setString(2, old);
                 ResultSet rs = ps.executeQuery();
                 rs.next();
-                if (rs.getInt("count") == 1)
-                {
+                if (rs.getInt("count") == 1) {
                     return true;
                 }
             }
-            
+
             return false;
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new DALException(ex);
         }
     }
 
     /**
      * Change the password of the given user.
+     *
      * @param userId The id of the Person whose password will be changed.
      * @param newPass The new password.
      */
-    public void changePassword(int userId, String hash, boolean isTeacher) throws DALException
-    {
-        if (isTeacher)
-        {
+    public void changePassword(int userId, String hash, boolean isTeacher) throws DALException {
+        if (isTeacher) {
             teacherDBManager.changePassword(userId, hash);
-        }
-        else
-        {
+        } else {
             studentDBManager.changePassword(userId, hash);
         }
     }
