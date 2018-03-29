@@ -370,4 +370,11 @@ public class Model {
             throw new ModelException(ex);
         }
     }
+    public  List<AttendanceStatus> getAttendance() throws ModelException{
+        try {
+            return bllManager.getAttendance();
+        } catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
+    }
 }

@@ -38,4 +38,8 @@ public class ClassData {
         return className;
     }
 
+    public int getId() {
+        return id;
+    }
+
 }

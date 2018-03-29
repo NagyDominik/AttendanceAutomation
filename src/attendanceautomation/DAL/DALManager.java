@@ -6,6 +6,7 @@ import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
@@ -13,8 +14,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * COntains mock data (for now)
@@ -228,7 +232,7 @@ public class DALManager {
     /**
      * Save history to DB
      *
-     * @param status
+     * @param status of the students
      * @return a list with history
      * @throws DALException if cannot save into DB
      */
@@ -239,7 +243,7 @@ public class DALManager {
             PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, classData, status, studentID, teacherID) VALUES(?, ?, ?, ?, ?, ?)");
             ps.setInt(0, status.getId());
             ps.setString(1, status.getDate());
-            ps.setObject(2, status.getClassData());
+            ps.setInt(2, status.getClassData().getId());
             ps.setInt(3, status.getStatusAsNumber());
             ps.setInt(4, status.getStudentID());
             ps.setInt(5, status.getTeacherID());
@@ -252,6 +256,23 @@ public class DALManager {
         }
 
         return attendance;
+    }
+    
+    public List<AttendanceStatus> getStatus() throws DALException{
+        List<AttendanceStatus> status = new ArrayList<>();
+          try (Connection con = cm.getConnection()) {
+              PreparedStatement ps = con.prepareStatement("SELECT * FROM History");
+              ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                //AttendanceStatus sts = new AttendanceStatus(rs.getInt("id"), rs.getDate("date").toLocalDate(), rs.get("classData"), rs.getInt("status"), rs.getInt("studentID"), rs.getInt("teacherID"));
+                
+                //status.add(sts);
+            }
+            
+        } catch (Exception ex) {
+           throw new DALException(ex);
+        }
+          return status;
     }
 
     /**

@@ -216,4 +216,12 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
+    
+    public List<AttendanceStatus> getAttendance() throws BLLException{
+        try {
+            return dalManager.getStatus();
+        } catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
 }
