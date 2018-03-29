@@ -5,6 +5,7 @@
  */
 package attendanceautomation.DAL;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,16 +33,23 @@ public class LocalDataManager {
 
     public String[] getLocalData() throws DALException {
         String[] data = new String[2];
-        try {
-            String loginFile = "login.bin";
-            ObjectInputStream objectIS = new ObjectInputStream(new FileInputStream(loginFile));
-            data[0] = objectIS.readUTF();
-            data[1] = objectIS.readUTF();
-        }
-        catch (IOException ex) {
-            throw new DALException(ex);
+        if (checkFileExists()) {
+            try {
+                String loginFile = "login.bin";
+                ObjectInputStream objectIS = new ObjectInputStream(new FileInputStream(loginFile));
+                data[0] = objectIS.readUTF();
+                data[1] = objectIS.readUTF();
+            }
+            catch (IOException ex) {
+                throw new DALException(ex);
+            }
         }
         return data;
+    }
+
+    private boolean checkFileExists() {
+        File f = new File("login.bin");
+        return f.exists();
     }
 
 }

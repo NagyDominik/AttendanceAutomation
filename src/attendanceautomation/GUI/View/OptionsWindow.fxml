@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
@@ -23,9 +23,6 @@
             <Image url="@../../../img/no_avatar.jpg" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="txtFieldCurrentPassword" focusColor="#009fe3" labelFloat="true" layoutX="33.0" layoutY="288.0" prefWidth="210.0" promptText="Current Password" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="30.0" />
-      <JFXTextField fx:id="txtFieldNewPassword" focusColor="#009fe3" labelFloat="true" layoutX="30.0" layoutY="390.0" prefWidth="210.0" promptText="New Password" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="30.0" />
-      <JFXTextField fx:id="txtFieldNewPasswordAgain" focusColor="#009fe3" labelFloat="true" layoutX="30.0" layoutY="446.0" prefHeight="25.0" prefWidth="210.0" promptText="New Password Again" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="30.0" />
       <Label layoutX="25.0" layoutY="263.0" text="Change password" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="25.0">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -37,5 +34,8 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
+      <JFXPasswordField fx:id="passFieldOld" layoutX="25.0" layoutY="344.0" promptText="Old password" />
+      <JFXPasswordField fx:id="passFieldNew" layoutX="25.0" layoutY="402.0" promptText="New password" />
+      <JFXPasswordField fx:id="passFieldNewAgain" layoutX="25.0" layoutY="463.0" promptText="New password again" />
    </children>
 </AnchorPane>

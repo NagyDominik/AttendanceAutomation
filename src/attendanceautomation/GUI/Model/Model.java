@@ -249,62 +249,59 @@ public class Model {
      *
      * @return True if the current user has unread messages, false otherwise.
      */
-    public boolean hasUnreadMessage(int id) throws ModelException{
-        try
-        {
+    public boolean hasUnreadMessage(int id) throws ModelException {
+        try {
             return bllManager.hasUnreadMessages(id);
-        } catch (BLLException ex)
-        {
+        }
+        catch (BLLException ex) {
             throw new ModelException(ex);
         }
     }
-    
+
     /**
      * Update an existing StudentMessage object in the database.
+     *
      * @param msg The message that will be updated.
-     * @throws ModelException If something goes wrong during database operations.
+     * @throws ModelException If something goes wrong during database
+     * operations.
      */
-    public void updateMessage(StudentMessage msg) throws ModelException
-    {
-        try
-        {
+    public void updateMessage(StudentMessage msg) throws ModelException {
+        try {
             bllManager.updateMessage(msg);
-        } catch (BLLException ex)
-        {
+        }
+        catch (BLLException ex) {
             throw new ModelException(ex);
         }
     }
 
     /**
      * Update an existing AttendanceStatus in the database
+     *
      * @param attendatnceStatus The attendance status that will be updated
      */
-    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws ModelException
-    {
-        try
-        {
+    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws ModelException {
+        try {
             bllManager.updateAttendanceStatus(attendatnceStatus);
-        } catch (BLLException ex)
-        {
+        }
+        catch (BLLException ex) {
             throw new ModelException(ex);
         }
     }
-    
+
     /**
      * Save an image of a imageFile (Teacher or Student) to the database.
+     *
      * @param p The person whose image will be saved.
      */
-    public void saveImage(Person p) throws ModelException
-    {
-        try
-        {
+    public void saveImage(Person p) throws ModelException {
+        try {
             bllManager.saveImage(p);
-        } catch (BLLException ex)
-        {
+        }
+        catch (BLLException ex) {
             throw new ModelException(ex);
         }
     }
-    
+
     public void saveLocalData(String email, String password) throws ModelException {
         try {
             bllManager.saveLocalData(email, password);
@@ -316,25 +313,51 @@ public class Model {
 
     /**
      * Set the current user field to the supplied Person.
+     *
      * @param user The person that will be set as the current user.
      */
-    public void setCurrentUser(Person user)
-    {
+    public void setCurrentUser(Person user) {
         this.currentUser = user;
+    }
+
+    public Person attemptLocalLogin() throws ModelException {
+        try {
+            return bllManager.attemptLocalLogin();
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
     }
 
     /**
      * Check if a given password is associated with a given email.
+     *
      * @param email The email of a person.
      * @param old The (old) password of a person.
-     * @return True if the password is associated with the email address, false otherwise.
+     * @return True if the password is associated with the email address, false
+     * otherwise.
      */
-    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws ModelException
+    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws ModelException {
+        try {
+            return bllManager.authenticatePassword(email, old, isTeacher);
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
+    }
+
+    /**
+     * Change the password of the given user.
+     * @param userId The id of the Person whose password will be changed.
+     * @param newPass The new password.
+     */
+    public void changePassword(int userId, String newPass, boolean isTeacher) throws ModelException
     {
         try
         {
-            return bllManager.authenticatePassword(email, old, isTeacher);
-        } catch (BLLException ex)
+            bllManager.changepassword(userId, newPass, isTeacher);
+        }
+        catch (BLLException ex)
         {
             throw new ModelException(ex);
         }

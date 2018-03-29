@@ -29,7 +29,6 @@ public class StudentDBManager {
         
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT id, name, email, image FROM Student");
-//            PreparedStatement ps = con.prepareStatement("SELECT id, name, email FROM Student");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Student temp = new Student();
@@ -118,5 +117,25 @@ public class StudentDBManager {
         {
             throw new DALException("Image file not found! " + ex.getMessage()); 
         }
+    }
+
+    void changePassword(int userId, String hash) throws DALException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            String sql = "UPDATE Student SET password = ? WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, hash);
+            ps.setInt(2, userId);
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DALException("Unable to change password!");
+            }
+        }
+        catch(SQLException ex)
+        {
+            throw new DALException(ex);
+        } 
     }
 }

@@ -22,7 +22,7 @@ import java.util.List;
  * @author sebok
  */
 public class DALManager {
-    
+
     private ConnectionManager cm = ConnectionManager.getInstance();
     private StudentDBManager studentDBManager = new StudentDBManager();
     private TeacherDBManager teacherDBManager = new TeacherDBManager();
@@ -35,9 +35,9 @@ public class DALManager {
     private List<ClassData> classData;
     private List<Student> student;
     private List<Teacher> teacher;
-    
+
     public DALManager() {
-        
+
     }
 
     /**
@@ -96,15 +96,12 @@ public class DALManager {
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
                 InputStream inputStream = rs.getBinaryStream("image");
-                if (inputStream != null)
-                {
-                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "")+".png");
+                if (inputStream != null) {
+                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "") + ".png");
                     target.mkdirs();
                     java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     temp.setImageFile(target);
-                }
-                else
-                {
+                } else {
                     File dir = new File("src/img");
                     dir.mkdirs();
                     File imageNotFound = new File(dir, "help.png");
@@ -116,7 +113,7 @@ public class DALManager {
         catch (Exception e) {
             throw new DALException(e);
         }
-        
+
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Student "
                     + "WHERE email = ? AND password = ?");
@@ -124,20 +121,17 @@ public class DALManager {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                                Student temp = new Student();
+                Student temp = new Student();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
                 InputStream inputStream = rs.getBinaryStream("image");
-                if (inputStream != null)
-                {
-                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "")+".png");
+                if (inputStream != null) {
+                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "") + ".png");
                     target.mkdirs();
                     java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     temp.setImageFile(target);
-                }
-                else
-                {
+                } else {
                     File dir = new File("src/img");
                     dir.mkdirs();
                     File imageNotFound = new File(dir, "help.png");
@@ -203,7 +197,7 @@ public class DALManager {
     public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws DALException {
         teacherDBManager.updateAttendanceStatus(attendatnceStatus);
     }
-    
+
     public void saveImage(Person p) throws DALException {
         if (p instanceof Teacher) {
             Teacher t = (Teacher) p;
@@ -215,10 +209,10 @@ public class DALManager {
             throw new DALException("Not supported class! Parameter must be an instance of a Teacher or a Student!");
         }
     }
-    
+
     /**
      * Saves the users email and password to the local drive.
-     * 
+     *
      * @param email The user's email address
      * @param password The password typed in by the user;
      * @throws DALException If something goes wrong during file operations.
@@ -227,50 +221,99 @@ public class DALManager {
         ldm.saveData(email, password);
     }
 
-    
+    public String[] getLocalData() throws DALException {
+        return ldm.getLocalData();
+    }
+
     /**
      * Save history to DB
+     *
      * @param status
      * @return a list with history
      * @throws DALException if cannot save into DB
      */
-    public List<AttendanceStatus> saveStatus(AttendanceStatus status) throws DALException{
-         List<AttendanceStatus> attendance = new ArrayList<>();
-         
-         try (Connection con = cm.getConnection())
-         {
-             PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, classData, status, studentID, teacherID) VALUES(?, ?, ?, ?, ?, ?)");
-              ps.setInt(0, status.getId());
-              ps.setString(1, status.getDate());
-              ps.setObject(2, status.getClassData());
-              ps.setInt(3, status.getStatusAsNumber());
-              ps.setInt(4, status.getStudentID());
-              ps.setInt(5, status.getTeacherID());
-              attendance.add(status);
-              ps.executeQuery();
-             
-         } catch (Exception ex) {
-             throw new DALException(ex);
+    public List<AttendanceStatus> saveStatus(AttendanceStatus status) throws DALException {
+        List<AttendanceStatus> attendance = new ArrayList<>();
+
+        try (Connection con = cm.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, classData, status, studentID, teacherID) VALUES(?, ?, ?, ?, ?, ?)");
+            ps.setInt(0, status.getId());
+            ps.setString(1, status.getDate());
+            ps.setObject(2, status.getClassData());
+            ps.setInt(3, status.getStatusAsNumber());
+            ps.setInt(4, status.getStudentID());
+            ps.setInt(5, status.getTeacherID());
+            attendance.add(status);
+            ps.executeQuery();
+
         }
-         
-        
+        catch (Exception ex) {
+            throw new DALException(ex);
+        }
+
         return attendance;
+    }
 
     /**
      * Check if a given password is associated with a given email.
+     *
      * @param email The email of a person.
      * @param old The (old) hashed password of a person.
-     * @return True if the password is associated with the email address, false otherwise.
+     * @return True if the password is associated with the email address, false
+     * otherwise.
      */
     public boolean authenticatePassword(String email, String old, boolean isTeacher) throws DALException
     {
         try (Connection con = cm.getConnection())
         {
+            if (isTeacher)
+            {
+                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Teacher AS count "
+                    + "WHERE email = ? AND password = ? GROUP BY id");
+                ps.setString(1, email);
+                ps.setString(2, old);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                if (rs.getInt("count") == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Student AS count "
+                    + "WHERE email = ? AND password = ? GROUP BY id");
+                ps.setString(1, email);
+                ps.setString(2, old);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                if (rs.getInt("count") == 1)
+                {
+                    return true;
+                }
+            }
             
+            return false;
         }
-        catch(SQLException ex)
-        {
+        catch (SQLException ex) {
             throw new DALException(ex);
+        }
+    }
+
+    /**
+     * Change the password of the given user.
+     * @param userId The id of the Person whose password will be changed.
+     * @param newPass The new password.
+     */
+    public void changePassword(int userId, String hash, boolean isTeacher) throws DALException
+    {
+        if (isTeacher)
+        {
+            teacherDBManager.changePassword(userId, hash);
+        }
+        else
+        {
+            studentDBManager.changePassword(userId, hash);
         }
     }
 }
