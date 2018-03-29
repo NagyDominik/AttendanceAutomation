@@ -10,6 +10,8 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -334,6 +336,14 @@ public class Model {
             return bllManager.authenticatePassword(email, old, isTeacher);
         } catch (BLLException ex)
         {
+            throw new ModelException(ex);
+        }
+    }
+    
+    public List<AttendanceStatus> saveAttendance(AttendanceStatus status) throws ModelException{
+        try {
+            return bllManager.saveAttendanceToDB(status);
+        } catch (BLLException ex) {
             throw new ModelException(ex);
         }
     }

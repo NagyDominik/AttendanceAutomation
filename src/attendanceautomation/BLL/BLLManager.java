@@ -180,4 +180,11 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
+    public List<AttendanceStatus> saveAttendanceToDB(AttendanceStatus status) throws BLLException{
+        try {
+            return dalManager.saveStatus(status);
+        } catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
 }
