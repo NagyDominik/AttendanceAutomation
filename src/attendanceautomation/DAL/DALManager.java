@@ -6,7 +6,6 @@ import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
@@ -16,8 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * COntains mock data (for now)
@@ -229,6 +226,7 @@ public class DALManager {
     public void saveLocalData(String email, String password) throws DALException {
         ldm.saveData(email, password);
     }
+
     
     /**
      * Save history to DB
@@ -257,6 +255,22 @@ public class DALManager {
          
         
         return attendance;
-        
+
+    /**
+     * Check if a given password is associated with a given email.
+     * @param email The email of a person.
+     * @param old The (old) hashed password of a person.
+     * @return True if the password is associated with the email address, false otherwise.
+     */
+    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws DALException
+    {
+        try (Connection con = cm.getConnection())
+        {
+            
+        }
+        catch(SQLException ex)
+        {
+            throw new DALException(ex);
+        }
     }
 }

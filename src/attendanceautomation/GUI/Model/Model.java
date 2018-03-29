@@ -8,7 +8,6 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
-import attendanceautomation.DAL.DALException;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -313,8 +312,29 @@ public class Model {
         }
     }
 
+    /**
+     * Set the current user field to the supplied Person.
+     * @param user The person that will be set as the current user.
+     */
     public void setCurrentUser(Person user)
     {
         this.currentUser = user;
+    }
+
+    /**
+     * Check if a given password is associated with a given email.
+     * @param email The email of a person.
+     * @param old The (old) password of a person.
+     * @return True if the password is associated with the email address, false otherwise.
+     */
+    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws ModelException
+    {
+        try
+        {
+            return bllManager.authenticatePassword(email, old, isTeacher);
+        } catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
     }
 }
