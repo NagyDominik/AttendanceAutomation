@@ -21,6 +21,10 @@ public class AttendanceStatus {
         this.status.set(status);
         this.teacherSet = teacherSet;
     }
+
+    public AttendanceStatus() {
+    }
+    
  
     private int isStatus() {
         return status.get();
@@ -34,6 +38,10 @@ public class AttendanceStatus {
         return status;
     }
 
+    public AttendanceStatus(LocalDate date) {
+        this.date = date;
+    }
+
     public boolean isTeacherSet() {
         return teacherSet;
     }
@@ -41,7 +49,6 @@ public class AttendanceStatus {
     public void setTeacherSet(boolean teacherSet) {
         this.teacherSet = teacherSet;
     }
-    
 
     public String getDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("w, yyyy-MM-dd");

@@ -30,14 +30,10 @@ public class DALManager {
     private StudentDBManager studentDBManager = new StudentDBManager();
     private TeacherDBManager teacherDBManager = new TeacherDBManager();
     private LocalDataManager ldm = new LocalDataManager();
-
-    /**
-     * *******************
-     */
-    //Mock data
-    private List<ClassData> classData;
+    
     private List<Student> student;
     private List<Teacher> teacher;
+    private List<ClassData> classData;
 
     public DALManager() {
         /*try {
@@ -286,7 +282,8 @@ public class DALManager {
             ps.setInt(3, student.getId());
             ps.setBoolean(4, status.isTeacherSet());
             ps.executeUpdate();
-        } catch (SQLException ex) {
+        }
+        catch (Exception ex) {
             throw new DALException(ex);
         }
     }
@@ -316,32 +313,38 @@ public class DALManager {
      * @return True if the password is associated with the email address, false
      * otherwise.
      */
-    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws DALException {
-        try (Connection con = cm.getConnection()) {
-            if (isTeacher) {
-                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Teacher AS count "
-                        + "WHERE email = ? AND password = ? GROUP BY id");
+    public boolean authenticatePassword(String email, String old, boolean isTeacher) throws DALException
+    {
+        try (Connection con = cm.getConnection())
+        {
+            if (isTeacher)
+            {
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM Teacher "
+                        + "WHERE email = ? AND password = ?");
                 ps.setString(1, email);
                 ps.setString(2, old);
                 ResultSet rs = ps.executeQuery();
-                rs.next();
-                if (rs.getInt("count") == 1) {
+                if (rs.next())
+                {
                     return true;
                 }
-            } else {
-                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Student AS count "
-                        + "WHERE email = ? AND password = ? GROUP BY id");
-                ps.setString(1, email);
-                ps.setString(2, old);
-                ResultSet rs = ps.executeQuery();
-                rs.next();
-                if (rs.getInt("count") == 1) {
-                    return true;
-                }
+                return false;
             }
-
-            return false;
-        } catch (SQLException ex) {
+            else
+            {
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM Student "
+                        + "WHERE email = ? AND password = ?");
+                ps.setString(1, email);
+                ps.setString(2, old);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (SQLException ex) {
             throw new DALException(ex);
         }
     }

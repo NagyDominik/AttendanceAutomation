@@ -209,9 +209,9 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
-    public List<AttendanceStatus> saveAttendanceToDB(AttendanceStatus status) throws BLLException{
+    public void saveAttendanceToDB(AttendanceStatus status, Student student) throws BLLException{
         try {
-            return dalManager.saveStatus(status);
+             dalManager.saveStatus(status,student);
         } catch (DALException ex) {
             throw new BLLException(ex);
         }

@@ -363,9 +363,9 @@ public class Model {
         }
     }
     
-    public List<AttendanceStatus> saveAttendance(AttendanceStatus status) throws ModelException{
+    public void saveAttendance(AttendanceStatus status, Student student) throws ModelException{
         try {
-            return bllManager.saveAttendanceToDB(status);
+             bllManager.saveAttendanceToDB(status, student);
         } catch (BLLException ex) {
             throw new ModelException(ex);
         }
