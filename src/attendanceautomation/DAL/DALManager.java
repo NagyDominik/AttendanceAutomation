@@ -247,7 +247,7 @@ public class DALManager {
          
         
         return attendance;
-
+    }
     /**
      * Check if a given password is associated with a given email.
      * @param email The email of a person.
