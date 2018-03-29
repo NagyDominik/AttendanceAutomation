@@ -28,14 +28,6 @@ public class DALManager {
     private TeacherDBManager teacherDBManager = new TeacherDBManager();
     private LocalDataManager ldm = new LocalDataManager();
 
-    /**
-     * *******************
-     */
-    //Mock data
-    private List<ClassData> classData;
-    private List<Student> student;
-    private List<Teacher> teacher;
-    
     public DALManager() {
         
     }
@@ -124,7 +116,7 @@ public class DALManager {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                                Student temp = new Student();
+                Student temp = new Student();
                 temp.setEmail(rs.getString("email"));
                 temp.setId(rs.getInt("id"));
                 temp.setName(rs.getString("name"));
@@ -237,11 +229,55 @@ public class DALManager {
     {
         try (Connection con = cm.getConnection())
         {
+            if (isTeacher)
+            {
+                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Teacher AS count "
+                    + "WHERE email = ? AND password = ? GROUP BY id");
+                ps.setString(1, email);
+                ps.setString(2, old);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                if (rs.getInt("count") == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Student AS count "
+                    + "WHERE email = ? AND password = ? GROUP BY id");
+                ps.setString(1, email);
+                ps.setString(2, old);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                if (rs.getInt("count") == 1)
+                {
+                    return true;
+                }
+            }
             
+            return false;
         }
         catch(SQLException ex)
         {
             throw new DALException(ex);
+        }
+    }
+
+    /**
+     * Change the password of the given user.
+     * @param userId The id of the Person whose password will be changed.
+     * @param newPass The new password.
+     */
+    public void changePassword(int userId, String hash, boolean isTeacher) throws DALException
+    {
+        if (isTeacher)
+        {
+            teacherDBManager.changePassword(userId, hash);
+        }
+        else
+        {
+            studentDBManager.changePassword(userId, hash);
         }
     }
 }

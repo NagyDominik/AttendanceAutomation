@@ -180,4 +180,21 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
+
+    /**
+     * Change the password of the given user.
+     * @param userId The id of the Person whose password will be changed.
+     * @param newPass The new password.
+     */
+    public void changepassword(int userId, String newPass, boolean isTeacher) throws BLLException
+    {
+        try
+        {
+            dalManager.changePassword(userId, hasher.hash(newPass), isTeacher);
+        }
+        catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
+    }
 }
