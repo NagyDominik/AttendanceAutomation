@@ -45,12 +45,12 @@ public class DALManager {
     }
 
     /**
-     * Retrieve a class based on their id.
-     *
-     * @return The class associated with the id.
+     * Returns a list of class data.
+     * @return A list of class data.
+     * @throws DALException If something goes wrong during database operations.
      */
-    public List<ClassData> getClassData() {
-
+    public List<ClassData> getClassData() throws DALException{
+        classData = new ArrayList<>();
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
             ResultSet rs = ps.executeQuery();
@@ -60,8 +60,8 @@ public class DALManager {
                 temp.setClassName(rs.getString("name"));
                 classData.add(temp);
             }
-
         } catch (Exception e) {
+            throw new DALException(e);
         }
         return classData;
     }
