@@ -36,6 +36,15 @@ public class DALManager {
     private List<Teacher> teacher = new ArrayList();
     private List<ClassData> classData = new ArrayList();
 
+    public static DALManager getInstance() throws DALException 
+    {
+        if (instance == null) 
+        {
+            instance = new DALManager();
+        }
+        return instance;
+    }
+
     private DALManager() throws DALException {
         try {
             loadAllData();
@@ -45,11 +54,26 @@ public class DALManager {
         }
     }
 
-    public static DALManager getInstance() throws DALException {
-        if (instance == null) {
-            instance = new DALManager();
+    /**
+     * Returns a list of class data.
+     * @return A list of class data.
+     * @throws DALException If something goes wrong during database operations.
+     */
+    public List<ClassData> getClassData() throws DALException{
+        classData = new ArrayList<>();
+        try (Connection con = cm.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ClassData temp = new ClassData();
+                temp.setId(rs.getInt("id"));
+                temp.setClassName(rs.getString("name"));
+                classData.add(temp);
+            }
+        } catch (Exception e) {
+            throw new DALException(e);
         }
-        return instance;
+        return classData;
     }
 
     private void loadAllData() throws DALException {
@@ -86,28 +110,6 @@ public class DALManager {
         });
     }
 
-    /**
-     * Retrieve a class based on their id.
-     *
-     * @return The class associated with the id.
-     */
-    public List<ClassData> getClassData() {
-        if (classData.isEmpty()) {
-            try (Connection con = cm.getConnection()) {
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    ClassData temp = new ClassData();
-                    temp.setId(rs.getInt("id"));
-                    temp.setClassName(rs.getString("name"));
-                    classData.add(temp);
-                }
-            }
-            catch (Exception e) {
-            }
-        }
-        return classData;
-    }
 
     /**
      * Retrieve a student based on an id.

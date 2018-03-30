@@ -30,18 +30,25 @@ public class BLLManager {
     }
 
     /**
-     * Retrieve a class based on an id.
-     *
-     * @return A class with the corresponding id.
+     * Returns a list of class data.
+     * @return A list of class data.
+     * @throws BLLException If something goes wrong during database operations.
      */
-    public List<ClassData> getClassData() {
-        return dalManager.getClassData();
+    public List<ClassData> getClassData() throws BLLException {
+        try
+        {
+            return dalManager.getClassData();
+        } catch (DALException ex)
+        {
+            throw new  BLLException(ex);
+        }
     }
 
+
     /**
-     * Retrieve a teacher based on an id.
-     *
-     * @return A teacher with the corresponding id.
+     * Returns a list of teachers.
+     * @return A list of teachers.
+     * @throws BLLException If something goes wrong during database operations.
      */
     public List<Teacher> getTeacher() throws BLLException {
         try {
@@ -52,11 +59,11 @@ public class BLLManager {
         }
     }
 
-    /**
-     * Retrieve a student based on an id.
-     *
-     * @return A student with the corresponding id.
-     */
+/**
+ * Retrieve the list of students.
+ * @return A list of students.
+ * @throws BLLException If something goes wrong during database operations. 
+ */
     public List<Student> getStudent() throws BLLException {
         try {
             return dalManager.getStudent();
