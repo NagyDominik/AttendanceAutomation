@@ -22,6 +22,11 @@ public class StudentDBManager {
 
     private ConnectionManager cm = ConnectionManager.getInstance();
 
+    /**
+     * Retrieve the list of students from the database.
+     * @return The list of students.
+     * @throws DALException If something goes wrong during database access.
+     */
     public List<Student> getStudentFromDB() throws DALException {
         List<Student> students = new ArrayList<>();
         InputStream inputStream;
@@ -50,8 +55,8 @@ public class StudentDBManager {
 
                 students.add(temp);
             }
-
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) {
             throw new DALException(ex);
         }
         return students;

@@ -3,6 +3,7 @@ package attendanceautomation.GUI.Controller;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
+import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXCheckBox;
@@ -42,10 +43,10 @@ public class LoginController implements Initializable {
         try {
             this.model = Model.getInstance();
             addListenersAndHandlers();
-            //login(model.attemptLocalLogin());
         }
         catch (ModelException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            AlertWindow.showAlert(ex);
         }
     }
 

@@ -25,18 +25,6 @@ public class AttendanceStatus {
     public AttendanceStatus() {
     }
     
-    private int isStatus() {
-        return status.get();
-    }
-
-    private void setStatus(int value) {
-        status.set(value);
-    }
-
-    private IntegerProperty statusProperty() {
-        return status;
-    }
-
     public AttendanceStatus(LocalDate date) {
         this.date = date;
     }

@@ -10,11 +10,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -142,65 +140,45 @@ public class DALManager {
      * @return A string representing the user type - "Teacher" for teachers,
      * "Student" for students or "None" if there is no match for the email.
      */
-    public Person attemptLogin(String email, String password) throws DALException {
-        try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Teacher "
-                    + "WHERE email = ? AND password = ?");
+    public Person attemptLogin(String email, String password) throws DALException 
+    {
+        try(Connection con = cm.getConnection())
+        {
+            String sql = "SELECT id FROM Teacher WHERE email = ? and password = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Teacher temp = new Teacher();
-                temp.setEmail(rs.getString("email"));
-                temp.setId(rs.getInt("id"));
-                temp.setName(rs.getString("name"));
-                InputStream inputStream = rs.getBinaryStream("image");
-                if (inputStream != null) {
-                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "") + ".png");
-                    target.mkdirs();
-                    java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    temp.setImageFile(target);
-                } else {
-                    File dir = new File("src/img");
-                    dir.mkdirs();
-                    File imageNotFound = new File(dir, "help.png");
-                    temp.setImageFile(imageNotFound);
+            while (rs.next())
+            {
+                for (Teacher teacher1 : teacher)
+                {
+                    if (teacher1.getId() == rs.getInt("id"))
+                    {
+                        return teacher1;
+                    }
                 }
-                return temp;
             }
-        }
-        catch (Exception e) {
-            throw new DALException(e);
-        }
-
-        try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Student "
-                    + "WHERE email = ? AND password = ?");
+            
+            sql = "SELECT id FROM Student WHERE email = ? and password = ?";
+            ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Student temp = new Student();
-                temp.setEmail(rs.getString("email"));
-                temp.setId(rs.getInt("id"));
-                temp.setName(rs.getString("name"));
-                InputStream inputStream = rs.getBinaryStream("image");
-                if (inputStream != null) {
-                    File target = new File("src/img/students/" + temp.getName().replaceAll(" ", "") + ".png");
-                    target.mkdirs();
-                    java.nio.file.Files.copy(inputStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    temp.setImageFile(target);
-                } else {
-                    File dir = new File("src/img");
-                    dir.mkdirs();
-                    File imageNotFound = new File(dir, "help.png");
-                    temp.setImageFile(imageNotFound);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                for (Student student1 : student)
+                {
+                    if (student1.getId() == rs.getInt("id"))
+                    {
+                        return student1;
+                    }
                 }
-                return temp;
             }
         }
-        catch (Exception e) {
-            throw new DALException(e);
+        catch (SQLException ex)
+        {
+            throw new DALException(ex);
         }
         return null;
     }
