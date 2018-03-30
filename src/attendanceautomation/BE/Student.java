@@ -50,9 +50,13 @@ public class Student extends Person {
     public StringProperty getTodaysStatusProperty() {
         StringProperty property = new SimpleStringProperty();
         if (attendance.size() > 0) {
-            property.set(attendance.get(0).getStatus());
+            if (attendance.get(0).getDateAsLocalDate().isAfter(LocalDate.now().minusDays(1))) {
+                property.set(attendance.get(0).getStatus());
+            } else {
+                property.set("-");
+            }
         } else {
-            property.set("0");
+            property.set("N/A");
         }
         return property;
     }
