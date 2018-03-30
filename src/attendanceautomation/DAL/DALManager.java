@@ -60,8 +60,9 @@ public class DALManager {
      * @throws DALException If something goes wrong during database operations.
      */
     public List<ClassData> getClassData() throws DALException{
-        classData = new ArrayList<>();
-        try (Connection con = cm.getConnection()) {
+        if (classData.isEmpty())
+        {
+            try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -70,8 +71,9 @@ public class DALManager {
                 temp.setClassName(rs.getString("name"));
                 classData.add(temp);
             }
-        } catch (Exception e) {
-            throw new DALException(e);
+            } catch (Exception e) {
+                throw new DALException(e);
+            }
         }
         return classData;
     }
@@ -117,8 +119,8 @@ public class DALManager {
      * @return A student with the corresponding id.
      */
     public List<Student> getStudent() throws DALException {
-        //return studentDBManager.getStudentFromDB();
-        return student;
+        return studentDBManager.getStudentFromDB();
+        //return student;
     }
 
     /**
@@ -128,8 +130,8 @@ public class DALManager {
      * @return The class associated with the id.
      */
     public List<Teacher> getTeacher() throws DALException {
-        //return teacherDBManager.getTeacherFromDB();
-        return teacher;
+        return teacherDBManager.getTeacherFromDB();
+        //return teacher;
     }
 
     /**

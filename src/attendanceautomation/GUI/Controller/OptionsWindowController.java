@@ -47,7 +47,8 @@ public class OptionsWindowController implements Initializable {
             model = Model.getInstance();
             profileImg.setImage(model.getCurrentUser().getImage());
 
-        } catch (ModelException ex)
+        } 
+        catch (ModelException ex)
         {
             AlertWindow.showAlert(ex);
         }
@@ -102,7 +103,8 @@ public class OptionsWindowController implements Initializable {
                     model.changePassword(currentUser.getId(), newPass, isTeacher);
                 }
             }
-        } catch (ModelException ex)
+        } 
+        catch (ModelException ex)
         {
             AlertWindow.showAlert(ex);
         }
