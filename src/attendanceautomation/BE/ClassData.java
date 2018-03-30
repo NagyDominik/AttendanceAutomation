@@ -1,6 +1,5 @@
 package attendanceautomation.BE;
 
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,18 +11,17 @@ import javafx.collections.ObservableList;
 public class ClassData {
 
     private int id;
-    private ObservableList<Student> participants = FXCollections.observableArrayList();
     private String className;
     private Teacher teacher;
+    private ObservableList<Student> participants = FXCollections.observableArrayList();
+
+    public ClassData() {
+    }
 
     public ClassData(String className, Teacher teacher) {
         this.className = className;
         this.teacher = teacher;
     }
-
-    public ClassData() {
-    }
-    
 
     public void setId(int id) {
         this.id = id;
@@ -40,13 +38,11 @@ public class ClassData {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
-    
 
-    public Teacher getTeacher()
-    {
+    public Teacher getTeacher() {
         return teacher;
     }
-    
+
     public ObservableList<Student> getParticipants() {
         return participants;
     }
@@ -55,17 +51,17 @@ public class ClassData {
         return className;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void addStudent(Student student) {
+        this.participants.add(student);
+    }
+
     @Override
     public String toString() {
         return className;
     }
-
-    public int getId() {
-        return id;
-    }
     
-    public void addStudent(Student student){
-        this.participants.add(student);
-    }
-
 }

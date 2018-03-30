@@ -10,15 +10,13 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Model {
 
     private static Model instance;
-    private BLLManager bllManager = new BLLManager();
+    private BLLManager bllManager;
     private Person currentUser;
     private Student selectedStudent;
     private Teacher selectedTeacher;
@@ -29,6 +27,7 @@ public class Model {
 
     private Model() throws ModelException {
         try {
+            bllManager = new BLLManager();
             students.addAll(bllManager.getStudent());
             teacherList.addAll(bllManager.getTeacher());
             classDataList.addAll(bllManager.getClassData());
@@ -370,11 +369,5 @@ public class Model {
             throw new ModelException(ex);
         }
     }
-    public  List<AttendanceStatus> getAttendance() throws ModelException{
-        try {
-            return bllManager.getAttendance();
-        } catch (BLLException ex) {
-            throw new ModelException(ex);
-        }
-    }
+
 }

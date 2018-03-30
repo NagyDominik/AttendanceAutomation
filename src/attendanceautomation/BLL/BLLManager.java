@@ -9,8 +9,6 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.DAL.DALException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Serves as a pass-through layer for now.
@@ -22,8 +20,13 @@ public class BLLManager {
     private DALManager dalManager;
     private Hasher hasher = new Hasher();
 
-    public BLLManager() {
-        dalManager = new DALManager();
+    public BLLManager() throws BLLException {
+        try {
+            dalManager = DALManager.getInstance();
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
+        }
     }
 
     /**
@@ -142,14 +145,13 @@ public class BLLManager {
     }
 
     /**
-     * <<<<<<< HEAD Save an image of a Person (Teacher or Student) to the
+     * Save an image of a Person (Teacher or Student) to the
      * database.
      *
      * @param p The person whose image will be saved. ======= Save an image of a
      * Person to the database
      * @param p The Person whose image will be saved.
      * @throws BLLException If something goes wrong during database operations.
-     * >>>>>>> 99a35baa126379bc04a25512c6189094578f0237
      */
     public void saveImage(Person p) throws BLLException {
         try {
@@ -178,14 +180,15 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
-        /**
-         * Check if a given password is associated with a given email.
-         *
-         * @param email The email of a person.
-         * @param old The (old) password of a person.
-         * @return True if the password is associated with the email address,
-         * false otherwise.
-         */
+
+    /**
+     * Check if a given password is associated with a given email.
+     *
+     * @param email The email of a person.
+     * @param old The (old) password of a person.
+     * @return True if the password is associated with the email address, false
+     * otherwise.
+     */
     public boolean authenticatePassword(String email, String old, boolean isTeacher) throws BLLException {
         try {
             return dalManager.authenticatePassword(email, hasher.hash(old), isTeacher);
@@ -209,19 +212,14 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
-    public void saveAttendanceToDB(AttendanceStatus status, Student student) throws BLLException{
+
+    public void saveAttendanceToDB(AttendanceStatus status, Student student) throws BLLException {
         try {
-             dalManager.saveStatus(status,student);
-        } catch (DALException ex) {
+            dalManager.saveStatus(status, student);
+        }
+        catch (DALException ex) {
             throw new BLLException(ex);
         }
     }
-    
-    public List<AttendanceStatus> getAttendance() throws BLLException{
-        try {
-            return dalManager.getStatus();
-        } catch (DALException ex) {
-            throw new BLLException(ex);
-        }
-    }
+
 }
