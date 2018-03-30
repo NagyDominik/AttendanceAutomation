@@ -1,6 +1,8 @@
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
+import attendanceautomation.BE.ClassData;
+import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
@@ -12,6 +14,9 @@ import java.time.Month;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,10 +55,10 @@ public class AttendanceWindowController implements Initializable {
     private JFXDatePicker startdatePicker;
     @FXML
     private JFXDatePicker enddatePicker;
-
-    private Model model;
     @FXML
     private ImageView imgViewStudentImage;
+    
+    private Model model;
 
     /**
      * Initializes the controller class.
@@ -135,7 +140,7 @@ public class AttendanceWindowController implements Initializable {
     }
 
     private void setUpCellValueFactories() {
-        teacherClassCol.setCellValueFactory(new PropertyValueFactory("className"));
+        teacherClassCol.setCellValueFactory(new PropertyValueFactory(""));
         teacherDateCol.setCellValueFactory(new PropertyValueFactory("date"));
         teacherStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }

@@ -25,7 +25,6 @@ public class AttendanceStatus {
     public AttendanceStatus() {
     }
     
- 
     private int isStatus() {
         return status.get();
     }
@@ -89,4 +88,5 @@ public class AttendanceStatus {
     public void setId(int id) {
         this.id = id;
     }
+    
 }

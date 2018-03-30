@@ -55,7 +55,7 @@ public class TeacherWindowController implements Initializable {
     private JFXDatePicker enddatePicker;
     @FXML
     private ImageView imgViewMessage;
-    
+
     private Model model;
     private final Image message = new Image("img/message.png");
     private final Image newMessage = new Image("img/newMessage.png");
@@ -70,9 +70,9 @@ public class TeacherWindowController implements Initializable {
             startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
             enddatePicker.setValue(LocalDate.now());
             teacherNameLbl.setText(model.getCurrentUser().getName());
-            studentsTV.setItems(model.getStudents());
             classChoiceBox.setItems(model.getClassData());
             classChoiceBox.getSelectionModel().selectFirst();
+            studentsTV.setItems(classChoiceBox.getSelectionModel().getSelectedItem().getParticipants());
             setCellValueFactories();
             addListenersAndHandlers();
             calculateAttendance();
@@ -189,18 +189,18 @@ public class TeacherWindowController implements Initializable {
 
         }
         catch (IOException ex) {
-            Logger.getLogger(TeacherWindowController.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
             AlertWindow.showAlert(ex);
         }
     }
 
-    private void filterDates() {
+    //MIGHT BE LEFTOVER!!
+    /*private void filterDates() {
         LocalDate startDate = startdatePicker.getValue();
         LocalDate endDate = enddatePicker.getValue();
         model.filterStudentHistory(startDate, endDate);
-    }
-
+    }*/
+    
     /**
      * Set the messages image view depending on the number of unread messages.
      */

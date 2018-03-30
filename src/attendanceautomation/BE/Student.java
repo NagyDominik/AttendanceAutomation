@@ -2,7 +2,6 @@ package attendanceautomation.BE;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.util.List;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -99,7 +98,7 @@ public class Student extends Person {
         }
     }
 
-    public void addHistory(List<AttendanceStatus> history) {
-        this.attendance.addAll(history);
+    public void addHistory(AttendanceStatus history) {
+        this.attendance.add(history);
     }
 }
