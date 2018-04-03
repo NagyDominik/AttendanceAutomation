@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -139,7 +140,7 @@ public class StudentDBManager {
     {
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("INSERT INTO History(date, status, studentid, teacherset) VALUES(?, ?, ?, ?)");
-            ps.setString(1, status.getDate());
+            ps.setDate(1,Date.valueOf(status.getDateAsLocalDate()));
             ps.setInt(2, status.getStatusAsNumber());
             ps.setInt(3, student.getId());
             ps.setBoolean(4, status.isTeacherSet());

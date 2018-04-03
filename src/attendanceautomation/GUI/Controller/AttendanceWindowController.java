@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,6 +60,7 @@ public class AttendanceWindowController implements Initializable {
     private ImageView imgViewStudentImage;
     
     private Model model;
+    private Student student;
 
     /**
      * Initializes the controller class.
@@ -111,7 +113,6 @@ public class AttendanceWindowController implements Initializable {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     @FXML
     private void presentClicked(ActionEvent event) {
         setAttendanceStatus(1);
@@ -120,6 +121,7 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private void absentClicked(ActionEvent event) {
         setAttendanceStatus(0);
+        
     }
 
     @FXML

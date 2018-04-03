@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +53,12 @@ public class StudentWindowController implements Initializable {
     @FXML
     private JFXButton btnAbsent;
 
+
+    @FXML
+    private JFXButton todayAttendanceClicked;
+    
     private Model model;
+    private Student student;
 
     /**
      * Initializes the controller class.
@@ -123,6 +130,19 @@ public class StudentWindowController implements Initializable {
         studentStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }
 
+    
+    private void checkForTodayDate() {
+        Boolean contains = false;
+        LocalDate date;
+        ArrayList<AttendanceStatus> stat = new ArrayList<>();
+        stat.addAll(student.getAttendanceInfo());
+        for (AttendanceStatus stats : stat) {
+            {
+                if(stats.ge)
+            }
+        }
+    }
+    
     private void setAttendanceStatus(int status) {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
         if (!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
@@ -181,6 +201,11 @@ public class StudentWindowController implements Initializable {
         Student user = (Student) model.getCurrentUser();
         user.calculateAttPer();
         percentageLbl.setText("Total percentage of participation: " + user.getPercentageStringProperty().getValue() + " %");
+    }
+
+    @FXML
+    private void setAttendacenForToday(ActionEvent event) {
+        
     }
 
 }
