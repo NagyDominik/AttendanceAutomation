@@ -9,6 +9,8 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.DAL.DALException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Serves as a pass-through layer for now.
@@ -31,22 +33,22 @@ public class BLLManager {
 
     /**
      * Returns a list of class data.
+     *
      * @return A list of class data.
      * @throws BLLException If something goes wrong during database operations.
      */
     public List<ClassData> getClassData() throws BLLException {
-        try
-        {
+        try {
             return dalManager.getClassData();
-        } catch (DALException ex)
-        {
-            throw new  BLLException(ex);
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
         }
     }
 
-
     /**
      * Returns a list of teachers.
+     *
      * @return A list of teachers.
      * @throws BLLException If something goes wrong during database operations.
      */
@@ -59,11 +61,12 @@ public class BLLManager {
         }
     }
 
-/**
- * Retrieve the list of students.
- * @return A list of students.
- * @throws BLLException If something goes wrong during database operations. 
- */
+    /**
+     * Retrieve the list of students.
+     *
+     * @return A list of students.
+     * @throws BLLException If something goes wrong during database operations.
+     */
     public List<Student> getStudent() throws BLLException {
         try {
             return dalManager.getStudent();
@@ -152,8 +155,7 @@ public class BLLManager {
     }
 
     /**
-     * Save an image of a Person (Teacher or Student) to the
-     * database.
+     * Save an image of a Person (Teacher or Student) to the database.
      *
      * @param p The person whose image will be saved. ======= Save an image of a
      * Person to the database
@@ -229,6 +231,32 @@ public class BLLManager {
     public void saveAttendanceToDB(AttendanceStatus status, Student student) throws BLLException {
         try {
             dalManager.saveStatus(status, student);
+        }
+        catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
+    
+    /**
+     * Update an existing attendance status in the database.
+     * @param status The attendance status (history) that will be updated.
+     * @throws BLLException If something goes wrong during database operations.
+     */
+    public void updateAttendance(AttendanceStatus status) throws BLLException
+    {
+        try
+        {
+            dalManager.updateAttendanceStatus(status);
+        }
+        catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
+    }
+
+    public void clearLocalData() throws BLLException {
+        try {
+            dalManager.clearLocalData();
         }
         catch (DALException ex) {
             throw new BLLException(ex);

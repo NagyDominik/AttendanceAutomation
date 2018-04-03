@@ -67,6 +67,9 @@ public class TeacherWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             model = Model.getInstance();
+            if (model.getCurrentUser() == null) {
+                model.attemptLocalLogin();
+            }
             startdatePicker.setValue(LocalDate.of(LocalDate.now().getYear() - 1, Month.AUGUST, 15));
             enddatePicker.setValue(LocalDate.now());
             teacherNameLbl.setText(model.getCurrentUser().getName());
@@ -86,6 +89,7 @@ public class TeacherWindowController implements Initializable {
     @FXML
     private void logoutClicked(ActionEvent event) {
         try {
+            model.clearLocalData();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/LoginWindow.fxml"));
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) teacherNameLbl.getScene().getWindow();
@@ -93,7 +97,7 @@ public class TeacherWindowController implements Initializable {
             stage.setResizable(false);
             stage.show();
         }
-        catch (IOException ex) {
+        catch (IOException | ModelException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

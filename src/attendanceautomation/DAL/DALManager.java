@@ -35,10 +35,8 @@ public class DALManager {
     private List<Teacher> teacher = new ArrayList();
     private List<ClassData> classData = new ArrayList();
 
-    public static DALManager getInstance() throws DALException 
-    {
-        if (instance == null) 
-        {
+    public static DALManager getInstance() throws DALException {
+        if (instance == null) {
             instance = new DALManager();
         }
         return instance;
@@ -55,22 +53,23 @@ public class DALManager {
 
     /**
      * Returns a list of class data.
+     *
      * @return A list of class data.
      * @throws DALException If something goes wrong during database operations.
      */
-    public List<ClassData> getClassData() throws DALException{
-        if (classData.isEmpty())
-        {
+    public List<ClassData> getClassData() throws DALException {
+        if (classData.isEmpty()) {
             try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ClassData temp = new ClassData();
-                temp.setId(rs.getInt("id"));
-                temp.setClassName(rs.getString("name"));
-                classData.add(temp);
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM Class");
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    ClassData temp = new ClassData();
+                    temp.setId(rs.getInt("id"));
+                    temp.setClassName(rs.getString("name"));
+                    classData.add(temp);
+                }
             }
-            } catch (Exception e) {
+            catch (Exception e) {
                 throw new DALException(e);
             }
         }
@@ -111,7 +110,6 @@ public class DALManager {
         });
     }
 
-
     /**
      * Retrieve a student based on an id.
      *
@@ -141,44 +139,35 @@ public class DALManager {
      * @return A string representing the user type - "Teacher" for teachers,
      * "Student" for students or "None" if there is no match for the email.
      */
-    public Person attemptLogin(String email, String password) throws DALException 
-    {
-        try(Connection con = cm.getConnection())
-        {
+    public Person attemptLogin(String email, String password) throws DALException {
+        try (Connection con = cm.getConnection()) {
             String sql = "SELECT id FROM Teacher WHERE email = ? and password = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            while (rs.next())
-            {
-                for (Teacher teacher1 : teacher)
-                {
-                    if (teacher1.getId() == rs.getInt("id"))
-                    {
+            while (rs.next()) {
+                for (Teacher teacher1 : teacher) {
+                    if (teacher1.getId() == rs.getInt("id")) {
                         return teacher1;
                     }
                 }
             }
-            
+
             sql = "SELECT id FROM Student WHERE email = ? and password = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
             rs = ps.executeQuery();
-            while(rs.next())
-            {
-                for (Student student1 : student)
-                {
-                    if (student1.getId() == rs.getInt("id"))
-                    {
+            while (rs.next()) {
+                for (Student student1 : student) {
+                    if (student1.getId() == rs.getInt("id")) {
                         return student1;
                     }
                 }
             }
         }
-        catch (SQLException ex)
-        {
+        catch (SQLException ex) {
             throw new DALException(ex);
         }
         return null;
@@ -345,5 +334,9 @@ public class DALManager {
         } else {
             studentDBManager.changePassword(userId, hash);
         }
+    }
+
+    public void clearLocalData() throws DALException {
+        ldm.clearData();
     }
 }

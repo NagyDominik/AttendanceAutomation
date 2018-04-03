@@ -309,7 +309,8 @@ public class Model {
 
     public Person attemptLocalLogin() throws ModelException {
         try {
-            return bllManager.attemptLocalLogin();
+            currentUser = bllManager.attemptLocalLogin();
+            return currentUser;
         }
         catch (BLLException ex) {
             throw new ModelException(ex);
@@ -373,4 +374,14 @@ public class Model {
             throw new ModelException(ex);
         }
     }
+
+    public void clearLocalData() throws ModelException {
+        try {
+            bllManager.clearLocalData();
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
+    }
+
 }
