@@ -79,6 +79,7 @@ public class StudentWindowController implements Initializable {
     @FXML
     private void logoutClicked(ActionEvent event) {
         try {
+            model.clearLocalData();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/GUI/View/LoginWindow.fxml"));
             Parent root = (Parent) loader.load();
             Stage stage = (Stage) nameLbl.getScene().getWindow();
@@ -86,7 +87,7 @@ public class StudentWindowController implements Initializable {
             stage.setResizable(false);
             stage.show();
         }
-        catch (IOException ex) {
+        catch (IOException | ModelException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -10,6 +10,8 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -321,7 +323,8 @@ public class Model {
 
     public Person attemptLocalLogin() throws ModelException {
         try {
-            return bllManager.attemptLocalLogin();
+            currentUser = bllManager.attemptLocalLogin();
+            return currentUser;
         }
         catch (BLLException ex) {
             throw new ModelException(ex);
@@ -366,6 +369,15 @@ public class Model {
         try {
              bllManager.saveAttendanceToDB(status, student);
         } catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
+    }
+
+    public void clearLocalData() throws ModelException {
+        try {
+            bllManager.clearLocalData();
+        }
+        catch (BLLException ex) {
             throw new ModelException(ex);
         }
     }

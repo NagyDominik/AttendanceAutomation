@@ -54,6 +54,9 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent event) {
         try {
             login(model.authenticate(emailField.getText(), passwordField.getText()));
+            if (rememberCBox.isSelected()) {
+                model.saveLocalData(emailField.getText(), passwordField.getText());
+            }
         }
         catch (ModelException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);

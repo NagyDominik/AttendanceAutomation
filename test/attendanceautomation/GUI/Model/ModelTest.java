@@ -1,14 +1,10 @@
 package attendanceautomation.GUI.Model;
 
 import attendanceautomation.BE.AttendanceStatus;
-import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
-import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import java.time.LocalDate;
-import java.util.List;
-import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,39 +16,32 @@ import static org.junit.Assert.*;
  *
  * @author sebok
  */
-public class ModelTest
-{
-    
-    public ModelTest()
-    {
+public class ModelTest {
+
+    public ModelTest() {
     }
-    
+
     @BeforeClass
-    public static void setUpClass()
-    {
+    public static void setUpClass() {
     }
-    
+
     @AfterClass
-    public static void tearDownClass()
-    {
+    public static void tearDownClass() {
     }
-    
+
     @Before
-    public void setUp()
-    {
+    public void setUp() {
     }
-    
+
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
     /**
      * Test of getInstance method, of class Model.
      */
     @Test
-    public void testGetInstance() throws Exception
-    {
+    public void testGetInstance() throws Exception {
         System.out.println("getInstance");
         Model expResult = Model.getInstance();
         Model result = Model.getInstance();
@@ -60,13 +49,11 @@ public class ModelTest
         expResult = null;
     }
 
-
     /**
      * Test of getCurrentUser method, of class Model.
      */
     @Test
-    public void testGetCurrentUser() throws ModelException
-    {
+    public void testGetCurrentUser() throws ModelException {
         System.out.println("getCurrentUser");
         Model instance = Model.getInstance();
         Person user = new Teacher("jml@easv.dk", "JML", 0);
@@ -81,8 +68,7 @@ public class ModelTest
      * Test of setSelectedStudent method, of class Model.
      */
     @Test
-    public void testSetSelectedStudent() throws ModelException
-    {
+    public void testSetSelectedStudent() throws ModelException {
         System.out.println("setSelectedStudent");
         Student s = new Student("spt@easv.dk", "spt", 0);
         Student selected = s;
@@ -96,8 +82,7 @@ public class ModelTest
      * Test of getSelectedStudent method, of class Model.
      */
     @Test
-    public void testGetSelectedStudent() throws ModelException
-    {
+    public void testGetSelectedStudent() throws ModelException {
         System.out.println("getSelectedStudent");
         Student s = new Student("spt@easv.dk", "spt", 0);
         Model instance = Model.getInstance();
@@ -112,8 +97,7 @@ public class ModelTest
      * Test of setSelectedTeacher method, of class Model.
      */
     @Test
-    public void testSetSelectedTeacher() throws ModelException
-    {
+    public void testSetSelectedTeacher() throws ModelException {
         System.out.println("setSelectedTeacher");
         Teacher selectedTeacher = new Teacher("jml@easv.dk", "JML", 0);
         Model instance = Model.getInstance();
@@ -126,8 +110,7 @@ public class ModelTest
      * Test of getSelectedTeacher method, of class Model.
      */
     @Test
-    public void testGetSelectedTeacher() throws ModelException
-    {
+    public void testGetSelectedTeacher() throws ModelException {
         System.out.println("getSelectedTeacher");
         Model instance = Model.getInstance();
         Teacher expResult = new Teacher("jml@easv.dk", "JML", 0);
@@ -141,8 +124,7 @@ public class ModelTest
      * Test of setSelectedAttendanceInfo method, of class Model.
      */
     @Test
-    public void testSetSelectedAttendanceInfo() throws ModelException
-    {
+    public void testSetSelectedAttendanceInfo() throws ModelException {
         System.out.println("setSelectedAttendanceInfo");
         AttendanceStatus stat = new AttendanceStatus(0, LocalDate.now(), 0, false);
         Model instance = Model.getInstance();
@@ -155,8 +137,7 @@ public class ModelTest
      * Test of getSelectedAttendanceStatus method, of class Model.
      */
     @Test
-    public void testGetSelectedAttendanceStatus() throws ModelException
-    {
+    public void testGetSelectedAttendanceStatus() throws ModelException {
         System.out.println("getSelectedAttendanceStatus");
         Model instance = Model.getInstance();
         AttendanceStatus expResult = new AttendanceStatus(0, LocalDate.now(), 0, false);
@@ -170,8 +151,7 @@ public class ModelTest
      * Test of setCurrentUser method, of class Model.
      */
     @Test
-    public void testSetCurrentUser() throws ModelException
-    {
+    public void testSetCurrentUser() throws ModelException {
         System.out.println("setCurrentUser");
         Person user = new Student("spt@easv.sk", "SPT", 0);
         Model instance = Model.getInstance();
@@ -179,5 +159,5 @@ public class ModelTest
         assertEquals(user, instance.getCurrentUser());
         instance = null;
     }
-    
+
 }

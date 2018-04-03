@@ -11,6 +11,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,6 +55,15 @@ public class LocalDataManager {
     private boolean checkFileExists() {
         File f = new File("login.bin");
         return f.exists();
+    }
+
+    void clearData() throws DALException {
+        try {
+            Files.deleteIfExists(Paths.get("login.bin"));
+        }
+        catch (IOException ex) {
+            throw new DALException(ex);
+        }
     }
 
 }
