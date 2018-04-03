@@ -1,6 +1,7 @@
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
+import attendanceautomation.BE.ClassData;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.GUI.AlertWindow;
@@ -39,8 +40,6 @@ public class StudentWindowController implements Initializable {
     @FXML
     private TableView<AttendanceStatus> historyTV;
     @FXML
-    private TableColumn<AttendanceStatus, String> studentClassCol;
-    @FXML
     private TableColumn<AttendanceStatus, String> studentDateCol;
     @FXML
     private TableColumn<AttendanceStatus, String> studentStatusCol;
@@ -53,6 +52,8 @@ public class StudentWindowController implements Initializable {
 
     private Model model;
 
+    private Student user;
+    private ClassData classData;
     /**
      * Initializes the controller class.
      *
@@ -66,7 +67,8 @@ public class StudentWindowController implements Initializable {
             nameLbl.setText(model.getCurrentUser().getName());
             setCellValueFactories();
             setEvents();
-            Student user = (Student) model.getCurrentUser();
+            user = (Student) model.getCurrentUser();
+            classData = model.getClassDataFromId(user.getClassID());
             historyTV.setItems(user.getAttendanceInfo());
             btnRequestStatusChange.setDisable(true);
             setPercentage();
@@ -118,7 +120,6 @@ public class StudentWindowController implements Initializable {
     }
 
     private void setCellValueFactories() {
-        studentClassCol.setCellValueFactory(new PropertyValueFactory("className"));
         studentDateCol.setCellValueFactory(new PropertyValueFactory("date"));
         studentStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }
@@ -136,7 +137,7 @@ public class StudentWindowController implements Initializable {
 
     @FXML
     private void btnStatusChangeRequestClicked(ActionEvent event) {
-        Teacher selectedTeacher = model.getSelectedTeacher();
+        Teacher selectedTeacher = classData.getTeacher();
         AttendanceStatus stat = historyTV.getSelectionModel().getSelectedItem();
 
         try {

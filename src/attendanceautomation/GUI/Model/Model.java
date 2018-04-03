@@ -10,8 +10,6 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -384,4 +382,20 @@ public class Model {
         }
     }
 
+    /**
+     * Retrieve a ClassData object based on its id.
+     * @param classID The id of the class.
+     * @return A ClassData object with the specified id.
+     */
+    public ClassData getClassDataFromId(int classID)
+    {
+        for (ClassData classData : classDataList)
+        {
+            if (classData.getId() == classID)
+            {
+                return classData;
+            }
+        }
+        return null;
+    }
 }
