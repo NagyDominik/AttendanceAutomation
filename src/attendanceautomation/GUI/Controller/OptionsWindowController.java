@@ -6,7 +6,6 @@ import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +26,6 @@ public class OptionsWindowController implements Initializable {
 
     @FXML
     private ImageView profileImg;
-    private JFXTextField currentPField;
     
     private Model model;
     @FXML
@@ -59,7 +57,7 @@ public class OptionsWindowController implements Initializable {
         try {
             FileChooser fileChooser = new FileChooser();
             
-            File file = fileChooser.showOpenDialog(this.currentPField.getScene().getWindow());
+            File file = fileChooser.showOpenDialog(this.passFieldNew.getScene().getWindow());
             if (file.getAbsolutePath().endsWith("jpg") || file.getAbsolutePath().endsWith("png")) { //only alowed jpg and png
                 profileImg.setImage(new Image("file:" + file.getAbsolutePath())); 
                 model.getCurrentUser().setImageFile(file);
