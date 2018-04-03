@@ -6,7 +6,6 @@ import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
 import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +26,6 @@ public class OptionsWindowController implements Initializable {
 
     @FXML
     private ImageView profileImg;
-    private JFXTextField currentPField;
     
     private Model model;
     @FXML

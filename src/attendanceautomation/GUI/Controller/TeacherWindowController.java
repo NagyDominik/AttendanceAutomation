@@ -172,7 +172,7 @@ public class TeacherWindowController implements Initializable {
     }
 
     private void calculateAttendance() {
-        for (Student s : model.getStudents()) {
+        for (Student s : classChoiceBox.getSelectionModel().getSelectedItem().getParticipants()) {
             LocalDate start = startdatePicker.getValue().minusDays(1);
             LocalDate end = enddatePicker.getValue().plusDays(1);
             s.calculateAttPer(start, end);
