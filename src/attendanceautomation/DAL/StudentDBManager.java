@@ -1,5 +1,6 @@
 package attendanceautomation.DAL;
 
+import attendanceautomation.BE.AttendanceStatus;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import java.io.File;
@@ -125,6 +126,27 @@ public class StudentDBManager {
                 throw new DALException("Unable to change password!");
             }
         } catch (SQLException ex) {
+            throw new DALException(ex);
+        }
+    }
+
+    /**
+     * Save a status of a student.
+     * @param status
+     * @param student 
+     */
+    void saveStatus(AttendanceStatus status, Student student) throws DALException
+    {
+        try (Connection con = cm.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, status, studentid, teacherset) VALUES(?, ?, ?, ?, ?)");
+            ps.setInt(0, status.getId());
+            ps.setString(1, status.getDate());
+            ps.setInt(2, status.getStatusAsNumber());
+            ps.setInt(3, student.getId());
+            ps.setBoolean(4, status.isTeacherSet());
+            ps.executeUpdate();
+        }
+        catch (Exception ex) {
             throw new DALException(ex);
         }
     }

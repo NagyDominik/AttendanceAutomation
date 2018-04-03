@@ -269,18 +269,7 @@ public class DALManager {
      * @throws DALException if cannot save into DB
      */
     public void saveStatus(AttendanceStatus status, Student student) throws DALException {
-        try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, status, studentid, teacherset) VALUES(?, ?, ?, ?, ?)");
-            ps.setInt(0, status.getId());
-            ps.setString(1, status.getDate());
-            ps.setInt(2, status.getStatusAsNumber());
-            ps.setInt(3, student.getId());
-            ps.setBoolean(4, status.isTeacherSet());
-            ps.executeUpdate();
-        }
-        catch (Exception ex) {
-            throw new DALException(ex);
-        }
+        studentDBManager.saveStatus(status, student);
     }
 
     private void getStatus() throws DALException {
