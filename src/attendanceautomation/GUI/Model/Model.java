@@ -10,6 +10,8 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -274,20 +276,6 @@ public class Model {
     }
 
     /**
-     * Update an existing AttendanceStatus in the database
-     *
-     * @param attendatnceStatus The attendance status that will be updated
-     */
-    public void updateAttendanceStatus(AttendanceStatus attendatnceStatus) throws ModelException {
-        try {
-            bllManager.updateAttendanceStatus(attendatnceStatus);
-        }
-        catch (BLLException ex) {
-            throw new ModelException(ex);
-        }
-    }
-
-    /**
      * Save an image of a imageFile (Teacher or Student) to the database.
      *
      * @param p The person whose image will be saved.
@@ -369,5 +357,20 @@ public class Model {
             throw new ModelException(ex);
         }
     }
-
+    
+    /**
+     * Update an existing AttendanceStatus in the database
+     *
+     * @param status The attendance status that will be updated
+     */
+    public void updateAttendance(AttendanceStatus status) throws ModelException
+    {
+        try
+        {
+            bllManager.updateAttendanceStatus(status);
+        } catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
+    }
 }

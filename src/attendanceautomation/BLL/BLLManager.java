@@ -234,22 +234,4 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
-    
-    /**
-     * Update an existing attendance status in the database.
-     * @param status The attendance status (history) that will be updated.
-     * @throws BLLException If something goes wrong during database operations.
-     */
-    public void updateAttendance(AttendanceStatus status) throws BLLException
-    {
-        try
-        {
-            dalManager.updateAttendanceStatus(status);
-        }
-        catch (DALException ex)
-        {
-            throw new BLLException(ex);
-        }
-    }
-
 }

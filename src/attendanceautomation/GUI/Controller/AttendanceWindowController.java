@@ -152,7 +152,7 @@ public class AttendanceWindowController implements Initializable {
             selStat.setStatus(status);
             selStat.setTeacherSet(true);
             filterDates();
-            model.saveAttendance(selStat, model.getSelectedStudent());
+            model.updateAttendance(selStat);
             historyTV.refresh();
         } catch (ModelException ex) {
             Logger.getLogger(AttendanceWindowController.class.getName()).log(Level.SEVERE, null, ex);

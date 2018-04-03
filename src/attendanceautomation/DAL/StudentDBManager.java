@@ -138,12 +138,11 @@ public class StudentDBManager {
     public void saveStatus(AttendanceStatus status, Student student) throws DALException
     {
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, status, studentid, teacherset) VALUES(?, ?, ?, ?, ?)");
-            ps.setInt(1, status.getId());
-            ps.setString(2, status.getDate());
-            ps.setInt(3, status.getStatusAsNumber());
-            ps.setInt(4, student.getId());
-            ps.setBoolean(5, status.isTeacherSet());
+            PreparedStatement ps = con.prepareStatement("INSERT INTO History(date, status, studentid, teacherset) VALUES(?, ?, ?, ?)");
+            ps.setString(1, status.getDate());
+            ps.setInt(2, status.getStatusAsNumber());
+            ps.setInt(3, student.getId());
+            ps.setBoolean(4, status.isTeacherSet());
             ps.executeUpdate();
         }
         catch (Exception ex) {
