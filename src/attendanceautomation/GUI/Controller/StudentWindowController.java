@@ -57,7 +57,6 @@ public class StudentWindowController implements Initializable {
     private JFXButton todayAttendanceClicked;
     
     private Model model;
-    private Student student;
 
     private Student user;
     private ClassData classData;
@@ -132,16 +131,15 @@ public class StudentWindowController implements Initializable {
     }
 
     
-    private void checkForTodayDate() {
-        Boolean contains = false;
-        LocalDate date;
-        ArrayList<AttendanceStatus> stat = new ArrayList<>();
-        stat.addAll(student.getAttendanceInfo());
-        for (AttendanceStatus stats : stat) {
+    private boolean checkForTodayDate() {
+        LocalDate date = LocalDate.now();
+        for (AttendanceStatus stats : user.getAttendanceInfo()) {
+            if (stats.getDateAsLocalDate().isEqual(date))
             {
-                if(stats.ge)
+                return true;
             }
         }
+        return false;
     }
     
     private void setAttendanceStatus(int status) {
@@ -206,7 +204,19 @@ public class StudentWindowController implements Initializable {
 
     @FXML
     private void setAttendacenForToday(ActionEvent event) {
-        
+        if (!checkForTodayDate())
+        {
+            try {
+                AttendanceStatus newStatus = new AttendanceStatus(LocalDate.now());
+                newStatus.setStatus(-1);
+                newStatus.setTeacherSet(false);
+                historyTV.getItems().add(newStatus);
+                model.saveAttendance(newStatus, user);
+            } catch (ModelException ex) {
+                Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                AlertWindow.showAlert(ex);
+            }
+        }
     }
 
 }

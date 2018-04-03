@@ -1,6 +1,7 @@
 package attendanceautomation.GUI.Controller;
 
 import attendanceautomation.BE.AttendanceStatus;
+import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
