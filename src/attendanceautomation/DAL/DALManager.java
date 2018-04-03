@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -274,7 +275,7 @@ public class DALManager {
 
     private void getStatus() throws DALException {
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM History");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM History;");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 AttendanceStatus sts = new AttendanceStatus(rs.getInt("id"), rs.getDate("date").toLocalDate(), rs.getInt("status"), rs.getBoolean("teacherset"));

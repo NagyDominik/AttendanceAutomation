@@ -94,9 +94,9 @@ public class StudentDBManager {
     /**
      * Save an image of a Student to the database.
      *
-     * @param p The person whose image will be saved.
+     * @param s The person whose image will be saved.
      */
-    void saveImage(Student s) throws DALException {
+    public void saveImage(Student s) throws DALException {
         try (Connection con = cm.getConnection()) {
             FileInputStream f = new FileInputStream(s.getImageFile());
 
@@ -115,7 +115,7 @@ public class StudentDBManager {
         }
     }
 
-    void changePassword(int userId, String hash) throws DALException {
+    public void changePassword(int userId, String hash) throws DALException {
         try (Connection con = cm.getConnection()) {
             String sql = "UPDATE Student SET password = ? WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -135,15 +135,15 @@ public class StudentDBManager {
      * @param status
      * @param student 
      */
-    void saveStatus(AttendanceStatus status, Student student) throws DALException
+    public void saveStatus(AttendanceStatus status, Student student) throws DALException
     {
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, status, studentid, teacherset) VALUES(?, ?, ?, ?, ?)");
-            ps.setInt(0, status.getId());
-            ps.setString(1, status.getDate());
-            ps.setInt(2, status.getStatusAsNumber());
-            ps.setInt(3, student.getId());
-            ps.setBoolean(4, status.isTeacherSet());
+            ps.setInt(1, status.getId());
+            ps.setString(2, status.getDate());
+            ps.setInt(3, status.getStatusAsNumber());
+            ps.setInt(4, student.getId());
+            ps.setBoolean(5, status.isTeacherSet());
             ps.executeUpdate();
         }
         catch (Exception ex) {

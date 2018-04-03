@@ -220,11 +220,34 @@ public class BLLManager {
         }
     }
 
+    /**
+     * Save an attendance status to the database.
+     * @param status An attendance status that will be saved.
+     * @param student The student associated with the status.
+     * @throws BLLException If something goes wrong during database operations.
+     */
     public void saveAttendanceToDB(AttendanceStatus status, Student student) throws BLLException {
         try {
             dalManager.saveStatus(status, student);
         }
         catch (DALException ex) {
+            throw new BLLException(ex);
+        }
+    }
+    
+    /**
+     * Update an existing attendance status in the database.
+     * @param status The attendance status (history) that will be updated.
+     * @throws BLLException If something goes wrong during database operations.
+     */
+    public void updateAttendance(AttendanceStatus status) throws BLLException
+    {
+        try
+        {
+            dalManager.updateAttendanceStatus(status);
+        }
+        catch (DALException ex)
+        {
             throw new BLLException(ex);
         }
     }
