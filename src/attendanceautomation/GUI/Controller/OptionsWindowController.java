@@ -59,7 +59,7 @@ public class OptionsWindowController implements Initializable {
         try {
             FileChooser fileChooser = new FileChooser();
             
-            File file = fileChooser.showOpenDialog(this.currentPField.getScene().getWindow());
+            File file = fileChooser.showOpenDialog(this.passFieldNew.getScene().getWindow());
             if (file.getAbsolutePath().endsWith("jpg") || file.getAbsolutePath().endsWith("png")) { //only alowed jpg and png
                 profileImg.setImage(new Image("file:" + file.getAbsolutePath())); 
                 model.getCurrentUser().setImageFile(file);
