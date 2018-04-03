@@ -75,6 +75,7 @@ public class AttendanceWindowController implements Initializable {
             historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
             imgViewStudentImage.setImage(model.getSelectedStudent().getImage());
             filterDates();
+            
         }
         catch (ModelException ex) {
             Logger.getLogger(AttendanceWindowController.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,11 +147,16 @@ public class AttendanceWindowController implements Initializable {
     }
 
     private void setAttendanceStatus(int status) {
-        AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
-        selStat.setStatus(status);
-        selStat.setTeacherSet(true);
-        filterDates();
-        historyTV.refresh();
+        try {
+            AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
+            selStat.setStatus(status);
+            selStat.setTeacherSet(true);
+            filterDates();
+            model.saveAttendance(selStat, model.getSelectedStudent());
+            historyTV.refresh();
+        } catch (ModelException ex) {
+            Logger.getLogger(AttendanceWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void filterDates() {

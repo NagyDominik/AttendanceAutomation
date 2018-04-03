@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -258,23 +259,12 @@ public class DALManager {
      * @throws DALException if cannot save into DB
      */
     public void saveStatus(AttendanceStatus status, Student student) throws DALException {
-        try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO History(id, date, status, studentid, teacherset) VALUES(?, ?, ?, ?, ?)");
-            ps.setInt(0, status.getId());
-            ps.setString(1, status.getDate());
-            ps.setInt(2, status.getStatusAsNumber());
-            ps.setInt(3, student.getId());
-            ps.setBoolean(4, status.isTeacherSet());
-            ps.executeUpdate();
-        }
-        catch (Exception ex) {
-            throw new DALException(ex);
-        }
+        studentDBManager.saveStatus(status, student);
     }
 
     private void getStatus() throws DALException {
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM History");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM History;");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 AttendanceStatus sts = new AttendanceStatus(rs.getInt("id"), rs.getDate("date").toLocalDate(), rs.getInt("status"), rs.getBoolean("teacherset"));
