@@ -26,7 +26,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -52,8 +56,6 @@ public class StudentWindowController implements Initializable {
     @FXML
     private JFXButton btnAbsent;
 
-    @FXML
-    private JFXButton todayAttendanceClicked;
 
     private Model model;
 
@@ -219,6 +221,24 @@ public class StudentWindowController implements Initializable {
                 AlertWindow.showAlert(ex);
             }
         }
+    }
+
+    private void unselectTableView(){
+        historyTV.getSelectionModel().clearSelection();
+        btnAbsent.setDisable(false);
+        btnPresent.setDisable(false);
+    }
+
+    @FXML
+    private void unselectTableViewOnPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.ESCAPE) {
+            unselectTableView();
+        }
+    }
+
+    @FXML
+    private void unselectTableViewClick(MouseEvent event) {
+       unselectTableView();
     }
 
 }
