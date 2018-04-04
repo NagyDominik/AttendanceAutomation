@@ -144,13 +144,23 @@ public class StudentWindowController implements Initializable {
     
     private void setAttendanceStatus(int status) {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
-        if (!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
+        if(!checkForTodayDate()){
+             try {
+                AttendanceStatus newStatus = new AttendanceStatus(LocalDate.now());
+                newStatus.setStatus(-1);
+                newStatus.setTeacherSet(false);
+                historyTV.getItems().add(newStatus);
+                model.saveAttendance(newStatus, user);
+            } catch (ModelException ex) {
+                Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                AlertWindow.showAlert(ex);
+            }
+        }
+        else if(!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
             selStat.setStatus(status);
             setPercentage();
             historyTV.refresh();
-        } else {
-            AlertWindow.showAlert(new Exception("Your teacher set your status. Please contact him to modify it!"));
-        }
+                }
     }
 
     @FXML
@@ -202,8 +212,9 @@ public class StudentWindowController implements Initializable {
         percentageLbl.setText("Total percentage of participation: " + user.getPercentageStringProperty().getValue() + " %");
     }
 
-    @FXML
-    private void setAttendacenForToday(ActionEvent event) {
+
+    private void setAttendacenForToday(){
+        
         if (!checkForTodayDate())
         {
             try {
