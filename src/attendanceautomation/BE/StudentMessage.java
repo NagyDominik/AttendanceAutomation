@@ -1,7 +1,5 @@
 package attendanceautomation.BE;
 
-import java.time.LocalDate;
-import java.util.Calendar;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -12,10 +10,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 public class StudentMessage
 {
     int id;
-    private int teacherId;
-    private int studentId;
-    private int attendanceHistoryId;
-    private Boolean status; //0 = absent, 1 = present
+    private final int teacherId;
+    private final int studentId;
+    private final int attendanceHistoryId;
+    private Boolean status;
     private String message;
     private final BooleanProperty hasBeenSeen = new SimpleBooleanProperty();
 

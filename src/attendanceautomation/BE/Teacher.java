@@ -17,7 +17,6 @@ public class Teacher extends Person {
     
     public Teacher()
     {
-        
     }
     
     public void setClasses(ArrayList<ClassData> classes) {
