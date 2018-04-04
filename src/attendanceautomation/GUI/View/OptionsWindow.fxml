@@ -11,14 +11,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="528.0" prefWidth="500.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.OptionsWindowController">
    <children>
-      <Label layoutX="213.0" layoutY="14.0" text="Picture" AnchorPane.leftAnchor="213.0" AnchorPane.topAnchor="14.0">
+      <Label layoutX="213.0" layoutY="14.0" text="Picture" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <Separator layoutX="38.0" layoutY="240.0" prefWidth="200.0" styleClass="presentBtn" stylesheets="@../../../img/AttendanceCSS.css" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="188.0" layoutY="249.0" onAction="#selectFileClicked" styleClass="logoutBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Choose file..." AnchorPane.leftAnchor="188.0" AnchorPane.topAnchor="249.0" />
-      <ImageView fx:id="profileImg" fitHeight="200.0" fitWidth="200.0" layoutX="141.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" styleClass="pictureFrame" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="41.0">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="188.0" layoutY="249.0" onAction="#selectFileClicked" styleClass="logoutBtn" stylesheets="@../../../img/AttendanceCSS.css" text="Choose file..." AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="250.0" />
+      <ImageView fx:id="profileImg" fitHeight="200.0" fitWidth="200.0" layoutX="141.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" styleClass="pictureFrame" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="40.0">
          <image>
             <Image url="@../../../img/no_avatar.jpg" />
          </image>
@@ -34,8 +34,8 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXPasswordField fx:id="passFieldOld" layoutX="25.0" layoutY="344.0" promptText="Old password" />
-      <JFXPasswordField fx:id="passFieldNew" layoutX="25.0" layoutY="402.0" promptText="New password" />
-      <JFXPasswordField fx:id="passFieldNewAgain" layoutX="25.0" layoutY="463.0" promptText="New password again" />
+      <JFXPasswordField fx:id="passFieldOld" focusColor="#009fe3" labelFloat="true" layoutX="25.0" layoutY="344.0" promptText="Old password" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="25.0" />
+      <JFXPasswordField fx:id="passFieldNew" focusColor="#009fe3" labelFloat="true" layoutX="25.0" layoutY="402.0" promptText="New password" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="25.0" />
+      <JFXPasswordField fx:id="passFieldNewAgain" focusColor="#009fe3" labelFloat="true" layoutX="25.0" layoutY="463.0" promptText="New password again" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="25.0" />
    </children>
 </AnchorPane>
