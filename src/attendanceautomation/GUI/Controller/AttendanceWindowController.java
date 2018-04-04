@@ -56,11 +56,7 @@ public class AttendanceWindowController implements Initializable {
 
     private Model model;
     private Student student;
-    @FXML
-    private JFXButton presentButton;
-    @FXML
-    private JFXButton absentButton;
-
+   
     /**
      * Initializes the controller class.
      */
@@ -156,12 +152,17 @@ public class AttendanceWindowController implements Initializable {
 
     private void setAttendanceStatus(int status) {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
+        if (student == null)    //If the student is null, we are logged in as a teacher.
+        {
+            student = model.getSelectedStudent();
+        }
         if (!checkForTodayDate()) { // If there is no attendance history with today's date create one.
             try {
                 AttendanceStatus newStatus = new AttendanceStatus(LocalDate.now());
                 newStatus.setStatus(status);
                 newStatus.setTeacherSet(true);
                 historyTV.getItems().add(newStatus);
+                student.addHistory(newStatus);
                 model.saveAttendance(newStatus, student);
             } catch (ModelException ex) {
                 Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
