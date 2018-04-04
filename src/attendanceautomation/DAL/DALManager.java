@@ -276,7 +276,6 @@ public class DALManager {
     /**
      * Retrieve the Attendance status for each student.
      * @throws DALException If something goes wrong during database operations.
-
      */
     private void getStatus() throws DALException {
         try (Connection con = cm.getConnection()) {

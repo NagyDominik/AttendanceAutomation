@@ -11,8 +11,6 @@ import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +25,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
@@ -141,7 +138,7 @@ public class StudentWindowController implements Initializable {
 
     private void setAttendanceStatus(int status) {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
-        if (!checkForTodayDate()) {
+        if (!checkForTodayDate()) { // If there is no attendance history with today's date create one.
             try {
                 AttendanceStatus newStatus = new AttendanceStatus(LocalDate.now());
                 newStatus.setStatus(status);
@@ -152,7 +149,10 @@ public class StudentWindowController implements Initializable {
                 Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 AlertWindow.showAlert(ex);
             }
-        } else if (!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
+        } else if (historyTV.getSelectionModel().getSelectedItem() == null) {   //If no attendance status has been selected, assume that we want to change today's status
+            AlertWindow.showAlert(new Exception("Today's attendance has already been set! Please select it if you want to change its status!"));
+        }
+        else {
             selStat.setStatus(status);
             setPercentage();
             historyTV.refresh();

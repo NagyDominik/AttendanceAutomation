@@ -119,6 +119,7 @@ public class TeacherWindowController implements Initializable {
         }
         catch (Exception ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            AlertWindow.showAlert(ex);
         }
     }
 
