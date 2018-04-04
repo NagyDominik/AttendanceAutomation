@@ -48,17 +48,26 @@ public class Student extends Person {
     }
 
     public StringProperty getTodaysStatusProperty() {
-        StringProperty property = new SimpleStringProperty();
-        if (attendance.size() > 0) {
-            if (attendance.get(0).getDateAsLocalDate().isAfter(LocalDate.now().minusDays(1))) {
-                property.set(attendance.get(0).getStatus());
-            } else {
-                property.set("-");
+//        StringProperty property = new SimpleStringProperty();
+//        if (attendance.size() > 0) {
+//            if (attendance.get(0).getDateAsLocalDate().isAfter(LocalDate.now().minusDays(1))) {
+//                property.set(attendance.get(0).getStatus());
+//            } else {
+//                property.set("-");
+//            }
+//        } else {
+//            property.set("N/A");
+//        }
+//        return property;
+        for (AttendanceStatus attendanceStatus : attendance)
+        {
+            if (attendanceStatus.getDateAsLocalDate().isEqual(LocalDate.now()))
+            {
+                return new SimpleStringProperty(attendanceStatus.getStatus());
             }
-        } else {
-            property.set("N/A");
         }
-        return property;
+        
+        return new SimpleStringProperty("N/A");
     }
 
     public void setPresencePercentage(float value) {
