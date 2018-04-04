@@ -26,7 +26,7 @@ public class OptionsWindowController implements Initializable {
 
     @FXML
     private ImageView profileImg;
-    
+
     private Model model;
     @FXML
     private JFXPasswordField passFieldOld;
@@ -34,32 +34,30 @@ public class OptionsWindowController implements Initializable {
     private JFXPasswordField passFieldNew;
     @FXML
     private JFXPasswordField passFieldNewAgain;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try
-        {
+        try {
             model = Model.getInstance();
             profileImg.setImage(model.getCurrentUser().getImage());
 
-        } 
-        catch (ModelException ex)
-        {
+        }
+        catch (ModelException ex) {
             AlertWindow.showAlert(ex);
         }
-    }    
+    }
 
     @FXML
     private void selectFileClicked(ActionEvent event) {
         try {
             FileChooser fileChooser = new FileChooser();
-            
+
             File file = fileChooser.showOpenDialog(this.passFieldNew.getScene().getWindow());
             if (file.getAbsolutePath().endsWith("jpg") || file.getAbsolutePath().endsWith("png")) { //only alowed jpg and png
-                profileImg.setImage(new Image("file:" + file.getAbsolutePath())); 
+                profileImg.setImage(new Image("file:" + file.getAbsolutePath()));
                 model.getCurrentUser().setImageFile(file);
                 model.saveImage(model.getCurrentUser());
             } else {
@@ -82,30 +80,24 @@ public class OptionsWindowController implements Initializable {
         String old = passFieldOld.getText();
         Person currentUser = model.getCurrentUser();
         boolean isTeacher = currentUser instanceof Teacher;
-        try
-        {
-            if (!model.authenticatePassword(currentUser.getEmail(), old, isTeacher))   //Check the old password         
+        try {
+            if (!model.authenticatePassword(currentUser.getEmail(), old, isTeacher)) //Check the old password         
             {
                 AlertWindow.showAlert(new Exception("Incorrect password!"));    //If incorrect, do not let the user change it.
-            }
-            else
-            {
+            } else {
                 String newPass = passFieldNew.getText();
                 String newPassAgain = passFieldNewAgain.getText();
-                if (newPass.isEmpty() || !newPass.equals(newPassAgain))  //Check if the two entered passwords are the same, and only proceed if they are.
+                if (newPass.isEmpty() || !newPass.equals(newPassAgain)) //Check if the two entered passwords are the same, and only proceed if they are.
                 {
                     AlertWindow.showAlert(new Exception("Please enter your new password twice!"));
-                }
-                else
-                {
+                } else {
                     model.changePassword(currentUser.getId(), newPass, isTeacher);
                 }
             }
-        } 
-        catch (ModelException ex)
-        {
+        }
+        catch (ModelException ex) {
             AlertWindow.showAlert(ex);
         }
     }
-    
+
 }
