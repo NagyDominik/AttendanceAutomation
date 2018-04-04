@@ -6,11 +6,7 @@ import attendanceautomation.BE.Person;
 import attendanceautomation.BE.Student;
 import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
-import java.io.File;
-import java.io.InputStream;
-import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,6 +72,10 @@ public class DALManager {
         return classData;
     }
 
+    /**
+     * Retrieves ó all data from the database. 
+     * @throws DALException If something goes wrong during database operations.
+     */
     private void loadAllData() throws DALException {
         getClassData();
         teacher.addAll(teacherDBManager.getTeacherFromDB());
@@ -176,8 +176,8 @@ public class DALManager {
     /**
      * Save message to DB
      *
-     * @param msg
-     * @throws DALException
+     * @param msg The message that will be saved to the database.
+     * @throws DALException If something goes wrong during database operations.
      */
     public void saveMessage(StudentMessage msg) throws DALException {
         studentDBManager.saveMessage(msg);
@@ -186,9 +186,10 @@ public class DALManager {
     /**
      * Load the messages
      *
-     * @param id
+     * @param id The id of the teacher who got the messages.
      * @return The list of messages
-     * @throws DALException
+     * @throws DALException If something goes wrong during database operations.
+
      */
     public List<StudentMessage> getStudentMessages(int id) throws DALException {
         return teacherDBManager.getStudentMessages(id);
@@ -225,6 +226,11 @@ public class DALManager {
         teacherDBManager.updateAttendanceStatus(attendatnceStatus);
     }
 
+    /**
+     * Save the image of a Person to the database.
+     * @param p The person whose image will be saves.
+     * @throws DALException If something goes wrong during database operations. 
+     */
     public void saveImage(Person p) throws DALException {
         if (p instanceof Teacher) {
             Teacher t = (Teacher) p;
@@ -248,6 +254,11 @@ public class DALManager {
         ldm.saveData(email, password);
     }
 
+    /**
+     * Retrieve login data from the local drive.
+     * @return
+     * @throws DALException 
+     */
     public String[] getLocalData() throws DALException {
         return ldm.getLocalData();
     }
@@ -262,6 +273,11 @@ public class DALManager {
         studentDBManager.saveStatus(status, student);
     }
 
+    /**
+     * Retrieve the Attendance status for each student.
+     * @throws DALException If something goes wrong during database operations.
+
+     */
     private void getStatus() throws DALException {
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM History;");
@@ -326,7 +342,6 @@ public class DALManager {
      * Change the password of the given user.
      *
      * @param userId The id of the Person whose password will be changed.
-     * @param newPass The new password.
      */
     public void changePassword(int userId, String hash, boolean isTeacher) throws DALException {
         if (isTeacher) {

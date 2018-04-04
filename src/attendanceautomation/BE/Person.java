@@ -4,7 +4,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 
 /**
- *
+ * Abstraction of a person (Teacher or Student)
  * @author Dominik
  */
 public abstract class Person {

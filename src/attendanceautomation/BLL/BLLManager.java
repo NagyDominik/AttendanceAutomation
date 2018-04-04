@@ -9,11 +9,9 @@ import attendanceautomation.BE.StudentMessage;
 import attendanceautomation.BE.Teacher;
 import attendanceautomation.DAL.DALException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * Serves as a pass-through layer for now.
+ * Connects the Model to the DAL.
  *
  * @author sebok
  */
@@ -93,6 +91,11 @@ public class BLLManager {
         }
     }
 
+    /**
+     * Save (send) a message to the database.
+     * @param msg The message that will be saved.
+     * @throws BLLException If something goes wrong during database operations. 
+     */
     public void sendMessage(StudentMessage msg) throws BLLException {
         try {
             dalManager.saveMessage(msg);
@@ -103,9 +106,12 @@ public class BLLManager {
     }
 
     /**
-     * Load the messages
+     * Load the messages for the teacher with the specified id.
      *
+     * @param id The id of a teacher.
      * @return The list of messages
+     * @throws BLLException If something goes wrong during database operations.
+     * 
      */
     public List<StudentMessage> getStudentMessages(int id) throws BLLException {
         try {
@@ -131,6 +137,12 @@ public class BLLManager {
         }
     }
 
+    /**
+     * Checks if a teacher with the given id has unread messages.
+     * @param id
+     * @return
+     * @throws BLLException 
+     */
     public boolean hasUnreadMessages(int id) throws BLLException {
         try {
             return dalManager.hasUnreadMessages(id);
@@ -157,9 +169,7 @@ public class BLLManager {
     /**
      * Save an image of a Person (Teacher or Student) to the database.
      *
-     * @param p The person whose image will be saved. ======= Save an image of a
-     * Person to the database
-     * @param p The Person whose image will be saved.
+     * @param p The person whose image will be saved.
      * @throws BLLException If something goes wrong during database operations.
      */
     public void saveImage(Person p) throws BLLException {

@@ -16,9 +16,9 @@ import javafx.collections.FXCollections;
  */
 public class Student extends Person {
 
-    private final FloatProperty presencePercentage = new SimpleFloatProperty();
+    private final FloatProperty presencePercentage = new SimpleFloatProperty(); 
     private ObservableList<AttendanceStatus> attendance = FXCollections.observableArrayList();
-    private int classID;
+    private int classID; // The ID of the class the student takes place in.
 
     public Student(String email, String name, int id) {
         super(id, name, email);
@@ -47,18 +47,11 @@ public class Student extends Person {
         return property;
     }
 
+    /**
+     * If the student has an entry for today's attendance, return its status.
+     * @return The status of today's attendance, if there is one. Otherwise it returns "N/A", indicating that the student has no entry for today's attendance.
+     */
     public StringProperty getTodaysStatusProperty() {
-//        StringProperty property = new SimpleStringProperty();
-//        if (attendance.size() > 0) {
-//            if (attendance.get(0).getDateAsLocalDate().isAfter(LocalDate.now().minusDays(1))) {
-//                property.set(attendance.get(0).getStatus());
-//            } else {
-//                property.set("-");
-//            }
-//        } else {
-//            property.set("N/A");
-//        }
-//        return property;
         for (AttendanceStatus attendanceStatus : attendance)
         {
             if (attendanceStatus.getDateAsLocalDate().isEqual(LocalDate.now()))
@@ -70,18 +63,13 @@ public class Student extends Person {
         return new SimpleStringProperty("N/A");
     }
 
-    public void setPresencePercentage(float value) {
-        presencePercentage.set(value);
-    }
-
-    public FloatProperty presencePercentageProperty() {
-        return presencePercentage;
-    }
-
     public ObservableList<AttendanceStatus> getAttendanceInfo() {
         return attendance;
     }
 
+    /**
+     * Calculate the total attendance percentage for this student.
+     */
     public void calculateAttPer() {
         int presCount = 0;
         for (AttendanceStatus attendanceStatus : attendance) {
@@ -92,6 +80,11 @@ public class Student extends Person {
         presencePercentage.set((float) presCount / attendance.size() * 100);
     }
 
+    /**
+     * Calculate the attendance percentage between the start and end dates.
+     * @param start The start date.
+     * @param end  The end date.
+     */
     public void calculateAttPer(LocalDate start, LocalDate end) {
         int presCount = 0;
         int size = 0;

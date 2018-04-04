@@ -6,13 +6,14 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
+ * Represents the attendance on a given day.
  * @author sebok
  */
 public class AttendanceStatus {
 
     private int id;
     private LocalDate date;
-    private IntegerProperty status = new SimpleIntegerProperty();
+    private final IntegerProperty status = new SimpleIntegerProperty();
     private boolean teacherSet = Boolean.FALSE;
 
     public AttendanceStatus(int id, LocalDate date,int status, boolean teacherSet) {

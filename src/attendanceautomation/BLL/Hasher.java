@@ -6,13 +6,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Utility class used to hash passwords.
  * @author Dominik
  */
 public class Hasher {
 
     private static MessageDigest md;
 
+    /**
+     * Hash a password for secure storing.
+     * @param password The given password that will be hashed.
+     * @return The hash of the given string.
+     */
     public String hash(String password) {
         String hashed = "";
         try {
