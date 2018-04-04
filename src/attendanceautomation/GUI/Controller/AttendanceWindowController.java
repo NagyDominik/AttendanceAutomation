@@ -139,7 +139,7 @@ public class AttendanceWindowController implements Initializable {
     }
 
     private void setUpCellValueFactories() {
-        teacherClassCol.setCellValueFactory(new PropertyValueFactory("")); //TODO
+       // teacherClassCol.setCellValueFactory(new PropertyValueFactory("")); //TODO
         teacherDateCol.setCellValueFactory(new PropertyValueFactory("date"));
         teacherStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }

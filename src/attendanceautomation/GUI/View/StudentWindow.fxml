@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="735.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="735.0" styleClass="background" stylesheets="@../../../img/AttendanceCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.GUI.Controller.StudentWindowController">
     <children>
         <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
         <Label fx:id="nameLbl" layoutX="361.0" layoutY="40.0" text="Name of Student" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="45.0">
@@ -67,6 +67,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="todayAttendanceClicked" buttonType="RAISED" layoutX="549.0" layoutY="154.0" onAction="#setAttendacenForToday" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: lightgreen;" text="Attendance for today" />
+      <JFXButton fx:id="todayAttendanceClicked" buttonType="RAISED" disable="true" layoutX="549.0" layoutY="154.0" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: lightgreen;" text="Attendance for today" />
     </children>
 </AnchorPane>
