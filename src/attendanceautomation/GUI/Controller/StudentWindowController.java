@@ -53,7 +53,6 @@ public class StudentWindowController implements Initializable {
     @FXML
     private JFXButton btnAbsent;
 
-
     private Model model;
 
     private Student user;
@@ -151,8 +150,7 @@ public class StudentWindowController implements Initializable {
             }
         } else if (historyTV.getSelectionModel().getSelectedItem() == null) {   //If no attendance status has been selected, assume that we want to change today's status
             AlertWindow.showAlert(new Exception("Today's attendance has already been set! Please select it if you want to change its status!"));
-        }
-        else {
+        } else {
             selStat.setStatus(status);
             setPercentage();
             historyTV.refresh();
@@ -206,7 +204,8 @@ public class StudentWindowController implements Initializable {
         user.calculateAttPer();
         percentageLbl.setText("Total percentage of participation: " + user.getPercentageStringProperty().getValue() + " %");
     }
-
+    
+/* It can be a leftover 
     private void setAttendacenForToday() {
 
         if (!checkForTodayDate()) {
@@ -221,9 +220,9 @@ public class StudentWindowController implements Initializable {
                 AlertWindow.showAlert(ex);
             }
         }
-    }
+    }*/
 
-    private void unselectTableView(){
+    private void unselectTableView() {
         historyTV.getSelectionModel().clearSelection();
         btnAbsent.setDisable(false);
         btnPresent.setDisable(false);
@@ -238,7 +237,7 @@ public class StudentWindowController implements Initializable {
 
     @FXML
     private void unselectTableViewClick(MouseEvent event) {
-       unselectTableView();
+        unselectTableView();
     }
 
 }

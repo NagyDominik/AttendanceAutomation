@@ -53,7 +53,7 @@ public class AttendanceWindowController implements Initializable {
     private JFXDatePicker enddatePicker;
     @FXML
     private ImageView imgViewStudentImage;
-    
+
     private Model model;
     private Student student;
     @FXML
@@ -76,9 +76,8 @@ public class AttendanceWindowController implements Initializable {
             historyTV.setItems(model.getSelectedStudent().getAttendanceInfo());
             imgViewStudentImage.setImage(model.getSelectedStudent().getImage());
             filterDates();
-            
-        }
-        catch (ModelException ex) {
+
+        } catch (ModelException ex) {
             Logger.getLogger(AttendanceWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -92,8 +91,7 @@ public class AttendanceWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -107,11 +105,11 @@ public class AttendanceWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     @FXML
     private void presentClicked(ActionEvent event) {
         setAttendanceStatus(1);
@@ -120,7 +118,7 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private void absentClicked(ActionEvent event) {
         setAttendanceStatus(0);
-        
+
     }
 
     @FXML
@@ -146,21 +144,44 @@ public class AttendanceWindowController implements Initializable {
         teacherStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }
 
-    private void setAttendanceStatus(int status) {
-        try {
-            AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
-            if (selStat == null)
-            {
-                throw new Exception("Please select an attendance!");
+    private boolean checkForTodayDate() {
+        LocalDate date = LocalDate.now();
+        for (AttendanceStatus stats : student.getAttendanceInfo()) {
+            if (stats.getDateAsLocalDate().isEqual(date)) {
+                return true;
             }
-            selStat.setStatus(status);
-            selStat.setTeacherSet(true);
-            filterDates();
-            model.updateAttendance(selStat);
-            historyTV.refresh();
-        } catch (Exception ex) {
-            Logger.getLogger(AttendanceWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertWindow.showAlert(ex);
+        }
+        return false;
+    }
+
+    private void setAttendanceStatus(int status) {
+        AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
+        if (!checkForTodayDate()) { // If there is no attendance history with today's date create one.
+            try {
+                AttendanceStatus newStatus = new AttendanceStatus(LocalDate.now());
+                newStatus.setStatus(status);
+                newStatus.setTeacherSet(true);
+                historyTV.getItems().add(newStatus);
+                model.saveAttendance(newStatus, student);
+            } catch (ModelException ex) {
+                Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                AlertWindow.showAlert(ex);
+            }
+        } else {
+            try {
+                if (selStat == null) {
+                    throw new Exception("Please select an attendance!");
+                }
+                selStat.setStatus(status);
+                selStat.setTeacherSet(true);
+                filterDates();
+                model.updateAttendance(selStat);
+                historyTV.refresh();
+            } catch (Exception ex) {
+                Logger.getLogger(AttendanceWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                AlertWindow.showAlert(ex);
+            }
+
         }
     }
 
