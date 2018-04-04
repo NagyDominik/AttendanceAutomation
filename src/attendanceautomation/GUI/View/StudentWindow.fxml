@@ -67,6 +67,5 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="todayAttendanceClicked" buttonType="RAISED" disable="true" layoutX="549.0" layoutY="154.0" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: lightgreen;" text="Attendance for today" />
     </children>
 </AnchorPane>

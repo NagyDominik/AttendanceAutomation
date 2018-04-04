@@ -5,6 +5,7 @@ import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
@@ -43,8 +44,6 @@ public class AttendanceWindowController implements Initializable {
     @FXML
     private TableView<AttendanceStatus> historyTV;
     @FXML
-    private TableColumn<AttendanceStatus, String> teacherClassCol;
-    @FXML
     private TableColumn<AttendanceStatus, String> teacherDateCol;
     @FXML
     private TableColumn<AttendanceStatus, String> teacherStatusCol;
@@ -57,6 +56,10 @@ public class AttendanceWindowController implements Initializable {
     
     private Model model;
     private Student student;
+    @FXML
+    private JFXButton presentButton;
+    @FXML
+    private JFXButton absentButton;
 
     /**
      * Initializes the controller class.
@@ -139,7 +142,6 @@ public class AttendanceWindowController implements Initializable {
     }
 
     private void setUpCellValueFactories() {
-       // teacherClassCol.setCellValueFactory(new PropertyValueFactory("")); //TODO
         teacherDateCol.setCellValueFactory(new PropertyValueFactory("date"));
         teacherStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }

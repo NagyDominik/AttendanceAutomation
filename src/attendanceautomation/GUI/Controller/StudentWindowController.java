@@ -52,14 +52,14 @@ public class StudentWindowController implements Initializable {
     @FXML
     private JFXButton btnAbsent;
 
-
     @FXML
     private JFXButton todayAttendanceClicked;
-    
+
     private Model model;
 
     private Student user;
     private ClassData classData;
+
     /**
      * Initializes the controller class.
      *
@@ -78,8 +78,7 @@ public class StudentWindowController implements Initializable {
             historyTV.setItems(user.getAttendanceInfo());
             btnRequestStatusChange.setDisable(true);
             setPercentage();
-        }
-        catch (ModelException ex) {
+        } catch (ModelException ex) {
             Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -94,8 +93,7 @@ public class StudentWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
-        }
-        catch (IOException | ModelException ex) {
+        } catch (IOException | ModelException ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -119,8 +117,7 @@ public class StudentWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -130,24 +127,22 @@ public class StudentWindowController implements Initializable {
         studentStatusCol.setCellValueFactory(new PropertyValueFactory("status"));
     }
 
-    
     private boolean checkForTodayDate() {
         LocalDate date = LocalDate.now();
         for (AttendanceStatus stats : user.getAttendanceInfo()) {
-            if (stats.getDateAsLocalDate().isEqual(date))
-            {
+            if (stats.getDateAsLocalDate().isEqual(date)) {
                 return true;
             }
         }
         return false;
     }
-    
+
     private void setAttendanceStatus(int status) {
         AttendanceStatus selStat = historyTV.getSelectionModel().getSelectedItem();
-        if(!checkForTodayDate()){
-             try {
+        if (!checkForTodayDate()) {
+            try {
                 AttendanceStatus newStatus = new AttendanceStatus(LocalDate.now());
-                newStatus.setStatus(-1);
+                newStatus.setStatus(status);
                 newStatus.setTeacherSet(false);
                 historyTV.getItems().add(newStatus);
                 model.saveAttendance(newStatus, user);
@@ -155,12 +150,11 @@ public class StudentWindowController implements Initializable {
                 Logger.getLogger(StudentWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 AlertWindow.showAlert(ex);
             }
-        }
-        else if(!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
+        } else if (!historyTV.getSelectionModel().getSelectedItem().isTeacherSet()) {
             selStat.setStatus(status);
             setPercentage();
             historyTV.refresh();
-                }
+        }
     }
 
     @FXML
@@ -183,8 +177,7 @@ public class StudentWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.show();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(TeacherWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -212,11 +205,9 @@ public class StudentWindowController implements Initializable {
         percentageLbl.setText("Total percentage of participation: " + user.getPercentageStringProperty().getValue() + " %");
     }
 
+    private void setAttendacenForToday() {
 
-    private void setAttendacenForToday(){
-        
-        if (!checkForTodayDate())
-        {
+        if (!checkForTodayDate()) {
             try {
                 AttendanceStatus newStatus = new AttendanceStatus(LocalDate.now());
                 newStatus.setStatus(-1);
