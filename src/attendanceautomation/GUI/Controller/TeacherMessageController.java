@@ -58,8 +58,7 @@ public class TeacherMessageController implements Initializable {
             model = Model.getInstance();
             messages.addAll(model.getMessages(model.getCurrentUser().getId()));
             tableViewMessages.setItems(messages);
-        }
-        catch (ModelException ex) {
+        } catch (ModelException ex) {
             AlertWindow.showAlert(ex);
         }
     }
@@ -125,8 +124,7 @@ public class TeacherMessageController implements Initializable {
                     message.setHasBeenSeen(true);
                     tableViewMessages.refresh();
                     model.updateMessage(message);
-                }
-                catch (ModelException ex) {
+                } catch (ModelException ex) {
                     Logger.getLogger(TeacherMessageController.class.getName()).log(Level.SEVERE, null, ex);
                     AlertWindow.showAlert(ex);
                 }
