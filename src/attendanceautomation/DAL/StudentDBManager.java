@@ -140,7 +140,7 @@ public class StudentDBManager {
     {
         try (Connection con = cm.getConnection()) {
             PreparedStatement ps = con.prepareStatement("INSERT INTO History(date, status, studentid, teacherset) VALUES(?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setDate(1,Date.valueOf(status.getDateAsLocalDate()));
+            ps.setDate(1, Date.valueOf(status.getDateAsLocalDate()));
             ps.setInt(2, status.getStatusAsNumber());
             ps.setInt(3, student.getId());
             ps.setBoolean(4, status.isTeacherSet());

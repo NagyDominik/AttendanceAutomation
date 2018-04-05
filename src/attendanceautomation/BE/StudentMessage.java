@@ -26,6 +26,13 @@ public class StudentMessage
         this.message = message;
     }
 
+    public StudentMessage()
+    {
+        this.teacherId = -1;
+        this.studentId = -1;
+        this.attendanceHistoryId = -1;
+    }
+
     public boolean hasBeenSeen()
     {
         return hasBeenSeen.get();
