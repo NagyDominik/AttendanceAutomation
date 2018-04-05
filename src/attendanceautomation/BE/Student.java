@@ -51,7 +51,7 @@ public class Student extends Person {
      * If the student has an entry for today's attendance, return its status.
      * @return The status of today's attendance, if there is one. Otherwise it returns "N/A", indicating that the student has no entry for today's attendance.
      */
-    public StringProperty getTodaysStatusProperty() {
+     public StringProperty getTodaysStatusProperty() {
         for (AttendanceStatus attendanceStatus : attendance)
         {
             if (attendanceStatus.getDateAsLocalDate().isEqual(LocalDate.now()))
