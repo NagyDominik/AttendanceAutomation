@@ -103,7 +103,7 @@ public class TeacherDBManager {
             ps.setBoolean(6, msg.hasBeenSeen());
             ps.setInt(7, msg.getId());
             int affected = ps.executeUpdate();
-            if (affected < 0) {
+            if (affected < 1) {
                 throw new DALException("Message could not be edited!");
             }
         }
@@ -149,10 +149,10 @@ public class TeacherDBManager {
             ps.setInt(2, attendatnceStatus.getStatusAsNumber());
             ps.setBoolean(3, attendatnceStatus.isTeacherSet());
             ps.setInt(4, attendatnceStatus.getId());
-            //int affected = ps.executeUpdate();
-            /*if (affected < 1) {
+            int affected = ps.executeUpdate();
+            if (affected < 1) {
                 throw new DALException("Update unsuccessfull!");
-            }*/
+            }
         }
         catch (SQLException ex) {
             throw new DALException(ex);
