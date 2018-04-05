@@ -167,6 +167,7 @@ public class TeacherWindowController implements Initializable {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 studentsTV.setItems(classChoiceBox.getSelectionModel().getSelectedItem().getParticipants());
+                calculateAttendance();
             }
         }
         );

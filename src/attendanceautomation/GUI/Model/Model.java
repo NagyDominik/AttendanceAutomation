@@ -10,6 +10,8 @@ import attendanceautomation.BLL.BLLException;
 import attendanceautomation.BLL.BLLManager;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,7 +19,7 @@ public class Model {
 
     private static Model instance;
     private BLLManager bllManager;
-    private Person currentUser;
+    private Person currentUser; // The current user of the application (can be a Student or a Teacher) 
     private Student selectedStudent;
     private Teacher selectedTeacher;
     private AttendanceStatus selectedAttendanceStatus;
@@ -28,11 +30,9 @@ public class Model {
     private Model() throws ModelException {
         try {
             bllManager = new BLLManager();
-            students.addAll(bllManager.getStudent());
-            teacherList.addAll(bllManager.getTeacher());
-            classDataList.addAll(bllManager.getClassData());
+            loadData();
         }
-        catch (BLLException ex) {
+        catch (Exception ex) {
             throw new ModelException(ex);
         }
     }
@@ -397,5 +397,52 @@ public class Model {
             }
         }
         return null;
+    }
+
+    /**
+     * Retrieve the data from the database.
+     */
+    private void loadData()
+    {
+            Runnable t1 = () -> 
+            {
+                try
+                {
+                    students.addAll(bllManager.getStudent());
+                } catch (BLLException ex)
+                {
+                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            };
+            
+            Runnable t2 = () -> 
+            {
+                try
+                {
+                    teacherList.addAll(bllManager.getTeacher());
+                } catch (BLLException ex)
+                {
+                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            };
+            
+            Runnable t3 = () ->
+            {
+                try
+                {
+                    classDataList.addAll(bllManager.getClassData());
+                } catch (BLLException ex)
+                {
+                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            };
+            
+            Thread thread1 = new Thread(t1);
+            Thread thread2 = new Thread(t2);
+            Thread thread3 = new Thread(t3);
+            
+            thread1.start();
+            thread2.start();
+            thread3.start();
     }
 }
