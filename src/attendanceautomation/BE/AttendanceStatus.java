@@ -67,7 +67,7 @@ public class AttendanceStatus {
     }
 
     public Boolean getStatusAsBoolean() {
-        return status.equals(1);
+        return status.getValue().equals(1);
     }
 
     public int getId() {
