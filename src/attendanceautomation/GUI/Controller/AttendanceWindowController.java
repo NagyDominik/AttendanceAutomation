@@ -5,6 +5,7 @@ import attendanceautomation.BE.Student;
 import attendanceautomation.GUI.AlertWindow;
 import attendanceautomation.GUI.Model.Model;
 import attendanceautomation.GUI.Model.ModelException;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +25,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -54,6 +58,12 @@ public class AttendanceWindowController implements Initializable {
 
     private Model model;
     private Student student;
+    @FXML
+    private JFXButton presentButton;
+    @FXML
+    private JFXButton absentButton;
+    @FXML
+    private TableColumn<?, ?> teacherClassCol;
    
     /**
      * Initializes the controller class.
@@ -194,5 +204,22 @@ public class AttendanceWindowController implements Initializable {
     private void calculateAttendance(LocalDate start, LocalDate end) {
         model.getSelectedStudent().calculateAttPer(start, end);
         percentageLbl.setText("Total percentage of participation: " + model.getSelectedStudent().getPercentageStringProperty().getValue() + " %");
+    }
+
+     private void unselectTableView() {
+        historyTV.getSelectionModel().clearSelection();
+        absentButton.setDisable(false);
+        presentButton.setDisable(false);
+    }
+    @FXML
+    private void unselectTableViewOnPress(KeyEvent event) {
+         if (event.getCode() == KeyCode.ESCAPE) {
+            unselectTableView();
+        }
+    }
+
+    @FXML
+    private void unselectTableViewClick(MouseEvent event) {
+        unselectTableView();
     }
 }

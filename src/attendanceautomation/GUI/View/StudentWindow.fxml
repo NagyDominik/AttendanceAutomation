@@ -45,7 +45,7 @@
             <Image url="@../../../img/easvlogo.png" />
          </image>
       </ImageView>
-      <TableView fx:id="historyTV" focusTraversable="false" layoutX="51.0" layoutY="155.0" prefHeight="285.0" prefWidth="503.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="145.0">
+      <TableView fx:id="historyTV" layoutX="51.0" layoutY="155.0" prefHeight="285.0" prefWidth="503.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="145.0">
          <columns>
             <TableColumn fx:id="studentDateCol" prefWidth="75.0" text="Date" />
             <TableColumn fx:id="studentStatusCol" prefWidth="75.0" text="Status" />
