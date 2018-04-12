@@ -199,13 +199,6 @@ public class TeacherWindowController implements Initializable {
             AlertWindow.showAlert(ex);
         }
     }
-
-    //MIGHT BE LEFTOVER!!
-    /*private void filterDates() {
-        LocalDate startDate = startdatePicker.getValue();
-        LocalDate endDate = enddatePicker.getValue();
-        model.filterStudentHistory(startDate, endDate);
-    }*/
     
     /**
      * Set the messages image view depending on the number of unread messages.

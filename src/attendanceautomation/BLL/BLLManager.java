@@ -19,7 +19,7 @@ public class BLLManager {
 
     private DALManager dalManager;
     private Hasher hasher = new Hasher();
-
+    
     public BLLManager() throws BLLException {
         try {
             dalManager = DALManager.getInstance();

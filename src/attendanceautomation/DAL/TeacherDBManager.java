@@ -63,14 +63,15 @@ public class TeacherDBManager {
     /**
      * Load the messages
      *
+     * @param id
      * @return The list of messages
      */
     public List<StudentMessage> getStudentMessages(int id) throws DALException {
         List<StudentMessage> messages = new ArrayList<>();
         try (Connection con = cm.getConnection()) {
-            String sql = "SELECT * FROM StudentMessage";//WHERE teacherid = ?";
+            String sql = "SELECT * FROM StudentMessage WHERE teacherid = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            // ps.setInt(1, id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 StudentMessage msg = new StudentMessage(rs.getInt("teacherId"), rs.getInt("studentId"), rs.getBoolean("status"), rs.getString("message"), rs.getInt("historyId"));
@@ -125,10 +126,7 @@ public class TeacherDBManager {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return true;
-            }
-            return false;
+            return rs.next();
         }
         catch (SQLException ex) {
             throw new DALException(ex);

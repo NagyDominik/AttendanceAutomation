@@ -305,6 +305,7 @@ public class DALManager {
      *
      * @param email The email of a person.
      * @param old The (old) hashed password of a person.
+     * @param isTeacher A boolean indicating whether the person checked is a teacher or a student.
      * @return True if the password is associated with the email address, false
      * otherwise.
      */
@@ -316,20 +317,14 @@ public class DALManager {
                 ps.setString(1, email);
                 ps.setString(2, old);
                 ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    return true;
-                }
-                return false;
+                return rs.next();
             } else {
                 PreparedStatement ps = con.prepareStatement("SELECT * FROM Student "
                         + "WHERE email = ? AND password = ?");
                 ps.setString(1, email);
                 ps.setString(2, old);
                 ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    return true;
-                }
-                return false;
+                return rs.next();
             }
         }
         catch (SQLException ex) {

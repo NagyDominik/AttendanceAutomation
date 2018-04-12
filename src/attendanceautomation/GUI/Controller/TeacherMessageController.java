@@ -85,7 +85,14 @@ public class TeacherMessageController implements Initializable {
                 -> {
             attendatnceStatus = model.getAttendanceStatusBasedOnId(param.getValue().getStudentId(), param.getValue().getAttendanceHistoryId());
             student = model.getStudents(param.getValue().getStudentId());
-            return new ReadOnlyStringWrapper(attendatnceStatus.getDate() + " " + student.getName());
+            if (attendatnceStatus != null)
+            {
+                return new ReadOnlyStringWrapper(attendatnceStatus.getDate() + " " + student.getName());
+            }
+            else
+            {
+                return new ReadOnlyStringWrapper("N/A" + " " + student.getName());
+            }
         });
     }
 
