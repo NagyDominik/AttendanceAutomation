@@ -1,7 +1,7 @@
 # AttendanceAutomation
 <H2>Login</H2>
-You can test the application with these users, but it only works on the network of EASV.
-<b>Please DO NOT change the passwords of the users. Thank you!</b>
+You can test the application with these users, but it only works on the network of EASV.<br />
+<b>Please DO NOT change the passwords of the users. Thank you!</b><br /> 
 <i>Or in case you are one of our teachers, please go ahead and try it.</i>
 <br />
 <details>
