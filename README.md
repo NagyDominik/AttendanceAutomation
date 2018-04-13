@@ -3,7 +3,6 @@
 You can test the application with these users, but it only works on the network of EASV.<br />
 <p><b>Please DO NOT change the passwords of the users. Thank you!</b><br /> 
 <i>Or in case you are one of our teachers, please go ahead and try it.</i></p>
-<br />
 <details>
  <summary><b>Teacher login</b></summary>
  <p>
